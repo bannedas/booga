@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "192036084741",
+    "firebase_url": "https://booga-91d7d.firebaseio.com",
+    "project_id": "booga-91d7d",
+    "storage_bucket": "booga-91d7d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:192036084741:android:58ae27640dcb057b",
+        "android_client_info": {
+          "package_name": "dk.boonga.booga"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "192036084741-1goben0qhaqm0h4imo2it24bmkq679qh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEYK2uFqj9vSNVa3D3uX6J5B8pw0ynfS0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
