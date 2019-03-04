@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">LoginTest1</string>
+
+    <string name="edit_text_email">Email</string>
+    <string name="edit_text_password">Password</string>
+
+    <string name="edit_text_sign_up_email">Email</string>
+    <string name="edit_text_sign_up_password">Password</string>
+    <string name="button_sign_up_sign_up_page">Sign up</string>
+    <string name="button_login_sign_up_page">Already have an account? Login</string>
+
+    <string name="button_login">Login</string>
+    <string name="button_sign_up">Sign up</string>
+
+</resources>
