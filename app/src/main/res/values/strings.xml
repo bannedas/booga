@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <resources>
 
     <!--The name of the application-->
@@ -19,3 +20,8 @@
 
 
 </resources>
+=======
+<resources>
+    <string name="app_name">booga</string>
+</resources>
+>>>>>>> master
