@@ -1,7 +1,5 @@
 package com.example.Booga;
 
-
-
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +20,6 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
-
     EditText signUpEditTextEmail, signUpEditTextPassword;
     Button buttonSignUp, buttonLogin;
     ProgressBar signUpProgressBar;
@@ -41,25 +38,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         signUpEditTextEmail = findViewById(R.id.editTextSignUpEmailId);
         signUpEditTextPassword = findViewById(R.id.editTextSignUpPasswordId);
 
-
-
-
         buttonSignUp = findViewById(R.id.buttonSignUpSignUpId);
         buttonSignUp.setOnClickListener(this);
         buttonLogin = findViewById(R.id.buttonSignUpLoginId);
         buttonLogin.setOnClickListener(this);
-
-
-
-
     }
-
 
         /*
         This method Registers the user.
          */
     private void registerUser() {
-
         /*
         This gets the text written by the user in the EditTextFields email and password.
          */
@@ -93,9 +81,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             signUpEditTextPassword.requestFocus();
             return;
         }
-
         signUpProgressBar.setVisibility(View.VISIBLE);
-
 
         /*
         This code uses the entry point for Firebase and uses the createUserWithEmailAndPassword method
@@ -109,7 +95,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 if(task.isSuccessful()) {
                     //If everything succeeds, redirect to ProfileActivity
                     Intent intent = new Intent(SignUpActivity.this, ProfileActivity.class);
-                    
+
                      /*This method ensures that the 2 activities Login and Signup gets removed from the stack,
                         which means when you are logged in and press the back button, you will not get redirected
                         to the signup screen again, but will exit the app instead
@@ -132,7 +118,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         });
     }
 
-
     /*
     This method onClick makes sure that when you click on the buttons,
     they do what they are supposed to do.
@@ -152,6 +137,5 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                 break;
         }
-
     }
 }

@@ -28,7 +28,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         mAuth = FirebaseAuth.getInstance();
 
-
         LoginProgressBar =  findViewById(R.id.loginProgressBarId);
         loginEditTextEmail = findViewById(R.id.editTextEmailId);
         loginEditTextPassword = findViewById(R.id.editTextPasswordId);
@@ -41,7 +40,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     This method is used to login the user
      */
     private void userLogin() {
-
         /*
         This gets the text written by the user in the EditTextFields email and password.
          */
@@ -78,7 +76,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             loginEditTextPassword.requestFocus();
             return;
         }
-
         LoginProgressBar.setVisibility(View.VISIBLE);
 
         /*
@@ -100,7 +97,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                  */
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);;
                 startActivity(intent);
-
                 } else {
                     Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
@@ -128,7 +124,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 userLogin();
                 break;
-
         }
     }
 }
