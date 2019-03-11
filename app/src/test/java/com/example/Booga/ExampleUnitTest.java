@@ -1,4 +1,4 @@
-package com.example.logintest1;
+package com.example.Booga;
 
 import org.junit.Test;
 

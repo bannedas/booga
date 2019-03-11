@@ -1,15 +1,21 @@
 <resources>
-    <string name="app_name">LoginTest1</string>
 
+    <!--The name of the application-->
+    <string name="app_name">Booga</string>
+
+    <!--Buttons and edit text fields from Login Activity-->
     <string name="edit_text_email">Email</string>
     <string name="edit_text_password">Password</string>
 
-    <string name="edit_text_sign_up_email">Email</string>
-    <string name="edit_text_sign_up_password">Password</string>
-    <string name="button_sign_up_sign_up_page">Sign up</string>
-    <string name="button_login_sign_up_page">Already have an account? Login</string>
-
     <string name="button_login">Login</string>
     <string name="button_sign_up">Sign up</string>
+
+    <!--Buttons and edit text fields from Sign up Activity-->
+    <string name="edit_text_sign_up_page_email">Email</string>
+    <string name="edit_text_sign_up_page_password">Password</string>
+
+    <string name="button_sign_up_page_sign_up">Sign up</string>
+    <string name="button_sign_up_page_login">Already have an account? Login</string>
+
 
 </resources>

@@ -1,4 +1,4 @@
-package com.example.logintest1;
+package com.example.Booga;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
