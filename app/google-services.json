@@ -1,34 +1,20 @@
 {
   "project_info": {
-<<<<<<< HEAD
     "project_number": "86434007940",
     "firebase_url": "https://booga-69d74.firebaseio.com",
     "project_id": "booga-69d74",
     "storage_bucket": "booga-69d74.appspot.com"
-=======
-    "project_number": "192036084741",
-    "firebase_url": "https://booga-91d7d.firebaseio.com",
-    "project_id": "booga-91d7d",
-    "storage_bucket": "booga-91d7d.appspot.com"
->>>>>>> master
   },
   "client": [
     {
       "client_info": {
-<<<<<<< HEAD
         "mobilesdk_app_id": "1:86434007940:android:333cbf2843823db4",
         "android_client_info": {
           "package_name": "com.example.booga"
-=======
-        "mobilesdk_app_id": "1:192036084741:android:58ae27640dcb057b",
-        "android_client_info": {
-          "package_name": "dk.boonga.booga"
->>>>>>> master
         }
       },
       "oauth_client": [
         {
-<<<<<<< HEAD
           "client_id": "86434007940-7m20p1suq123o375ss07l9lr23fm1bbv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -126,19 +112,12 @@
         },
         {
           "client_id": "86434007940-5217qm9f6aclbm2fndm8pqhq8g6mp4dn.apps.googleusercontent.com",
-=======
-          "client_id": "192036084741-1goben0qhaqm0h4imo2it24bmkq679qh.apps.googleusercontent.com",
->>>>>>> master
           "client_type": 3
         }
       ],
       "api_key": [
         {
-<<<<<<< HEAD
           "current_key": "AIzaSyB-sPO7P-a4Ue9jlaJTBT3KUw35pkTVa7U"
-=======
-          "current_key": "AIzaSyDEYK2uFqj9vSNVa3D3uX6J5B8pw0ynfS0"
->>>>>>> master
         }
       ],
       "services": {
@@ -146,7 +125,6 @@
           "status": 1
         },
         "appinvite_service": {
-<<<<<<< HEAD
           "status": 2,
           "other_platform_oauth_client": [
             {
@@ -154,10 +132,6 @@
               "client_type": 3
             }
           ]
-=======
-          "status": 1,
-          "other_platform_oauth_client": []
->>>>>>> master
         },
         "ads_service": {
           "status": 2
