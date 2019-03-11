@@ -109,8 +109,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 if(task.isSuccessful()) {
                     //If everything succeeds, redirect to ProfileActivity
                     Intent intent = new Intent(SignUpActivity.this, ProfileActivity.class);
-                    //This method ensures that the 2 activities Login and Signup gets removed from the stack
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    
+                     /*This method ensures that the 2 activities Login and Signup gets removed from the stack,
+                        which means when you are logged in and press the back button, you will not get redirected
+                        to the signup screen again, but will exit the app instead
+                      */
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
                     Toast.makeText(getApplicationContext(), "User registered successfully", Toast.LENGTH_SHORT).show();
 

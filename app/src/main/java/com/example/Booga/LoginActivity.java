@@ -94,8 +94,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 //If Email and password is correct, Login the user and redirect to ProfileActivity
                 if (task.isSuccessful()) {
                 Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
-                //This method ensures that the 2 activities Login and Signup gets removed from the stack
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                /*This method ensures that the 2 activities Login and Signup gets removed from the stack,
+                    which means when you are logged in and press the back button, you will not get redirected
+                    to the signup screen again, but will exit the app instead
+                 */
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);;
                 startActivity(intent);
 
                 } else {
