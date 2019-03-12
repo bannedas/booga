@@ -32,7 +32,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        FirebaseApp.initializeApp(this);
+        //This code is not needed for now. but we might need it later
+        //FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
         signUpProgressBar =  findViewById(R.id.signUpProgressBarId);
         signUpEditTextEmail = findViewById(R.id.editTextSignUpEmailId);

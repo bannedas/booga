@@ -9,6 +9,9 @@
 
     <string name="button_login">Login</string>
     <string name="button_sign_up">Sign up</string>
+    <string name="facebook_app_id">306849843357781</string>
+    <string name="fb_login_protocol_scheme">fb306849843357781</string>
+
 
     <!--Buttons and edit text fields from Sign up Activity-->
     <string name="edit_text_sign_up_page_email">Email</string>
@@ -16,6 +19,7 @@
 
     <string name="button_sign_up_page_sign_up">Sign up</string>
     <string name="button_sign_up_page_login">Already have an account? Login</string>
+
 
 
 </resources>
