@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,6 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.facebook.FacebookSdk;
@@ -33,16 +33,17 @@ import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-    private static final String EMAIL = "email";
+
+    private static final String TAG = "LoginActivity";
+
         FirebaseAuth mAuth;
         EditText loginEditTextEmail, loginEditTextPassword;
         ProgressBar LoginProgressBar;
-        LoginButton loginButton;
+        LoginButton facebookLoginButton;
+
     private CallbackManager fbCallback = CallbackManager.Factory.create();
 
 
@@ -50,7 +51,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
 
 
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -61,26 +61,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         LoginProgressBar = findViewById(R.id.loginProgressBarId);
         loginEditTextEmail = findViewById(R.id.editTextEmailId);
         loginEditTextPassword = findViewById(R.id.editTextPasswordId);
+        facebookLoginButton = findViewById(R.id.facebookButtonId);
 
         findViewById(R.id.buttonSignUpId).setOnClickListener(this);
         findViewById(R.id.buttonLoginId).setOnClickListener(this);
 
-            printHashKey(getApplicationContext());
+        facebookLoginButton.setReadPermissions("email", "public_profile");
 
-
-        loginButton = findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email", "public_profile");
-
-
+        printHashKey(getApplicationContext());
 
         // Callback registration
-        loginButton.registerCallback(fbCallback, new FacebookCallback<LoginResult>() {
+        facebookLoginButton.registerCallback(fbCallback, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
+
                 handleFacebookAccessToken(loginResult.getAccessToken());
                 Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
-                startActivity(intent);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
             }
 
             @Override
@@ -112,28 +111,46 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void handleFacebookAccessToken(AccessToken token) {
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+
+        mAuth.getCurrentUser().linkWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "linkWithCredential:success");
+                            FirebaseUser user = task.getResult().getUser();
+                            //updateUI(user);
+                        } else {
+                            Log.w(TAG, "linkWithCredential:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            //updateUI(null);
+                        }
+
+                        // ...
+                    }
+                });
+
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            Log.d(TAG, "User was successfully logged in");
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
                             //updateUI(user);
-                        } //else {
-                            // If sign in fails, display a message to the user.
-                            //Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            //Toast.makeText(FacebookLoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        } else {
+                             //If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                             //updateUI(null);
-                        //}
+                        }
 
-                        // ...
+                         //...
                     }
                 });
     }
-
-
-
 
 
     public static void printHashKey(Context context) {
@@ -197,7 +214,39 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         to log in a user which is already created in Firebase. For now it redirects to the ProfileActivity,
         this we can just edit later.
          */
+        AuthCredential credential = EmailAuthProvider.getCredential(email, password);
 
+        mAuth.getCurrentUser().linkWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "linkWithCredential:success");
+                            FirebaseUser user = task.getResult().getUser();
+                            //updateUI(user);
+                        } else {
+                            Log.w(TAG, "linkWithCredential:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            //updateUI(null);
+                        }
+
+                        // ...
+                    }
+                });
+
+        //WE NEED TO USE THIS CODE TO CHECK IF THE ACCOUNTS ARE ALREADY LINKED, SOMEHOW.
+//        final FirebaseUser prevUser = FirebaseAuth.getInstance().getCurrentUser();
+//        mAuth.signInWithCredential(credential)
+//                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        FirebaseUser currentUser = task.getResult().getUser();
+//                        // Merge prevUser and currentUser accounts and data
+//                        currentUser = prevUser;
+//                        // ...
+//                    }
+//                });
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -205,6 +254,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 //If Email and password is correct, Login the user and redirect to ProfileActivity
                 if (task.isSuccessful()) {
+                    Log.d(TAG, "User was successfully logged in");
                 Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
                 /*This method ensures that the 2 activities Login and Signup gets removed from the stack,
                     which means when you are logged in and press the back button, you will not get redirected

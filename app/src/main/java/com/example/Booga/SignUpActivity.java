@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private static final String TAG = "SignUpActivity";
 
     EditText signUpEditTextEmail, signUpEditTextPassword;
     Button buttonSignUp, buttonLogin;
@@ -94,6 +97,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             public void onComplete(@NonNull Task<AuthResult> task) {
                 signUpProgressBar.setVisibility(View.GONE);
                 if(task.isSuccessful()) {
+                    Log.d(TAG, "User was successfully created");
                     //If everything succeeds, redirect to ProfileActivity
                     Intent intent = new Intent(SignUpActivity.this, ProfileActivity.class);
 
