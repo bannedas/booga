@@ -19,7 +19,13 @@
 
     <string name="button_sign_up_page_sign_up">Sign up</string>
     <string name="button_sign_up_page_login">Already have an account? Login</string>
+    <string name="in_order_to_use_booga_to_you_need_to_sign_up_fill_out_the_form_below">In order to use Booga to you need to \n sign up. Fill out the form below.</string>
 
-
+    <string name="first_name_sign_up">First name</string>
+    <string name="last_name_sign_up">Last name</string>
+    <string name="email_sign_up">E-Mail</string>
+    <string name="password_sign_up">Password</string>
+    <string name="login_sign_up">Login</string>
+    <string name="sign_up_with_facebook">Sign Up with Facebook</string>
 
 </resources>
