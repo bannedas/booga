@@ -13,16 +13,29 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "SignUpActivity";
 
-    EditText signUpEditTextEmail, signUpEditTextPassword;
+    // [START declare_database_ref]
+    FirebaseFirestore db;
+
+
+    EditText signUpEditTextEmail, signUpEditTextPassword, signUpEditFirstName, singUpEditLastName;
     Button buttonSignUpWithFacebook, buttonLogin;
     ProgressBar signUpProgressBar;
 
@@ -37,15 +50,20 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         //This code is not needed for now. but we might need it later
         //FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
-//        signUpProgressBar =  findViewById(R.id.signUpProgressBarId);
-//        signUpEditTextEmail = findViewById(R.id.editTextSignUpEmailId);
-//        signUpEditTextPassword = findViewById(R.id.editTextSignUpPasswordId);
+        //init db on start
+        db = FirebaseFirestore.getInstance();
+        //signUpProgressBar =  findViewById(R.id.buttonSignUpLoginId);
+        signUpEditTextEmail = findViewById(R.id.text_view_sign_up_email_input);
+        signUpEditTextPassword = findViewById(R.id.text_view_sign_up_password_input);
+        signUpEditFirstName = findViewById(R.id.text_view_sign_up_name_input);
+        singUpEditLastName = findViewById(R.id.text_view_sign_up_input_last_name);
 
         buttonSignUpWithFacebook = findViewById(R.id.buttonSignUpWithFacebookId);
         buttonSignUpWithFacebook.setOnClickListener(this);
         buttonLogin = findViewById(R.id.buttonSignUpLoginId);
         buttonLogin.setOnClickListener(this);
     }
+
 
         /*
         This method Registers the user.
@@ -56,11 +74,21 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
          */
         String email = signUpEditTextEmail.getText().toString().trim();
         String password = signUpEditTextPassword.getText().toString().trim();
+        final String firstName = signUpEditFirstName.getText().toString().trim();
+        final String lastName = singUpEditLastName.getText().toString().trim();
 
         // If the Email EditTextField is empty show an error and point where the error is by using .requestFocus
         if (email.isEmpty()) {
             signUpEditTextEmail.setError("Email is required");
             signUpEditTextEmail.requestFocus();
+            return;
+        } else if (firstName.isEmpty()) {
+            signUpEditFirstName.setError("First name is required");
+            signUpEditFirstName.requestFocus();
+            return;
+        } else if (lastName.isEmpty()) {
+            singUpEditLastName.setError("Last name is required");
+            singUpEditLastName.requestFocus();
             return;
         }
         /*
@@ -84,19 +112,36 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             signUpEditTextPassword.requestFocus();
             return;
         }
-        signUpProgressBar.setVisibility(View.VISIBLE);
+        //signUpProgressBar.setVisibility(View.VISIBLE);
 
         /*
         This code uses the entry point for Firebase and uses the createUserWithEmailAndPassword method
         to create a user so it is saved in Firebase. For now it redirects to the ProfileActivity,
         this we can just edit later.
          */
-        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                signUpProgressBar.setVisibility(View.GONE);
+                //signUpProgressBar.setVisibility(View.GONE);
                 if(task.isSuccessful()) {
-                    Log.d(TAG, "User was successfully created");
+                    Log.d(TAG, "createUserWithEmail:success");
+                    FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
+                    assert fireUser != null; // check if user != null
+                    final String UID = fireUser.getUid(); //store user id
+
+                    Map<String, Object> dbUser = new HashMap<>();
+                    dbUser.put("first", firstName);
+                    dbUser.put("last", lastName);
+
+                    // Add a new document with a generated ID
+                    db.collection("users").document(UID).set(dbUser).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Log.d(TAG, "User added with ID: " + UID);
+                        }
+                    });
+
                     //If everything succeeds, redirect to ProfileActivity
                     Intent intent = new Intent(SignUpActivity.this, ProfileActivity.class);
 
@@ -111,7 +156,6 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     //If User is already registered, handle CollisionException and show a Toast message
                 } else {
                     if (task.getException() instanceof FirebaseAuthUserCollisionException) {
-
                         Toast.makeText(getApplicationContext(), "You are already registered", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -131,15 +175,11 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         switch(view.getId()) {
             //When Sign up button is pressed, call the method registerUser
-//            case R.id.buttonSignUpSignUpId:
-//                registerUser();
-//                break;
-
-            //When button "Already have a login?" is pressed, redirect to LoginActivity
             case R.id.buttonSignUpLoginId:
-                startActivity(new Intent(this, LoginActivity.class));
-
+                registerUser();
                 break;
         }
     }
+
+
 }
