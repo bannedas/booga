@@ -7,10 +7,17 @@
     <string name="edit_text_email">Email</string>
     <string name="edit_text_password">Password</string>
 
+    <string name="text_view_forgot_password">FORGOT PASSWORD?</string>
+    <string name="text_view_clickable_sign_up">SIGN UP FOR A FREE ACCOUNT HERE</string>
+    <string name="text_view_have_no_user">In order to use Booga you need to \n sign in. Dont have an account?</string>
+
+    <string name="picture_content_description_booga">Booga Picture</string>
+
     <string name="button_login">Login</string>
     <string name="button_sign_up">Sign up</string>
     <string name="facebook_app_id">306849843357781</string>
     <string name="fb_login_protocol_scheme">fb306849843357781</string>
+    <string name="button_facebook_login">Login with facebook</string>
 
 
     <!--Buttons and edit text fields from Sign up Activity-->
@@ -19,7 +26,7 @@
 
     <string name="button_sign_up_page_sign_up">Sign up</string>
     <string name="button_sign_up_page_login">Already have an account? Login</string>
-    <string name="in_order_to_use_booga_to_you_need_to_sign_up_fill_out_the_form_below">In order to use Booga to you need to \n sign up. Fill out the form below.</string>
+    <string name="in_order_to_use_booga_you_need_to_sign_up_fill_out_the_form_below">In order to use Booga, you need to \n sign up. Fill out the form below.</string>
 
     <string name="first_name_sign_up">First name</string>
     <string name="last_name_sign_up">Last name</string>
@@ -27,5 +34,6 @@
     <string name="password_sign_up">Password</string>
     <string name="login_sign_up">Login</string>
     <string name="sign_up_with_facebook">Sign Up with Facebook</string>
+
 
 </resources>

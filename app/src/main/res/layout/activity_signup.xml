@@ -32,7 +32,7 @@
         android:layout_marginBottom="474dp"
         android:fontFamily="@font/roboto"
         android:lineSpacingExtra="5sp"
-        android:text="@string/in_order_to_use_booga_to_you_need_to_sign_up_fill_out_the_form_below"
+        android:text="@string/in_order_to_use_booga_you_need_to_sign_up_fill_out_the_form_below"
         android:textAlignment="center"
         android:textColor="#FFFFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"

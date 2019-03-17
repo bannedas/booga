@@ -11,6 +11,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,6 +35,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.security.MessageDigest;
+import java.util.Arrays;
 
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
@@ -42,16 +45,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FirebaseAuth mAuth;
         EditText loginEditTextEmail, loginEditTextPassword;
         ProgressBar LoginProgressBar;
-        LoginButton facebookLoginButton;
+        Button facebookLoginButton;
 
-    private CallbackManager fbCallback = CallbackManager.Factory.create();
+     CallbackManager fbCallback;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
 
+        fbCallback = CallbackManager.Factory.create();
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
@@ -61,17 +64,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         LoginProgressBar = findViewById(R.id.loginProgressBarId);
         loginEditTextEmail = findViewById(R.id.editTextEmailId);
         loginEditTextPassword = findViewById(R.id.editTextPasswordId);
-        facebookLoginButton = findViewById(R.id.facebookButtonId);
 
-        findViewById(R.id.buttonSignUpId).setOnClickListener(this);
+
+        findViewById(R.id.textViewSignUpId).setOnClickListener(this);
         findViewById(R.id.buttonLoginId).setOnClickListener(this);
 
-        facebookLoginButton.setReadPermissions("email", "public_profile");
+
 
         printHashKey(getApplicationContext());
 
         // Callback registration
-        facebookLoginButton.registerCallback(fbCallback, new FacebookCallback<LoginResult>() {
+        LoginManager.getInstance().registerCallback(fbCallback, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
 
@@ -94,8 +97,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
         });
+        setContentView(R.layout.activity_login);
 
+//        facebookLoginButton.setReadPermissions("email", "public_profile");
+        facebookLoginButton = findViewById(R.id.facebookButtonId);
 
+        facebookLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile", "user_friends"));
+            }
+        });
         //AccessToken accessToken = AccessToken.getCurrentAccessToken();
         //boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
 
@@ -279,7 +291,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch(view.getId()) {
 
             //When button "Sign up" is pressed, redirect to SignUpActivity
-            case R.id.buttonSignUpId:
+            case R.id.textViewSignUpId:
 
                 startActivity(new Intent(this, SignUpActivity.class));
                 break;
