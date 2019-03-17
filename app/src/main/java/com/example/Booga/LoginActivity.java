@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -46,6 +47,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         EditText loginEditTextEmail, loginEditTextPassword;
         ProgressBar LoginProgressBar;
         Button facebookLoginButton;
+        TextView signUpTextView;
 
      CallbackManager fbCallback;
 
@@ -53,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_login);
         fbCallback = CallbackManager.Factory.create();
 
         FacebookSdk.sdkInitialize(getApplicationContext());
@@ -64,6 +66,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         LoginProgressBar = findViewById(R.id.loginProgressBarId);
         loginEditTextEmail = findViewById(R.id.editTextEmailId);
         loginEditTextPassword = findViewById(R.id.editTextPasswordId);
+        signUpTextView = findViewById(R.id.textViewSignUpId);
+
 
 
         findViewById(R.id.textViewSignUpId).setOnClickListener(this);
@@ -97,7 +101,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
         });
-        setContentView(R.layout.activity_login);
+
 
 //        facebookLoginButton.setReadPermissions("email", "public_profile");
         facebookLoginButton = findViewById(R.id.facebookButtonId);
@@ -291,10 +295,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch(view.getId()) {
 
             //When button "Sign up" is pressed, redirect to SignUpActivity
-            case R.id.textViewSignUpId:
-
-                startActivity(new Intent(this, SignUpActivity.class));
-                break;
+//            case R.id.textViewSignUpId:
+//
+//                startActivity(new Intent(this, SignUpActivity.class));
+//                break;
 
             //When button Login is pressed, call the method userLogin
             case R.id.buttonLoginId:

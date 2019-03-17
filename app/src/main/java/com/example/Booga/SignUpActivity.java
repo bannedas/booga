@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
@@ -24,7 +23,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     private static final String TAG = "SignUpActivity";
 
     EditText signUpEditTextEmail, signUpEditTextPassword;
-    Button buttonSignUp, buttonLogin;
+    Button buttonSignUpWithFacebook, buttonLogin;
     ProgressBar signUpProgressBar;
 
     //This is the entry point for the Firebase Authentication SDK
@@ -38,12 +37,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         //This code is not needed for now. but we might need it later
         //FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
-        signUpProgressBar =  findViewById(R.id.signUpProgressBarId);
-        signUpEditTextEmail = findViewById(R.id.editTextSignUpEmailId);
-        signUpEditTextPassword = findViewById(R.id.editTextSignUpPasswordId);
+//        signUpProgressBar =  findViewById(R.id.signUpProgressBarId);
+//        signUpEditTextEmail = findViewById(R.id.editTextSignUpEmailId);
+//        signUpEditTextPassword = findViewById(R.id.editTextSignUpPasswordId);
 
-        buttonSignUp = findViewById(R.id.buttonSignUpSignUpId);
-        buttonSignUp.setOnClickListener(this);
+        buttonSignUpWithFacebook = findViewById(R.id.buttonSignUpWithFacebookId);
+        buttonSignUpWithFacebook.setOnClickListener(this);
         buttonLogin = findViewById(R.id.buttonSignUpLoginId);
         buttonLogin.setOnClickListener(this);
     }
@@ -132,9 +131,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         switch(view.getId()) {
             //When Sign up button is pressed, call the method registerUser
-            case R.id.buttonSignUpSignUpId:
-                registerUser();
-                break;
+//            case R.id.buttonSignUpSignUpId:
+//                registerUser();
+//                break;
 
             //When button "Already have a login?" is pressed, redirect to LoginActivity
             case R.id.buttonSignUpLoginId:
