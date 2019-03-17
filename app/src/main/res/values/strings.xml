@@ -32,8 +32,7 @@
     <string name="last_name_sign_up">Last name</string>
     <string name="email_sign_up">E-Mail</string>
     <string name="password_sign_up">Password</string>
-    <string name="login_sign_up">Login</string>
-    <string name="sign_up_with_facebook">Sign Up with Facebook</string>
-
+    <string name="sign_up_button">Login</string>
+    <string name="sign_up_with_facebook_button">Sign Up with Facebook</string>
 
 </resources>
