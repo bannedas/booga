@@ -31,6 +31,7 @@
     <string name="first_name_sign_up">First name</string>
     <string name="last_name_sign_up">Last name</string>
     <string name="sign_up_button">Login</string>
+    <string name="sign_out_button">Sign Out</string>
     <string name="sign_up_with_facebook_button">Sign Up with Facebook</string>
 
 </resources>

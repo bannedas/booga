@@ -9,38 +9,29 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "SignUpActivity";
-
-    // [START declare_database_ref]
-    FirebaseFirestore db;
-
-
     EditText signUpEditTextEmail, signUpEditTextPassword, signUpEditFirstName, singUpEditLastName;
     Button buttonSignUpWithFacebook, buttonLogin;
-    ProgressBar signUpProgressBar;
+    //ProgressBar signUpProgressBar;
 
     //This is the entry point for the Firebase Authentication SDK
     private FirebaseAuth mAuth;
+    //init firestore database sdk
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +41,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         //This code is not needed for now. but we might need it later
         //FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
-        //init db on start
+        //assign db to our instance
         db = FirebaseFirestore.getInstance();
         //signUpProgressBar =  findViewById(R.id.buttonSignUpLoginId);
         signUpEditTextEmail = findViewById(R.id.text_view_sign_up_email_input);
@@ -131,8 +122,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     final String UID = fireUser.getUid(); //store user id
 
                     Map<String, Object> dbUser = new HashMap<>();
-                    dbUser.put("first", firstName);
-                    dbUser.put("last", lastName);
+                    dbUser.put("first_name", firstName);
+                    dbUser.put("last_name", lastName);
 
                     // Add a new document with a generated ID
                     db.collection("users").document(UID).set(dbUser).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -165,6 +156,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
     }
+
 
     /*
     This method onClick makes sure that when you click on the buttons,

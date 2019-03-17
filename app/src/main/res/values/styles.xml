@@ -12,6 +12,10 @@
   </style>
   <style name="Booga.Theme" parent="@android:style/Theme.Material.Light" tools:targetApi="lollipop" />
 
+  <style name="SplashTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="android:windowBackground">@drawable/splash_screen</item>
+  </style>
+
   <declare-styleable name="SympliTextView">
     <attr name="fontPath" format="string"/>
 
