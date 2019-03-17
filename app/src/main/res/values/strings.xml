@@ -30,8 +30,6 @@
 
     <string name="first_name_sign_up">First name</string>
     <string name="last_name_sign_up">Last name</string>
-    <string name="email_sign_up">E-Mail</string>
-    <string name="password_sign_up">Password</string>
     <string name="sign_up_button">Login</string>
     <string name="sign_up_with_facebook_button">Sign Up with Facebook</string>
 

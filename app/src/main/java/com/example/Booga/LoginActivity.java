@@ -1,9 +1,11 @@
 package com.example.Booga;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -298,10 +300,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch(view.getId()) {
 
             //When button "Sign up" is pressed, redirect to SignUpActivity
-//            case R.id.textViewSignUpId:
-//
-//                startActivity(new Intent(this, SignUpActivity.class));
-//                break;
+            case R.id.textViewSignUpId:
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(new Intent(this, SignUpActivity.class),
+                            ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                }
+
+                //startActivity(new Intent(this, SignUpActivity.class));
+                break;
 
             //When button Login is pressed, call the method userLogin
             case R.id.buttonLoginId:
