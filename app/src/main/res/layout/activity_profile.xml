@@ -50,6 +50,7 @@
         android:layout_marginBottom="8dp"
         android:background="@color/frenchrose"
         android:fontFamily="@font/poppins"
+        android:onClick="onClick"
         android:text="@string/sign_out_button"
         android:textColor="@color/white"
         android:textStyle="bold"

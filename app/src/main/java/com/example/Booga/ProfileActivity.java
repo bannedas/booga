@@ -1,10 +1,12 @@
 package com.example.Booga;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -21,7 +23,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URL;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "ProfileActivity";
     private FirebaseAuth mAuth;
     ImageView profilePicture;
@@ -71,8 +73,12 @@ public class ProfileActivity extends AppCompatActivity {
         switch(view.getId()) {
             //When Sign up button is pressed, call the method registerUser
             case R.id.buttonSignOut:
+                Log.d(TAG, "User signed out");
+                startActivity(new Intent(this, LoginActivity.class));
                 mAuth.signOut();
                 LoginManager.getInstance().logOut();
+
+
                 break;
         }
     }
