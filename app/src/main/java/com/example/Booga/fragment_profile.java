@@ -6,18 +6,38 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.Registry;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.module.AppGlideModule;
+import com.bumptech.glide.request.RequestOptions;
 import com.facebook.login.LoginManager;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
-import java.util.Objects;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +51,8 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "fragment_profile";
     private FirebaseAuth mAuth;
+
+    ImageView profilePictureImageView;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -62,7 +84,6 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         mAuth = FirebaseAuth.getInstance();
-
     }
 
     @Override
@@ -70,10 +91,11 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
-        Button b = (Button) v.findViewById(R.id.button_sign_out);
+        Button b = v.findViewById(R.id.button_sign_out);
+        profilePictureImageView = v.findViewById(R.id.profilePictureId);
         b.setOnClickListener(this);
+        updateProfilePicture();
         return v;
-
        // return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
@@ -132,4 +154,33 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
+
+    private void updateProfilePicture() {
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        // Create a storage reference from our app
+        StorageReference storageRef = storage.getReference();
+        // Points to user_photo
+        StorageReference imagesRef = storageRef.child("user_photo");
+
+        // Get User ID
+//        FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
+//        final String UID = fireUser.getUid(); //store user id
+
+        // spaceRef now points to "users/userID.jpg"
+        StorageReference spaceRef = imagesRef.child("QCrTXUs8UgQvyNCf582AGyBzu9A2.jpg");
+
+        spaceRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Glide.with(fragment_profile.this)
+                            .load(task.getResult())
+                            .into(profilePictureImageView);
+
+                }
+            }
+        });
+    }
 }
+

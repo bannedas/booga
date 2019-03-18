@@ -171,7 +171,7 @@
         android:layout_marginBottom="8dp"
         android:background="@color/frenchrose"
         android:fontFamily="@font/poppins"
-        android:text="@string/sign_up_button"
+        android:text="@string/button_sign_up_page_sign_up"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

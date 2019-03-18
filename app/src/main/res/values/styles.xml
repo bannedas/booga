@@ -31,5 +31,21 @@
     <attr name="outerShadowDy" format="dimension"/>
     <attr name="outerShadowRadius" format="dimension"/>
   </declare-styleable>
+
+  <style name="text_view_name_style" parent="android:Widget.TextView">
+    <item name="fontPath">fonts/${FONT_FILE}</item>
+    <item name="android:textColor">@color/color_000000</item>
+    <item name="android:textSize">@dimen/text_view_name_size</item>
+    <item name="android:textStyle">normal</item>
+
+  </style>
+
+  <style name="text_view_user_info_style" parent="android:Widget.TextView">
+    <item name="fontPath">fonts/${FONT_FILE}</item>
+    <item name="android:textColor">@color/color_4a4a4a</item>
+    <item name="android:textSize">@dimen/text_view_user_info_size</item>
+    <item name="android:textStyle">normal</item>
+
+  </style>
 </resources>
 
