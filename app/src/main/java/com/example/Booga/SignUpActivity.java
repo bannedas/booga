@@ -24,7 +24,7 @@ import java.util.Map;
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "SignUpActivity";
-    EditText signUpEditTextEmail, signUpEditTextPassword, signUpEditFirstName, singUpEditLastName;
+    EditText signUpEditTextEmail, signUpEditTextPassword, signUpEditTextConfirmPassword, signUpEditFirstName, singUpEditLastName;
     Button buttonSignUpWithFacebook, buttonLogin;
     //ProgressBar signUpProgressBar;
 
@@ -46,6 +46,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         //signUpProgressBar =  findViewById(R.id.buttonSignUpLoginId);
         signUpEditTextEmail = findViewById(R.id.text_view_sign_up_email_input);
         signUpEditTextPassword = findViewById(R.id.text_view_sign_up_password_input);
+        signUpEditTextConfirmPassword = findViewById(R.id.text_view_sign_up_password_confirm_input);
         signUpEditFirstName = findViewById(R.id.text_view_sign_up_name_input);
         singUpEditLastName = findViewById(R.id.text_view_sign_up_input_last_name);
 
@@ -67,6 +68,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         String password = signUpEditTextPassword.getText().toString().trim();
         final String firstName = signUpEditFirstName.getText().toString().trim();
         final String lastName = singUpEditLastName.getText().toString().trim();
+        String confirmPassword = signUpEditTextConfirmPassword.getText().toString().trim();
 
         // If the Email EditTextField is empty show an error and point where the error is by using .requestFocus
         if (email.isEmpty()) {
@@ -103,11 +105,15 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             signUpEditTextPassword.requestFocus();
             return;
         }
+        if (!password.equals(confirmPassword)) {
+            signUpEditTextPassword.setError(getString(Integer.parseInt("Passwords do not match")));
+            signUpEditTextPassword.requestFocus();
+        }
         //signUpProgressBar.setVisibility(View.VISIBLE);
 
         /*
         This code uses the entry point for Firebase and uses the createUserWithEmailAndPassword method
-        to create a user so it is saved in Firebase. For now it redirects to the MainScreenActivity,
+        to create a user so it is saved in Firebase. For now it redirects to the ProfileActivity,
         this we can just edit later.
          */
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -133,8 +139,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         }
                     });
 
-                    //If everything succeeds, redirect to MainScreenActivity
-                    Intent intent = new Intent(SignUpActivity.this, MainScreenActivity.class);
+                    //If everything succeeds, redirect to ProfileActivity
+                    Intent intent = new Intent(SignUpActivity.this, ProfileActivity.class);
 
                      /*This method ensures that the 2 activities Login and Signup gets removed from the stack,
                         which means when you are logged in and press the back button, you will not get redirected
