@@ -50,9 +50,6 @@ import java.util.Arrays;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "LoginActivity";
-
-    private final int SPLASH_DISPLAY_LENGTH = 1000;
-
         FirebaseAuth mAuth;
         EditText loginEditTextEmail, loginEditTextPassword;
         //ProgressBar LoginProgressBar;
@@ -92,8 +89,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if(user!=null){
                     Log.d(TAG, "USER IS ALREADY LOGGED IN");
-                    Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
+//                    startActivity(intent);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        startActivity(new Intent(LoginActivity.this, MainScreenActivity.class),
+                                ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this).toBundle());
+                    }
                     finish();
                 }else {
                     Log.d(TAG, "USER IS NOT LOGGED IN");
@@ -121,7 +122,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 handleFacebookAccessToken(loginResult.getAccessToken());
                 Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this).toBundle());
+                } else {
+                    startActivity(intent);
+                }
+
             }
 
             @Override
@@ -290,7 +296,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     to the signup screen again, but will exit the app instead
                  */
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(LoginActivity.this).toBundle());
+                    } else {
+                        startActivity(intent);
+                    }
                 } else {
                     // null pointer exception
                     //String userid = mAuth.getCurrentUser().getUid();

@@ -1,8 +1,10 @@
 package com.example.Booga;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -120,7 +122,11 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
             case R.id.button_sign_out:
                 Log.d(TAG, "User signed out");
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                } else {
+                    startActivity(intent);
+                }
                 mAuth.signOut();
                 LoginManager.getInstance().logOut();
                 break;
