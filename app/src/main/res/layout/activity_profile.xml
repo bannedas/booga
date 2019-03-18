@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.033"
-        app:srcCompat="@drawable/combined_shape" />
+        app:srcCompat="@drawable/logo_booga" />
 
     <ImageView
         android:id="@+id/imageViewProfilePicture"
@@ -38,7 +38,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.46"
-        app:srcCompat="@drawable/combined_shape" />
+        app:srcCompat="@drawable/logo_booga" />
 
     <Button
         android:id="@+id/buttonSignOut"

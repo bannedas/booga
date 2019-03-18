@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_navigation_near_me_item"
+        android:icon="@drawable/near_me_icon"
+        android:title="@string/bottom_navigation_near_me_text"/>
+    <item
+        android:id="@+id/bottom_navigation_all_events_item"
+        android:icon="@drawable/all_events_icon"
+        android:title="@string/bottom_navigation_all_events_text"/>
+    <item
+        android:id="@+id/bottom_navigation_my_events_item"
+        android:icon="@drawable/icon_tab_myevents_white"
+        android:title="@string/bottom_navigation_my_events_text" />
+    <item
+        android:id="@+id/bottom_navigation_my_profile_item"
+        android:icon="@drawable/my_profile_icon"
+        android:title="@string/bottom_navigation_my_profile_text" />
+
+
+
+</menu>
