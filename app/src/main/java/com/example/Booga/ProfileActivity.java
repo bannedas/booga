@@ -39,34 +39,34 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
-            updateUI();
+//            updateUI();
 
         }
     }
 
-    private void updateUI() {
-        FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
-        assert fireUser != null; // check if user != null
-        final String UID = fireUser.getUid(); //store user id
+//    private void updateUI() {
+//        FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
+//        assert fireUser != null; // check if user != null
+//        final String UID = fireUser.getUid(); //store user id
 
-        profilePicture = findViewById(R.id.imageViewProfilePicture);
+//        profilePicture = findViewById(R.id.imageViewProfilePicture);
+//
+//        profilePicture.setImageBitmap(getFacebookProfilePicture("bannedas"));
 
-        profilePicture.setImageBitmap(getFacebookProfilePicture("bannedas"));
 
-
-    }
+//    }
     //doesnt really work
-    public static Bitmap getFacebookProfilePicture(String userID){
-        try {
-            URL imageURL = new URL("https://graph.facebook.com/" + userID + "/picture?type=large");
-            Bitmap bitmap;
-            bitmap = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
-            return bitmap;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    public static Bitmap getFacebookProfilePicture(String userID){
+//        try {
+//            URL imageURL = new URL("https://graph.facebook.com/" + userID + "/picture?type=large");
+//            Bitmap bitmap;
+//            bitmap = BitmapFactory.decodeStream(imageURL.openConnection().getInputStream());
+//            return bitmap;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
     public void onClick(View view) {
 

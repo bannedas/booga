@@ -140,7 +140,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                     });
 
                     //If everything succeeds, redirect to ProfileActivity
-                    Intent intent = new Intent(SignUpActivity.this, ProfileActivity.class);
+                    Intent intent = new Intent(SignUpActivity.this, MainScreenActivity.class);
 
                      /*This method ensures that the 2 activities Login and Signup gets removed from the stack,
                         which means when you are logged in and press the back button, you will not get redirected
