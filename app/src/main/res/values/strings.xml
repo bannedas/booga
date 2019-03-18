@@ -22,7 +22,7 @@
 
     <!--Buttons and edit text fields from Sign up Activity-->
     <string name="edit_text_sign_up_page_email">Email</string>
-    <string name="edit_text_sign_up_page_password">Password</string>
+    <string name="edit_text_sign_up_page_password">Enter Password</string>
 
     <string name="button_sign_up_page_sign_up">Sign up</string>
     <string name="button_sign_up_page_login">Already have an account? Login</string>
@@ -33,5 +33,15 @@
     <string name="sign_up_button">Login</string>
     <string name="sign_out_button">Sign Out</string>
     <string name="sign_up_with_facebook_button">Sign Up with Facebook</string>
+
+    <string name="edit_text_sign_up_page_password_confirm">Enter Password Again</string>
+
+
+    <!--Bottom Navigation bar text-->
+    <string name="bottom_navigation_near_me_text">Nær mig</string>
+    <string name="bottom_navigation_all_events_text">Alle Events</string>
+    <string name="bottom_navigation_my_events_text">Mine Events</string>
+    <string name="bottom_navigation_my_profile_text">Min Profil</string>
+
 
 </resources>

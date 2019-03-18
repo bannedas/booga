@@ -119,7 +119,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onSuccess(LoginResult loginResult) {
                 handleFacebookAccessToken(loginResult.getAccessToken());
-                Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+                Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
@@ -258,7 +258,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         /*
         This code uses the entry point for Firebase and uses the signInWithEmailAndPassword method
-        to log in a user which is already created in Firebase. For now it redirects to the ProfileActivity,
+        to log in a user which is already created in Firebase. For now it redirects to the MainScreenActivity,
         this we can just edit later.
          */
        // AuthCredential credential = EmailAuthProvider.getCredential(email, password);
@@ -281,12 +281,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public void onComplete(@NonNull Task<AuthResult> task) {
                 //LoginProgressBar.setVisibility(View.GONE);
 
-                //If Email and password is correct, Login the user and redirect to ProfileActivity
+                //If Email and password is correct, Login the user and redirect to MainScreenActivity
                 if (task.isSuccessful()) {
                     Log.d(TAG, "User was successfully logged in");
-                    String userid = mAuth.getCurrentUser().getUid();
-
-                Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+                Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
                 /*This method ensures that the 2 activities Login and Signup gets removed from the stack,
                     which means when you are logged in and press the back button, you will not get redirected
                     to the signup screen again, but will exit the app instead

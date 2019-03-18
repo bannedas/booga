@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.033"
-        app:srcCompat="@drawable/combined_shape" />
+        app:srcCompat="@drawable/logo_booga" />
 
     <EditText
         android:id="@+id/editTextEmailId"
