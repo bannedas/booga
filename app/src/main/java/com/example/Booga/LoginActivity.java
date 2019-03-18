@@ -92,7 +92,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if(user!=null){
                     Log.d(TAG, "USER IS ALREADY LOGGED IN");
-                    Intent intent = new Intent(LoginActivity.this, ProfileActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
                     startActivity(intent);
                     finish();
                 }else {
@@ -292,8 +292,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 } else {
-                    String userid = mAuth.getCurrentUser().getUid();
-                    Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    // null pointer exception
+                    //String userid = mAuth.getCurrentUser().getUid();
+                    //Toast.makeText(getApplicationContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

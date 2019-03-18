@@ -1,12 +1,20 @@
 package com.example.Booga;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.Objects;
 
 
 /**
@@ -17,9 +25,11 @@ import android.view.ViewGroup;
  * Use the {@link fragment_profile#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_profile extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+public class fragment_profile extends Fragment implements View.OnClickListener {
+
+    private static final String TAG = "fragment_profile";
+    private FirebaseAuth mAuth;
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -49,13 +59,20 @@ public class fragment_profile extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        mAuth = FirebaseAuth.getInstance();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+
+        View v = inflater.inflate(R.layout.fragment_profile, container, false);
+        Button b = (Button) v.findViewById(R.id.button_sign_out);
+        b.setOnClickListener(this);
+        return v;
+
+       // return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -95,5 +112,18 @@ public class fragment_profile extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void onClick(View view) {
+        switch(view.getId()) {
+            //When Sign up button is pressed, call the method registerUser
+            case R.id.button_sign_out:
+                Log.d(TAG, "User signed out");
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                mAuth.signOut();
+                LoginManager.getInstance().logOut();
+                break;
+        }
     }
 }
