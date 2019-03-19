@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="24dp"
         app:srcCompat="@drawable/map_shortcut_icon"
         app:layout_constraintBottom_toBottomOf="@id/cardEvent"
         app:layout_constraintStart_toStartOf="@+id/cardEvent"  />
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="118dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="@id/cardEvent"
         app:layout_constraintStart_toStartOf="@+id/cardEvent"
         app:srcCompat="@drawable/map_shortcut_icon" />
