@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="228dp">
+
+    <ImageView
+        android:id="@+id/cardEvent"
+        android:background="@drawable/card_event_style"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@color/onyx" />
+
+    <TextView
+        android:id="@+id/textTitleOfEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="40dp"
+        android:fontFamily="@font/poppins"
+        android:text="TitleOfEvent"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/cardEvent"
+        app:layout_constraintStart_toStartOf="@+id/cardEvent" />
+
+    <ImageView
+        android:id="@+id/icon_map_shortcut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="20dp"
+        app:srcCompat="@drawable/map_shortcut_icon"
+        app:layout_constraintBottom_toBottomOf="@id/cardEvent"
+        app:layout_constraintStart_toStartOf="@+id/cardEvent"  />
+
+    <ImageView
+        android:id="@+id/icon_filter_shortcut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="118dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/cardEvent"
+        app:layout_constraintStart_toStartOf="@+id/cardEvent"
+        app:srcCompat="@drawable/map_shortcut_icon" />
+
+    <TextView
+        android:id="@+id/text_distance_to_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DistToEvent"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/cardEvent"
+        app:layout_constraintStart_toStartOf="@+id/icon_map_shortcut"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="20dp"  />
+
+    <TextView
+        android:id="@+id/text_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="20dp"
+        android:text="Location"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/cardEvent"
+        app:layout_constraintStart_toStartOf="@+id/icon_filter_shortcut" />
+</android.support.constraint.ConstraintLayout>
