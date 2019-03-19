@@ -45,5 +45,8 @@
     <string name="icon_settings">Settings</string>
     <string name="icon_menu">Menu</string>
 
+    <!-- Merge accounts Activity-->
+    <string name="text_view_merge_user_account">Please provide email and password to merge accounts</string>
+
 
 </resources>

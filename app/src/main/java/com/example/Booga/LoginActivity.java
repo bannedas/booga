@@ -88,11 +88,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         Log.d(TAG, "facebook:onSucces:" + loginResult);
-                        handleFacebookAccessToken(loginResult.getAccessToken());
-
-                        Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
+                        facebookToken = loginResult.getAccessToken();
+                        handleFacebookAccessToken(facebookToken);
                     }
 
                     @Override
@@ -135,7 +132,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        final AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+
+
+
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -144,21 +144,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
-                            mFacebookLoginButton.setEnabled(true);
-
-                            updateUI();
+                            Intent intent = new Intent(LoginActivity.this, MainScreenActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                                    mFacebookLoginButton.setEnabled(true);
+                            Intent intent = new Intent(LoginActivity.this, LinkAccountsActivty.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+
 
                         }
                     }
                 });
     }
+
 
     public static void printHashKey(Context context) {
         try {
@@ -177,7 +178,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     /*
     This method is used to login the user
      */
-    private void userLogin() {
+    public void userLogin() {
         /*
         This gets the text written by the user in the EditTextFields email and password.
          */
@@ -244,6 +245,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 });
     }
+
+
 
 
     @Override
