@@ -43,12 +43,13 @@ public class LinkAccountsActivty extends AppCompatActivity implements View.OnCli
     EditText mLoginEditTextEmail, mLoginEditTextPassword;
     Button mFacebookLoginButton;
 
+    AccessToken accessToken = AccessToken.getCurrentAccessToken();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_link_accounts_activty);
-
 
         mAuth = FirebaseAuth.getInstance();
         mCallbackManager = CallbackManager.Factory.create();
@@ -58,8 +59,6 @@ public class LinkAccountsActivty extends AppCompatActivity implements View.OnCli
         mFacebookLoginButton = findViewById(R.id.mergeFacebookButtonId);
 
         findViewById(R.id.mergeLoginButtonId).setOnClickListener(LinkAccountsActivty.this);
-
-
     }
 
 
@@ -117,7 +116,7 @@ public class LinkAccountsActivty extends AppCompatActivity implements View.OnCli
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
+                            linkFacebookToEmail(accessToken);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());

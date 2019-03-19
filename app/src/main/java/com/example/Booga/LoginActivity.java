@@ -88,8 +88,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         Log.d(TAG, "facebook:onSucces:" + loginResult);
-                        facebookToken = loginResult.getAccessToken();
-                        handleFacebookAccessToken(facebookToken);
+
+                        handleFacebookAccessToken(loginResult.getAccessToken());
                     }
 
                     @Override
@@ -129,7 +129,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
-    private void handleFacebookAccessToken(AccessToken token) {
+    private void handleFacebookAccessToken(final AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
         final AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
@@ -153,8 +153,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Intent intent = new Intent(LoginActivity.this, LinkAccountsActivty.class);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
-
-
                         }
                     }
                 });
