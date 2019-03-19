@@ -13,7 +13,7 @@
         <ImageView
             android:id="@+id/profilePictureId"
             android:layout_width="0dp"
-            android:layout_height="@android:dimen/thumbnail_width"
+            android:layout_height="@android:dimen/thumbnail_height"
             android:layout_marginBottom="8dp"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -64,16 +64,17 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:textColor="@color/color_000000"
             android:fontFamily="@font/poppins"
             android:text="Party girl"
-            android:textStyle="bold"
+            android:textColor="@color/color_000000"
             android:textSize="@dimen/text_view_name_size"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.31" />
+            app:layout_constraintTop_toBottomOf="@+id/profilePictureId"
+            app:layout_constraintVertical_bias="0.052" />
 
         <TextView
             android:id="@+id/text_view_user_info"
@@ -84,9 +85,9 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            android:textColor="@color/color_4a4a4a"
             android:fontFamily="@font/roboto"
             android:text="Party all day all night"
+            android:textColor="@color/color_4a4a4a"
             android:textSize="@dimen/text_view_user_info_size"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -97,18 +98,46 @@
         <Button
             android:id="@+id/button_sign_out"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="51dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="216dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:onClick="onClick"
             android:text="@string/sign_out_button"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_container_attend_events"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.971"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <FrameLayout
+            android:id="@+id/fragment_container_attend_events"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_container_hosted_events"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/fragment_container_hosted_events"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_user_info" />
+
+        <FrameLayout
+            android:id="@+id/fragment_container_hosted_events"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.753" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_container_attend_events" />
     </android.support.constraint.ConstraintLayout>
+
 
 </FrameLayout>

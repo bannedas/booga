@@ -61,7 +61,6 @@ public class LinkAccountsActivty extends AppCompatActivity implements View.OnCli
         findViewById(R.id.mergeLoginButtonId).setOnClickListener(LinkAccountsActivty.this);
     }
 
-
     public void userLogin() {
         /*
         This gets the text written by the user in the EditTextFields email and password.

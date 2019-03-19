@@ -13,7 +13,9 @@ import android.util.Log;
 import android.view.MenuItem;
 
 public class MainScreenActivity extends AppCompatActivity implements fragment_all_events.OnFragmentInteractionListener,
-        fragment_near_me.OnFragmentInteractionListener, fragment_my_event.OnFragmentInteractionListener, fragment_profile.OnFragmentInteractionListener{
+        fragment_near_me.OnFragmentInteractionListener, fragment_my_event.OnFragmentInteractionListener,
+        fragment_profile.OnFragmentInteractionListener, fragment_attend_events.OnFragmentInteractionListener,
+        fragment_hosted_events.OnFragmentInteractionListener{
 
     private static final String TAG = "MainScreenActivity";
 

@@ -1,16 +1,10 @@
 package com.example.Booga;
 
-import android.app.ActivityOptions;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,45 +12,26 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.Registry;
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.bumptech.glide.module.AppGlideModule;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
-import com.facebook.login.LoginManager;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link fragment_profile.OnFragmentInteractionListener} interface
+ * {@link fragment_attend_events.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link fragment_profile#newInstance} factory method to
+ * Use the {@link fragment_attend_events#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_profile extends Fragment implements View.OnClickListener {
-
-    private static final String TAG = "fragment_profile";
-    private FirebaseAuth mAuth;
-
-    ImageView profilePictureImageView;
-    Fragment fragmentAttend;
-
+public class fragment_attend_events extends Fragment {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -64,14 +39,30 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     private String mParam1;
     private String mParam2;
 
+    private static final String TAG = "fragment_attend_events";
+    private FirebaseAuth mAuth;
+
+    ImageView mImageEvent1;
+    ImageView mImageEvent2;
+    ImageView mImageEvent3;
+
     private OnFragmentInteractionListener mListener;
 
-    public fragment_profile() {
+    public fragment_attend_events() {
         // Required empty public constructor
     }
 
-    public static fragment_profile newInstance(String param1, String param2) {
-        fragment_profile fragment = new fragment_profile();
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment fragment_attend_events.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static fragment_attend_events newInstance(String param1, String param2) {
+        fragment_attend_events fragment = new fragment_attend_events();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -93,18 +84,13 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.fragment_profile, container, false);
-        profilePictureImageView = v.findViewById(R.id.profilePictureId);
-        //fragmentAttend = v.findViewById(R.id.fragment_attend_events);
-
-        Fragment childFragment = new fragment_attend_events();
-
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.add(R.id.fragment_container_attend_events, childFragment).commit();
-
+        View v = inflater.inflate(R.layout.fragment_attend_events, container, false);
+        mImageEvent1 = v.findViewById(R.id.imageEvent1);
+        mImageEvent2 = v.findViewById(R.id.imageEvent2);
+        mImageEvent3 = v.findViewById(R.id.imageEvent3);
         updateProfilePicture();
         return v;
-       // return inflater.inflate(R.layout.fragment_profile, container, false);
+        // return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -146,49 +132,57 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         void onFragmentInteraction(Uri uri);
     }
 
-    public void onClick(View view) {
-        switch(view.getId()) {
-            //When Sign up button is pressed, call the method registerUser
-            case R.id.button_sign_out:
-                Log.d(TAG, "User signed out");
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-                } else {
-                    startActivity(intent);
-                }
-                mAuth.signOut();
-                LoginManager.getInstance().logOut();
-                break;
-        }
-    }
-
-
     private void updateProfilePicture() {
-        FirebaseStorage storage = FirebaseStorage.getInstance();
+        FirebaseStorage storage1 = FirebaseStorage.getInstance();
         // Create a storage reference from our app
-        StorageReference storageRef = storage.getReference();
+        StorageReference storageRef1 = storage1.getReference();
         // Points to user_photo
-        StorageReference imagesRef = storageRef.child("user_photo");
+        StorageReference imagesRef1 = storageRef1.child("events");
 
         // Get User ID
 //        FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
 //        final String UID = fireUser.getUid(); //store user id
 
         // spaceRef now points to "users/userID.jpg"
-        StorageReference spaceRef = imagesRef.child("QCrTXUs8UgQvyNCf582AGyBzu9A2.jpg");
+        StorageReference spaceRef1 = imagesRef1.child("event1.jpg");
 
-        spaceRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+        spaceRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
-                    Glide.with(fragment_profile.this)
+                    Glide.with(fragment_attend_events.this)
                             .load(task.getResult())
-                            .into(profilePictureImageView);
+                            .transform(new RoundedCorners(20))
+                            .into(mImageEvent1);
+
+                }
+            }
+        });
+
+        spaceRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Glide.with(fragment_attend_events.this)
+                            .load(task.getResult())
+                            .transform(new RoundedCorners(20))
+                            .into(mImageEvent2);
+
+                }
+            }
+        });
+
+        spaceRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Glide.with(fragment_attend_events.this)
+                            .load(task.getResult())
+                            .transform(new RoundedCorners(20))
+                            .into(mImageEvent3);
 
                 }
             }
         });
     }
 }
-
