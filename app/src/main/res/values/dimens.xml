@@ -2,4 +2,5 @@
 <resources>
     <dimen name="text_view_name_size">28sp</dimen>
     <dimen name="text_view_user_info_size">14sp</dimen>
+    <dimen name="hosted_events_height">272dp</dimen>
 </resources>

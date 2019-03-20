@@ -16,10 +16,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
@@ -55,7 +58,20 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     private FirebaseAuth mAuth;
 
     ImageView profilePictureImageView;
+    ImageView settingsIcon;
+    ImageView menuIcon;
+
     Fragment fragmentAttend;
+
+    ImageView mImageEvent1;
+    ImageView mImageEvent2;
+    ImageView mImageEvent3;
+    ProgressBar loadingPanel;
+
+    TextView name;
+    TextView bio;
+
+    Button buttonSignOut;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -95,7 +111,32 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
         profilePictureImageView = v.findViewById(R.id.profilePictureId);
-        //fragmentAttend = v.findViewById(R.id.fragment_attend_events);
+
+        settingsIcon = v.findViewById(R.id.iconSettingsId);
+        menuIcon = v.findViewById(R.id.iconMenuId);
+
+
+        mImageEvent1 = v.findViewById(R.id.imageEvent4);
+        mImageEvent2 = v.findViewById(R.id.imageEvent5);
+        mImageEvent3 = v.findViewById(R.id.imageEvent6);
+        buttonSignOut = v.findViewById(R.id.button_sign_out);
+        loadingPanel = v.findViewById(R.id.loadingPanel);
+        name = v.findViewById(R.id.text_view_name);
+        bio = v.findViewById(R.id.text_view_user_info);
+
+
+        mImageEvent1.setVisibility(View.GONE);
+        mImageEvent2.setVisibility(View.GONE);
+        mImageEvent3.setVisibility(View.GONE);
+        buttonSignOut.setVisibility(View.GONE);
+        profilePictureImageView.setVisibility(View.GONE);
+        settingsIcon.setVisibility(View.GONE);
+        menuIcon.setVisibility(View.GONE);
+        name.setVisibility(View.GONE);
+        bio.setVisibility(View.GONE);
+
+
+//        fragmentAttend = v.findViewById(R.id.fragment);
 
         Fragment childFragment = new fragment_attend_events();
 
@@ -103,6 +144,9 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         transaction.add(R.id.fragment_container_attend_events, childFragment).commit();
 
         updateProfilePicture();
+        updateAttendEvent();
+
+        buttonSignOut.setOnClickListener(this);
         return v;
        // return inflater.inflate(R.layout.fragment_profile, container, false);
     }
@@ -189,6 +233,76 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                 }
             }
         });
+    }
+
+    private void updateAttendEvent() {
+        FirebaseStorage storage1 = FirebaseStorage.getInstance();
+        // Create a storage reference from our app
+        StorageReference storageRef1 = storage1.getReference();
+        // Points to user_photo
+        StorageReference imagesRef1 = storageRef1.child("events");
+
+        // Get User ID
+//        FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
+//        final String UID = fireUser.getUid(); //store user id
+
+        // spaceRef now points to "users/userID.jpg"
+        StorageReference spaceRef1 = imagesRef1.child("event1.jpg");
+
+        spaceRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Glide.with(fragment_profile.this)
+                            .load(task.getResult())
+                            .transform(new RoundedCorners(20))
+                            .into(mImageEvent1);
+
+                }
+            }
+        });
+
+        spaceRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Glide.with(fragment_profile.this)
+                            .load(task.getResult())
+                            .transform(new RoundedCorners(20))
+                            .into(mImageEvent2);
+
+                }
+            }
+        });
+
+        spaceRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Glide.with(fragment_profile.this)
+                            .load(task.getResult())
+                            .transform(new RoundedCorners(20))
+                            .into(mImageEvent3);
+
+                    //DELETE progressbar to and show content
+
+                    mImageEvent1.setVisibility(View.VISIBLE);
+                    mImageEvent2.setVisibility(View.VISIBLE);
+                    mImageEvent3.setVisibility(View.VISIBLE);
+                    buttonSignOut.setVisibility(View.VISIBLE);
+                    profilePictureImageView.setVisibility(View.VISIBLE);
+                    settingsIcon.setVisibility(View.VISIBLE);
+                    menuIcon.setVisibility(View.VISIBLE);
+                    name.setVisibility(View.VISIBLE);
+                    bio.setVisibility(View.VISIBLE);
+
+                    loadingPanel.setVisibility(View.GONE);
+
+                }
+            }
+        });
+
+
     }
 }
 

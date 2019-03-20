@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
@@ -45,6 +46,8 @@ public class fragment_attend_events extends Fragment {
     ImageView mImageEvent1;
     ImageView mImageEvent2;
     ImageView mImageEvent3;
+
+    TextView mTextAttent;
 
     private OnFragmentInteractionListener mListener;
 
@@ -88,6 +91,16 @@ public class fragment_attend_events extends Fragment {
         mImageEvent1 = v.findViewById(R.id.imageEvent1);
         mImageEvent2 = v.findViewById(R.id.imageEvent2);
         mImageEvent3 = v.findViewById(R.id.imageEvent3);
+
+        mTextAttent = v.findViewById(R.id.textViewAttentEventId);
+
+        mImageEvent1.setVisibility(View.GONE);
+        mImageEvent2.setVisibility(View.GONE);
+        mImageEvent3.setVisibility(View.GONE);
+        mTextAttent.setVisibility(View.GONE);
+
+
+
         updateProfilePicture();
         return v;
         // return inflater.inflate(R.layout.fragment_profile, container, false);
@@ -180,6 +193,11 @@ public class fragment_attend_events extends Fragment {
                             .load(task.getResult())
                             .transform(new RoundedCorners(20))
                             .into(mImageEvent3);
+
+                    mImageEvent1.setVisibility(View.VISIBLE);
+                    mImageEvent2.setVisibility(View.VISIBLE);
+                    mImageEvent3.setVisibility(View.VISIBLE);
+                    mTextAttent.setVisibility(View.VISIBLE);
 
                 }
             }

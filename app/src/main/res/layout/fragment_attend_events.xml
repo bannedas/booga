@@ -32,7 +32,7 @@
         android:layout_height="@android:dimen/thumbnail_height"
         android:layout_gravity="center"
         android:fillViewport="true"
-        android:scrollbars="horizontal|vertical" >
+        android:scrollbars="none" >
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
