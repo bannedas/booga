@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Registry;
 import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.module.AppGlideModule;
@@ -255,7 +256,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                 if (task.isSuccessful()) {
                     Glide.with(fragment_profile.this)
                             .load(task.getResult())
-                            .transform(new RoundedCorners(20))
+                            .transform(new CenterCrop(), new RoundedCorners(20))
                             .into(mImageEvent1);
 
                 }
@@ -268,7 +269,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                 if (task.isSuccessful()) {
                     Glide.with(fragment_profile.this)
                             .load(task.getResult())
-                            .transform(new RoundedCorners(20))
+                            .transform(new CenterCrop(), new RoundedCorners(20))
                             .into(mImageEvent2);
 
                 }
@@ -281,7 +282,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                 if (task.isSuccessful()) {
                     Glide.with(fragment_profile.this)
                             .load(task.getResult())
-                            .transform(new RoundedCorners(20))
+                            .transform(new CenterCrop(), new RoundedCorners(20))
                             .into(mImageEvent3);
 
                     //DELETE progressbar to and show content

@@ -52,6 +52,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
+
+
         <ImageView
             android:id="@+id/iconSettingsId"
             android:layout_width="wrap_content"
@@ -87,14 +89,13 @@
         <TextView
             android:id="@+id/text_view_name"
             style="@style/text_view_name_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="@dimen/name_text_width"
+            android:layout_height="@dimen/name_text_height"
             android:fontFamily="@font/poppins"
-            android:text="Party girl"
+            android:gravity="center_vertical|center_horizontal"
+            android:letterSpacing="-0.0625"
+            android:lineSpacingExtra="30sp"
+            android:text="Frederik"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_view_name_size"
             android:textStyle="bold"
