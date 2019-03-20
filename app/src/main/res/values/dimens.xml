@@ -3,4 +3,8 @@
     <dimen name="text_view_name_size">28sp</dimen>
     <dimen name="text_view_user_info_size">14sp</dimen>
     <dimen name="hosted_events_height">272dp</dimen>
+    <dimen name="hosted_events_photo_height">248dp</dimen>
+    <dimen name="hosted_events_photo_width">280dp</dimen>
+    <dimen name="name_text_width">275dp</dimen>
+    <dimen name="name_text_height">60dp</dimen>
 </resources>

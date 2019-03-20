@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -165,7 +166,7 @@ public class fragment_attend_events extends Fragment {
                 if (task.isSuccessful()) {
                     Glide.with(fragment_attend_events.this)
                             .load(task.getResult())
-                            .transform(new RoundedCorners(20))
+                            .transform(new CenterCrop(), new RoundedCorners(20))
                             .into(mImageEvent1);
 
                 }
@@ -178,7 +179,7 @@ public class fragment_attend_events extends Fragment {
                 if (task.isSuccessful()) {
                     Glide.with(fragment_attend_events.this)
                             .load(task.getResult())
-                            .transform(new RoundedCorners(20))
+                            .transform(new CenterCrop(), new RoundedCorners(20))
                             .into(mImageEvent2);
 
                 }
@@ -191,7 +192,7 @@ public class fragment_attend_events extends Fragment {
                 if (task.isSuccessful()) {
                     Glide.with(fragment_attend_events.this)
                             .load(task.getResult())
-                            .transform(new RoundedCorners(20))
+                            .transform(new CenterCrop(), new RoundedCorners(20))
                             .into(mImageEvent3);
 
                     mImageEvent1.setVisibility(View.VISIBLE);
