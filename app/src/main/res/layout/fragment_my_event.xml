@@ -24,36 +24,50 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            app:layout_constraintTop_toTopOf="@+id/pinkBarViewId"
-            />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="8dp"
+            android:textSize="28dp"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="Your'e attending"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/pinkBarViewId" />
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            tools:layout_editor_absoluteX="176dp"
-            tools:layout_editor_absoluteY="560dp" />
+            android:layout_marginTop="2dp"
+            android:textSize="13sp"
+            android:fontFamily="@font/poppins"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="Event start"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:layout_editor_absoluteX="176dp" />
 
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/pinkBarViewId">
-
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            app:layout_constraintTop_toBottomOf="@id/pinkBarViewId">
 
-            <android.support.v7.widget.RecyclerView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:layout_editor_absoluteX="8dp"
-                tools:layout_editor_absoluteY="8dp" />
-        </LinearLayout>
-    </ScrollView>
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:layout_editor_absoluteX="8dp"
+                    tools:layout_editor_absoluteY="8dp" />
+            </LinearLayout>
+        </ScrollView>
 
 
 

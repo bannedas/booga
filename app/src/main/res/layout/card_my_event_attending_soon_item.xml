@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/view_My_Event_Youre_Attending"
+        android:layout_width="match_parent"
+        android:layout_height="107dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/frenchrose"
+        android:visibility="visible"
+    />
+
+    <TextView
+        android:id="@+id/textYoureAttending"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="40dp"
+        android:fontFamily="@font/poppins"
+        android:text="Your'e Attending"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/view_My_Event_Youre_Attending"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_Time_To_Event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="@font/poppins"
+        android:text="Time to Event"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textYoureAttending" />
+
+    <ImageView
+        android:id="@+id/image_Event_Youre_Attending"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:background="@color/onyx"
+        app:layout_constraintTop_toBottomOf="@id/view_My_Event_Youre_Attending"/>
+
+    <ImageView
+        android:id="@+id/icon_map_shortcut"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginBottom="91dp"
+        app:layout_constraintBottom_toBottomOf="@id/image_Event_Youre_Attending"
+        app:layout_constraintStart_toStartOf="@id/image_Event_Youre_Attending"
+        app:srcCompat="@drawable/map_shortcut_icon" />
+
+    <ImageView
+        android:id="@+id/icon_filter_shortcut"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="91dp"
+        android:layout_marginStart="140dp"
+        app:layout_constraintBottom_toBottomOf="@id/image_Event_Youre_Attending"
+        app:layout_constraintStart_toStartOf="@id/image_Event_Youre_Attending"
+        app:srcCompat="@drawable/icon_filter" />
+
+    <TextView
+        android:id="@+id/text_distance_to_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="DistToEvent"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/image_Event_Youre_Attending"
+        app:layout_constraintStart_toEndOf="@+id/icon_map_shortcut"
+        android:layout_marginBottom="93dp" />
+
+    <TextView
+        android:id="@+id/text_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="93dp"
+        android:text="Location"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/image_Event_Youre_Attending"
+        app:layout_constraintStart_toEndOf="@+id/icon_filter_shortcut" />
+
+    <TextView
+        android:id="@+id/text_Event_Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:layout_marginStart="30dp"
+        android:text="Event Title"
+        android:fontFamily="@font/poppins"
+        android:textColor="@color/white"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="@id/image_Event_Youre_Attending"
+        app:layout_constraintStart_toStartOf="@+id/image_Event_Youre_Attending" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="30dp"
+        android:text="See more text"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@id/image_Event_Youre_Attending"
+        app:layout_constraintStart_toStartOf="@+id/image_Event_Youre_Attending" />
+
+</android.support.constraint.ConstraintLayout>
