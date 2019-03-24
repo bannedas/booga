@@ -11,65 +11,157 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView_attending_soon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
             <View
-                app:layout_constraintTop_toTopOf="parent"
-                android:id="@+id/pinkBarViewId"
+                android:id="@+id/view_My_Event_Youre_Attending"
                 android:layout_width="match_parent"
                 android:layout_height="107dp"
-                android:background="@color/frenchrose">
+                android:background="@color/frenchrose"
+                android:visibility="visible"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            </View>
+            <TextView
+                android:id="@+id/textYoureAttending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/poppins"
+                android:text="STRING:YOURE ATTENDING"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/text_Time_To_Event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="64dp"
+                android:fontFamily="@font/poppins"
+                android:text="Time to Event"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/image_Event_Youre_Attending"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:layout_marginTop="107dp"
+                android:background="@color/onyx" />
+
+            <ImageView
+                android:id="@+id/icon_map_shortcut"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="26dp"
+                android:layout_marginBottom="91dp"
+                app:srcCompat="@drawable/map_shortcut_icon" />
+
+            <TextView
+                android:id="@+id/text_distance_to_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="48dp"
+                android:layout_marginBottom="93dp"
+                android:fontFamily="@font/roboto"
+                android:text="DistToEvent"
+                android:textColor="@color/white"
+                android:textSize="11sp" />
+
+            <ImageView
+                android:id="@+id/icon_filter_shortcut"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="140dp"
+                android:layout_marginBottom="91dp"
+                app:srcCompat="@drawable/icon_filter" />
+
+            <TextView
+                android:id="@+id/text_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="162dp"
+                android:layout_marginBottom="93dp"
+                android:fontFamily="@font/roboto"
+                android:text="Location"
+                android:textColor="@color/white"
+                android:textSize="11sp" />
+
+            <TextView
+                android:id="@+id/text_Event_Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="30dp"
+                android:layout_marginBottom="36dp"
+                android:fontFamily="@font/poppins"
+                android:text="Event Title"
+                android:textColor="@color/white"
+                android:textSize="36sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="30dp"
+                android:layout_marginBottom="24dp"
+                android:fontFamily="@font/roboto"
+                android:text="STRING : SEE MORE"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+
+        </android.support.v7.widget.CardView>
 
         <TextView
-            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/cardView_attending_soon"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:fontFamily="@font/roboto"
+            android:text="STRING: LATEST FAVORITED"
+            android:textColor="@color/frenchrose"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="25dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/cardView_attending_soon"
+            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/roboto"
+            android:text="STRING: LATEST FAVORITED"
+            android:textColor="@color/black_1"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="24dp" />
+
+        <android.support.v7.widget.RecyclerView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="48dp"
             android:layout_marginEnd="8dp"
-            android:textSize="28dp"
-            android:fontFamily="@font/poppins"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:text="Your'e attending"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/pinkBarViewId" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:textSize="13sp"
-            android:fontFamily="@font/poppins"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:text="Event start"
-            app:layout_constraintTop_toBottomOf="@+id/textView"
-            tools:layout_editor_absoluteX="176dp" />
-
-
-        <ScrollView
-            android:id="@+id/scrollView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/pinkBarViewId">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:layout_editor_absoluteX="8dp"
-                    tools:layout_editor_absoluteY="8dp" />
-            </LinearLayout>
-        </ScrollView>
-
-
+            app:layout_constraintTop_toBottomOf="@id/cardView_attending_soon" />
 
 
     </android.support.constraint.ConstraintLayout>
