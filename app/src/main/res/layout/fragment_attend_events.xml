@@ -13,14 +13,29 @@
         <TextView
             android:id="@+id/textViewAttentEventId"
             style="@style/text_view_user_info_style"
-            android:layout_width="141dp"
+            android:layout_width="wrap_content"
             android:layout_height="16dp"
+            android:layout_marginStart="8dp"
             android:fontFamily="@font/roboto"
             android:text="@string/text_view_attend_events"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_view_user_info_size"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewSeeMoreId"
+            style="@style/text_view_user_info_style"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/text_view_see_more"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_view_user_info_size"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
@@ -50,6 +65,8 @@
                     android:id="@+id/imageEvent1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
                     android:background="@drawable/card_event_style"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -132,6 +149,7 @@
                     android:id="@+id/imageEvent2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
                     android:background="@drawable/card_event_style"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -212,8 +230,9 @@
 
                 <ImageView
                     android:id="@+id/imageEvent3"
-                    android:layout_width="match_parent"
+                    android:layout_width="274dp"
                     android:layout_height="match_parent"
+                    android:layout_marginEnd="8dp"
                     android:background="@drawable/card_event_style"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -54,6 +54,7 @@
     <!-- Fragment attend event -->
     <string name="text_view_attend_events">LATEST ATTENDED EVENTS</string>
     <string name="text_view_hosted_events">LATEST HOSTED EVENTS</string>
+    <string name="text_view_see_more">SEE MORE</string>
 
 
 </resources>

@@ -144,16 +144,46 @@
         <FrameLayout
             android:id="@+id/fragment_container_attend_events"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/hosted_events_height"
-            android:layout_marginStart="8dp"
+            android:layout_height="285dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/imageEvent4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/imageEvent4"
             app:layout_constraintTop_toBottomOf="@+id/text_view_user_info" />
+
+        <TextView
+            android:id="@+id/textViewHostedEventId"
+            style="@style/text_view_user_info_style"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/text_view_hosted_events"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/text_view_user_info_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/imageEvent4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_container_attend_events" />
+
+        <TextView
+            android:id="@+id/textViewSeeMoreId"
+            style="@style/text_view_user_info_style"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/roboto"
+            android:text="@string/text_view_see_more"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_view_user_info_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/imageEvent4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_container_attend_events" />
 
         <ImageView
             android:id="@+id/imageEvent4"
