@@ -55,6 +55,10 @@
     <string name="text_view_attend_events">LATEST ATTENDED EVENTS</string>
     <string name="text_view_hosted_events">LATEST HOSTED EVENTS</string>
     <string name="text_view_see_more">SEE MORE</string>
-
+    <string name="events_near_you">Events near you</string>
+    <string name="see_all">See all</string>
+    <string name="trending_events">Trending events</string>
+    <string name="browse_by_event_type">Browse by event type</string>
+    <string name="todo">TODO</string>
 
 </resources>
