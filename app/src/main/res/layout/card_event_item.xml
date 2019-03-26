@@ -7,7 +7,7 @@
     android:layout_height="228dp">
 
     <ImageView
-        android:id="@+id/cardEvent"
+        android:id="@+id/card_Event_Photo_Id"
         android:background="@drawable/card_event_style"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,7 +20,7 @@
         app:srcCompat="@color/onyx" />
 
     <TextView
-        android:id="@+id/textTitleOfEvent"
+        android:id="@+id/card_Event_Title_Text_Id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -29,8 +29,8 @@
         android:text="TitleOfEvent"
         android:textColor="@color/white"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@id/cardEvent"
-        app:layout_constraintStart_toStartOf="@+id/cardEvent" />
+        app:layout_constraintBottom_toBottomOf="@id/card_Event_Photo_Id"
+        app:layout_constraintStart_toStartOf="@+id/card_Event_Photo_Id" />
 
     <ImageView
         android:id="@+id/icon_map_shortcut"
@@ -39,8 +39,8 @@
         android:layout_marginStart="24dp"
         android:layout_marginBottom="24dp"
         app:srcCompat="@drawable/map_shortcut_icon"
-        app:layout_constraintBottom_toBottomOf="@id/cardEvent"
-        app:layout_constraintStart_toStartOf="@+id/cardEvent"  />
+        app:layout_constraintBottom_toBottomOf="@id/card_Event_Photo_Id"
+        app:layout_constraintStart_toStartOf="@+id/card_Event_Photo_Id"  />
 
     <ImageView
         android:id="@+id/icon_filter_shortcut"
@@ -48,33 +48,33 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="118dp"
         android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="@id/cardEvent"
-        app:layout_constraintStart_toStartOf="@+id/cardEvent"
-        app:srcCompat="@drawable/map_shortcut_icon" />
+        app:layout_constraintBottom_toBottomOf="@id/card_Event_Photo_Id"
+        app:layout_constraintStart_toStartOf="@+id/card_Event_Photo_Id"
+        app:srcCompat="@drawable/icon_filter" />
 
     <TextView
-        android:id="@+id/text_distance_to_event"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="DistToEvent"
-        android:fontFamily="@font/roboto"
-        android:textColor="@color/white"
-        android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="@id/cardEvent"
-        app:layout_constraintStart_toStartOf="@+id/icon_map_shortcut"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="20dp"  />
-
-    <TextView
-        android:id="@+id/text_location"
+        android:id="@+id/card_Event_Distance_Text_Id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginBottom="20dp"
-        android:text="Location"
         android:fontFamily="@font/roboto"
+        android:text="DistToEvent"
         android:textColor="@color/white"
         android:textSize="11sp"
-        app:layout_constraintBottom_toBottomOf="@id/cardEvent"
+        app:layout_constraintBottom_toBottomOf="@id/card_Event_Photo_Id"
+        app:layout_constraintStart_toStartOf="@+id/icon_map_shortcut" />
+
+    <TextView
+        android:id="@+id/card_Event_Location_Text_Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/roboto"
+        android:text="Location"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="@id/card_Event_Photo_Id"
         app:layout_constraintStart_toStartOf="@+id/icon_filter_shortcut" />
 </android.support.constraint.ConstraintLayout>
