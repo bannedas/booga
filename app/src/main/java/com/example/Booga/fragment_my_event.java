@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,7 @@ public class fragment_my_event extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    RecyclerView recyclerView;
 
     public fragment_my_event() {
         // Required empty public constructor
@@ -83,7 +85,7 @@ public class fragment_my_event extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_my_event, container, false);
-        RecyclerView recyclerView = v.findViewById(R.id.recyclerView_My_Events_Id);
+        recyclerView = v.findViewById(R.id.recyclerView_My_Events_Id);
 
 
 
@@ -92,8 +94,9 @@ public class fragment_my_event extends Fragment {
         mList.add(new event("Fest i Slusen","AAU","23 m","photo"));
         mList.add(new event("Lunch","Canteen","50 m","photo"));
 
-        Adapter_Event_Cards adapter = new Adapter_Event_Cards(this.getContext(),mList);
-
+        Adapter_Event_Cards adapter = new Adapter_Event_Cards(v.getContext(),mList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext()));
+        recyclerView.setAdapter(adapter);
 
         return v;
     }
@@ -136,4 +139,5 @@ public class fragment_my_event extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

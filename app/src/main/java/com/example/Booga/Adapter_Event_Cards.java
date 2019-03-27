@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class Adapter_Event_Cards extends RecyclerView.Adapter<Adapter_Event_Cards.myViewHolder> {
@@ -37,6 +39,10 @@ public class Adapter_Event_Cards extends RecyclerView.Adapter<Adapter_Event_Card
         holder.event_title.setText(mData.get(position).getmTitle());
         holder.event_location.setText(mData.get(position).getmLocation());
         holder.event_distance.setText(mData.get(position).getmDistance());
+        holder.event_photo.setImageResource(R.drawable.index);
+
+        // TODO Make this function extract the image from firebase
+        //Glide.with(mContext).load(METOD_TO_GET_IMAGE_FROM_FILE_NAME(mData.get(position).getmPhoto())).into(holder.event_photo);
 
     }
 
