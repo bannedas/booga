@@ -17,164 +17,175 @@
             android:id="@+id/all_events_picture"
             android:layout_width="match_parent"
             android:layout_height="350dp"
+            android:layout_marginTop="60dp"
+            android:contentDescription="@string/todo"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_container_events_near_you"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.178"
-            android:contentDescription="@string/todo" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/textViewHostedEventId"
             android:layout_width="wrap_content"
             android:layout_height="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="160dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto"
             android:scaleType="centerCrop"
             android:text="@string/events_near_you"
             android:textColor="@color/black"
             android:textSize="@dimen/text_view_user_info_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.081"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_container_events_near_you"
+            app:layout_constraintEnd_toStartOf="@+id/textViewSeeMoreId"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.23" />
+            app:layout_constraintTop_toBottomOf="@+id/all_events_picture"/>
 
         <TextView
             android:id="@+id/textViewSeeMoreId"
             android:layout_width="wrap_content"
             android:layout_height="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto"
             android:scaleType="centerCrop"
             android:text="@string/see_all"
             android:textColor="@color/frenchrose"
             android:textSize="@dimen/text_view_user_info_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_container_events_near_you"
+            app:layout_constraintStart_toEndOf="@+id/textViewHostedEventId"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.877"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.23" />
+            app:layout_constraintTop_toBottomOf="@+id/all_events_picture"/>
 
-        <FrameLayout
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/fragment_container_events_near_you"
             android:layout_width="match_parent"
             android:layout_height="285dp"
-            android:layout_marginTop="216dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/sponsored_event_picture"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.33"/>
+            app:layout_constraintTop_toBottomOf="@+id/all_events_picture"/>
 
         <ImageView
             android:id="@+id/sponsored_event_picture"
             android:layout_width="match_parent"
             android:layout_height="350dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/todo"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/fragment_trending_events"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.550"
-            android:contentDescription="@string/todo" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_container_events_near_you"/>
 
         <TextView
             android:id="@+id/textViewHostedEventId2"
             android:layout_width="wrap_content"
             android:layout_height="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="160dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto"
             android:scaleType="centerCrop"
             android:text="@string/trending_events"
             android:textColor="@color/black"
             android:textSize="@dimen/text_view_user_info_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.081"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_trending_events"
+            app:layout_constraintEnd_toStartOf="@+id/textViewSeeMoreId2"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.83" />
+            app:layout_constraintTop_toBottomOf="@+id/sponsored_event_picture"/>
 
         <TextView
             android:id="@+id/textViewSeeMoreId2"
             android:layout_width="wrap_content"
             android:layout_height="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto"
             android:scaleType="centerCrop"
             android:text="@string/see_all"
             android:textColor="@color/frenchrose"
             android:textSize="@dimen/text_view_user_info_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_trending_events"
+            app:layout_constraintStart_toEndOf="@+id/textViewHostedEventId2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.877"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.63" />
+            app:layout_constraintTop_toBottomOf="@+id/sponsored_event_picture"/>
 
-        <FrameLayout
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/fragment_trending_events"
             android:layout_width="match_parent"
-            android:layout_height="136dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="285dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_container_browse_by_event_type"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.70"/>
-
+            app:layout_constraintTop_toBottomOf="@+id/sponsored_event_picture"/>
 
         <TextView
             android:id="@+id/textViewHostedEventId3"
             android:layout_width="wrap_content"
             android:layout_height="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="160dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto"
             android:scaleType="centerCrop"
             android:text="@string/browse_by_event_type"
             android:textColor="@color/black"
             android:textSize="@dimen/text_view_user_info_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.081"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_container_browse_by_event_type"
+            app:layout_constraintEnd_toStartOf="@+id/textViewSeeMoreId3"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.83" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_trending_events"/>
 
         <TextView
             android:id="@+id/textViewSeeMoreId3"
             android:layout_width="wrap_content"
             android:layout_height="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto"
             android:scaleType="centerCrop"
             android:text="@string/see_all"
             android:textColor="@color/frenchrose"
             android:textSize="@dimen/text_view_user_info_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/fragment_container_browse_by_event_type"
+            app:layout_constraintStart_toEndOf="@+id/textViewHostedEventId3"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.877"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.83" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_trending_events"/>
 
-        <FrameLayout
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/fragment_container_browse_by_event_type"
             android:layout_width="match_parent"
             android:layout_height="285dp"
+            android:orientation="horizontal"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.90" />
+            app:layout_constraintTop_toBottomOf="@+id/fragment_trending_events"/>
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
