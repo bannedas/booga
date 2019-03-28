@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.Random;
+
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 
 /**
@@ -157,8 +162,10 @@ public class fragment_attend_events extends Fragment {
 //        FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
 //        final String UID = fireUser.getUid(); //store user id
 
+        Random r = new Random();
+
         // spaceRef now points to "users/userID.jpg"
-        StorageReference spaceRef1 = imagesRef1.child("event1.jpg");
+        StorageReference spaceRef1 = imagesRef1.child("event" + r.nextInt(6) +".jpg");
 
         spaceRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
@@ -173,7 +180,9 @@ public class fragment_attend_events extends Fragment {
             }
         });
 
-        spaceRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+        StorageReference spaceRef2 = imagesRef1.child("event" + r.nextInt(6) +".jpg");
+
+        spaceRef2.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
@@ -186,7 +195,9 @@ public class fragment_attend_events extends Fragment {
             }
         });
 
-        spaceRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+        StorageReference spaceRef3 = imagesRef1.child("event" + r.nextInt(6) +".jpg");
+
+        spaceRef3.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {

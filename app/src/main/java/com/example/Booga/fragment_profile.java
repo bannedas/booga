@@ -42,6 +42,7 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Random;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -208,7 +209,6 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         }
     }
 
-
     private void updateProfilePicture() {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         // Create a storage reference from our app
@@ -220,8 +220,9 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 //        FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
 //        final String UID = fireUser.getUid(); //store user id
 
+        Random r = new Random();
         // spaceRef now points to "users/userID.jpg"
-        StorageReference spaceRef = imagesRef.child("QCrTXUs8UgQvyNCf582AGyBzu9A2.jpg");
+        StorageReference spaceRef = imagesRef.child("user" + r.nextInt(6) +".jpg");
 
         spaceRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
@@ -248,7 +249,11 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 //        final String UID = fireUser.getUid(); //store user id
 
         // spaceRef now points to "users/userID.jpg"
-        StorageReference spaceRef1 = imagesRef1.child("event1.jpg");
+
+        Random r = new Random();
+        r.nextInt(6);
+
+        StorageReference spaceRef1 = imagesRef1.child("event" + r.nextInt(6) + ".jpg");
 
         spaceRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
@@ -263,7 +268,9 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
             }
         });
 
-        spaceRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+        StorageReference spaceRef2 = imagesRef1.child("event" + r.nextInt(6) + ".jpg");
+
+        spaceRef2.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
@@ -276,7 +283,9 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
             }
         });
 
-        spaceRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+        StorageReference spaceRef3 = imagesRef1.child("event" + r.nextInt(6) + ".jpg");
+
+        spaceRef3.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
                 if (task.isSuccessful()) {
