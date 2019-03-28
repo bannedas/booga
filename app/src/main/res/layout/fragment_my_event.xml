@@ -6,173 +6,173 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment_my_event">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayoutId"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-
-        <ScrollView
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </ScrollView>
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView_My_Events_Id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardView_attending_soon" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="25dp"
-            android:fontFamily="@font/roboto"
-            android:text="STRING: LATEST FAVORITED"
-            android:textColor="@color/frenchrose"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView_attending_soon" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:fontFamily="@font/roboto"
-            android:text="STRING: LATEST FAVORITED"
-            android:textColor="@color/black_1"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView_attending_soon" />
-
-        <android.support.v7.widget.CardView
-            android:id="@+id/cardView_attending_soon"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent">
+            android:orientation="vertical" >
 
-            <View
-                android:id="@+id/view_My_Event_Youre_Attending"
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/constraintLayoutId"
                 android:layout_width="match_parent"
-                android:layout_height="107dp"
-                android:background="@color/frenchrose"
-                android:visibility="visible"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textYoureAttending"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="24dp"
-                android:fontFamily="@font/poppins"
-                android:text="STRING:YOURE ATTENDING"
-                android:textColor="@color/white"
-                android:textSize="28sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content">
 
 
-            <TextView
-                android:id="@+id/text_Time_To_Event"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="64dp"
-                android:fontFamily="@font/poppins"
-                android:text="Time to Event"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="25dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="STRING: LATEST FAVORITED"
+                    android:textColor="@color/frenchrose"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView_attending_soon" />
 
-            <ImageView
-                android:id="@+id/image_Event_Youre_Attending"
-                android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:layout_marginTop="107dp"
-                android:background="@color/onyx" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="STRING: LATEST FAVORITED"
+                    android:textColor="@color/black_1"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView_attending_soon" />
 
-            <ImageView
-                android:id="@+id/icon_map_shortcut"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="26dp"
-                android:layout_marginBottom="91dp"
-                app:srcCompat="@drawable/map_shortcut_icon" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView_My_Events_Id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="48dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cardView_attending_soon" />
 
-            <TextView
-                android:id="@+id/text_distance_to_event"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="48dp"
-                android:layout_marginBottom="93dp"
-                android:fontFamily="@font/roboto"
-                android:text="DistToEvent"
-                android:textColor="@color/white"
-                android:textSize="11sp" />
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cardView_attending_soon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/icon_filter_shortcut"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="140dp"
-                android:layout_marginBottom="91dp"
-                app:srcCompat="@drawable/icon_filter" />
+                    <View
+                        android:id="@+id/view_My_Event_Youre_Attending"
+                        android:layout_width="match_parent"
+                        android:layout_height="107dp"
+                        android:background="@color/frenchrose"
+                        android:visibility="visible"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/text_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="162dp"
-                android:layout_marginBottom="93dp"
-                android:fontFamily="@font/roboto"
-                android:text="Location"
-                android:textColor="@color/white"
-                android:textSize="11sp" />
-
-            <TextView
-                android:id="@+id/text_Event_Title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="30dp"
-                android:layout_marginBottom="36dp"
-                android:fontFamily="@font/poppins"
-                android:text="Event Title"
-                android:textColor="@color/white"
-                android:textSize="36sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:layout_marginStart="30dp"
-                android:layout_marginBottom="24dp"
-                android:fontFamily="@font/roboto"
-                android:text="STRING : SEE MORE"
-                android:textColor="@color/white"
-                android:textSize="13sp" />
+                    <TextView
+                        android:id="@+id/textYoureAttending"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="STRING:YOURE ATTENDING"
+                        android:textColor="@color/white"
+                        android:textSize="28sp"
+                        android:textStyle="bold" />
 
 
-        </android.support.v7.widget.CardView>
+                    <TextView
+                        android:id="@+id/text_Time_To_Event"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="64dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="Time to Event"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/image_Event_Youre_Attending"
+                        android:layout_width="match_parent"
+                        android:layout_height="350dp"
+                        android:layout_marginTop="107dp"
+                        android:background="@color/onyx" />
+
+                    <ImageView
+                        android:id="@+id/icon_map_shortcut"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginStart="26dp"
+                        android:layout_marginBottom="91dp"
+                        app:srcCompat="@drawable/map_shortcut_icon" />
+
+                    <TextView
+                        android:id="@+id/text_distance_to_event"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginStart="48dp"
+                        android:layout_marginBottom="93dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="DistToEvent"
+                        android:textColor="@color/white"
+                        android:textSize="11sp" />
+
+                    <ImageView
+                        android:id="@+id/icon_filter_shortcut"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="bottom"
+                        android:layout_marginStart="140dp"
+                        android:layout_marginBottom="91dp"
+                        app:srcCompat="@drawable/icon_filter" />
+
+                    <TextView
+                        android:id="@+id/text_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginStart="162dp"
+                        android:layout_marginBottom="93dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="Location"
+                        android:textColor="@color/white"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/text_Event_Title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginBottom="36dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="Event Title"
+                        android:textColor="@color/white"
+                        android:textSize="36sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginBottom="24dp"
+                        android:fontFamily="@font/roboto"
+                        android:text="STRING : SEE MORE"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
 
 
-    </android.support.constraint.ConstraintLayout>
+                </android.support.v7.widget.CardView>
+
+
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>
