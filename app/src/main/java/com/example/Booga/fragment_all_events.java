@@ -4,9 +4,17 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -18,6 +26,12 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class fragment_all_events extends Fragment {
+
+
+    private static final String TAG = "fragment_all_events";
+    private FirebaseAuth mAuth;
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -28,6 +42,10 @@ public class fragment_all_events extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    private RecyclerView recyclerView_Events_Nearby;
+    private RecyclerView recyclerView_Events_Trending;
+    private RecyclerView recyclerView_Event_Types;
 
     public fragment_all_events() {
         // Required empty public constructor
@@ -54,8 +72,34 @@ public class fragment_all_events extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        mAuth = FirebaseAuth.getInstance();
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_all_events, container, false);
+        View v = inflater.inflate(R.layout.fragment_all_events, container, false);
+        recyclerView_Events_Nearby = v.findViewById(R.id.recyclerView_All_Events_Nearby_Id);
+        recyclerView_Events_Trending =v.findViewById(R.id.recyclerView_All_Events_Trending_Id);
+        recyclerView_Event_Types = v.findViewById(R.id.recyclerView_Event_Type_Id);
+
+
+
+        //Test of recycleview
+        List<event> mList = new ArrayList<>();
+        mList.add(new event("Fest i Slusen","AAU","23 m","photo"));
+        mList.add(new event("Lunch","Canteen","50 m","photo"));
+        mList.add(new event("Dinner","Canteen","50 m","photo"));
+        mList.add(new event("Homework","Canteen","50 m","photo"));
+        mList.add(new event("Sleep","Canteen","50 m","photo"));
+
+        Adapter_Event_Cards adapter = new Adapter_Event_Cards(getContext(),mList);
+        recyclerView_Events_Nearby.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL,false));
+        recyclerView_Events_Trending.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
+        recyclerView_Event_Types.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
+
+        recyclerView_Events_Nearby.setAdapter(adapter);
+        recyclerView_Events_Trending.setAdapter(adapter);
+        recyclerView_Event_Types.setAdapter(adapter);
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
