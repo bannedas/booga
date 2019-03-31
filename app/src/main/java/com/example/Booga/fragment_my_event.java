@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -93,10 +94,14 @@ public class fragment_my_event extends Fragment {
         List<event> mList = new ArrayList<>();
         mList.add(new event("Fest i Slusen","AAU","23 m","photo"));
         mList.add(new event("Lunch","Canteen","50 m","photo"));
+        mList.add(new event("Dinner","Canteen","50 m","photo"));
+        mList.add(new event("Homework","Canteen","50 m","photo"));
+        mList.add(new event("Sleep","Canteen","50 m","photo"));
 
-        Adapter_Event_Cards adapter = new Adapter_Event_Cards(v.getContext(),mList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext()));
+        Adapter_Event_Cards adapter = new Adapter_Event_Cards(getContext(),mList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
+        ViewCompat.setNestedScrollingEnabled(recyclerView, false);
 
         return v;
     }
