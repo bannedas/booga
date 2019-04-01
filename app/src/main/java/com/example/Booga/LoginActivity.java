@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             public  void  onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if(user!=null){
-                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), MainScreenActivity.class);
                     startActivity(intent);
                     finish();
                 }
@@ -285,7 +285,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 }
                 break;
-            //When button Login is pressed, call the method userLogin
+            //When button Login is pressed, call the method mergeFacebookToEmail
             case R.id.buttonLoginId:
                 userLogin();
                 break;

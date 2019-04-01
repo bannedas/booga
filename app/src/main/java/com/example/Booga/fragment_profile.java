@@ -8,7 +8,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,31 +19,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.Registry;
-import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
-import com.bumptech.glide.module.AppGlideModule;
-import com.bumptech.glide.request.RequestOptions;
 import com.facebook.login.LoginManager;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Random;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,6 +58,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     TextView bio;
 
     Button buttonSignOut;
+    Button buttonSettings;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -122,6 +107,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         mImageEvent2 = v.findViewById(R.id.imageEvent5);
         mImageEvent3 = v.findViewById(R.id.imageEvent6);
         buttonSignOut = v.findViewById(R.id.button_sign_out);
+        buttonSettings = v.findViewById(R.id.buttonSettingsId);
         loadingPanel = v.findViewById(R.id.loadingPanel);
         name = v.findViewById(R.id.text_view_name);
         bio = v.findViewById(R.id.text_view_user_info);
@@ -131,6 +117,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         mImageEvent2.setVisibility(View.GONE);
         mImageEvent3.setVisibility(View.GONE);
         buttonSignOut.setVisibility(View.GONE);
+        buttonSettings.setVisibility(View.GONE);
         profilePictureImageView.setVisibility(View.GONE);
         settingsIcon.setVisibility(View.GONE);
         menuIcon.setVisibility(View.GONE);
@@ -149,6 +136,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         updateAttendEvent();
 
         buttonSignOut.setOnClickListener(this);
+        buttonSettings.setOnClickListener(this);
         return v;
        // return inflater.inflate(R.layout.fragment_profile, container, false);
     }
@@ -192,22 +180,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         void onFragmentInteraction(Uri uri);
     }
 
-    public void onClick(View view) {
-        switch(view.getId()) {
-            //When Sign up button is pressed, call the method registerUser
-            case R.id.button_sign_out:
-                Log.d(TAG, "User signed out");
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-                } else {
-                    startActivity(intent);
-                }
-                mAuth.signOut();
-                LoginManager.getInstance().logOut();
-                break;
-        }
-    }
+
 
     private void updateProfilePicture() {
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -300,6 +273,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                     mImageEvent2.setVisibility(View.VISIBLE);
                     mImageEvent3.setVisibility(View.VISIBLE);
                     buttonSignOut.setVisibility(View.VISIBLE);
+                    buttonSettings.setVisibility(View.VISIBLE);
                     profilePictureImageView.setVisibility(View.VISIBLE);
                     settingsIcon.setVisibility(View.VISIBLE);
                     menuIcon.setVisibility(View.VISIBLE);
@@ -313,6 +287,30 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         });
 
 
+    }
+    public void onClick(View view) {
+        switch(view.getId()) {
+            //When Sign up button is pressed, call the method registerUser
+            case R.id.button_sign_out:
+                Log.d(TAG, "User signed out");
+                Intent intent = new Intent(getActivity(), LoginActivity.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                } else {
+                    startActivity(intent);
+                }
+                mAuth.signOut();
+                LoginManager.getInstance().logOut();
+                break;
+
+            case R.id.buttonSettingsId:
+                 intent = new Intent(getActivity(), SettingsPageActivity.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                } else {
+                    startActivity(intent);
+                }
+        }
     }
 }
 
