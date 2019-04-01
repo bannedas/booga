@@ -3,6 +3,8 @@
     <!--The name of the application-->
     <string name="app_name">Booga</string>
 
+    <string name="back">Back</string>
+
     <!--Buttons and edit text fields from Login Activity-->
     <string name="edit_text_email">Email</string>
     <string name="edit_text_password">Password</string>
@@ -55,6 +57,16 @@
     <string name="text_view_attend_events">LATEST ATTENDED EVENTS</string>
     <string name="text_view_hosted_events">LATEST HOSTED EVENTS</string>
     <string name="text_view_see_more">SEE MORE</string>
+    <string name="events_near_you">Events near you</string>
+    <string name="see_all">See all</string>
+    <string name="trending_events">Trending events</string>
+    <string name="browse_by_event_type">Browse by event type</string>
+    <string name="todo">TODO</string>
 
+
+    <!-- Reset Password activity -->
+    <string name="button_reset_password">Reset your password</string>
+    <string name="text_view_reset_password"><html>Enter your email and we\'ll send\nyou a link to get back into your account.</html></string>
+    <string name="text_view_reset_password_trouble">Trouble Logging In?</string>
 
 </resources>

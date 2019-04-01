@@ -289,6 +289,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.buttonLoginId:
                 userLogin();
                 break;
+            case R.id.forgotPasswordId:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(new Intent(this, ResetPasswordActivity.class),
+                            ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                }
+                break;
         }
     }
 }

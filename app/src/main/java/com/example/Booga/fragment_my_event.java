@@ -4,11 +4,18 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -35,6 +42,7 @@ public class fragment_my_event extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    RecyclerView recyclerView;
 
     public fragment_my_event() {
         // Required empty public constructor
@@ -65,14 +73,37 @@ public class fragment_my_event extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        mAuth = FirebaseAuth.getInstance();
+
+
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+// Firebase Auth
+        mAuth = FirebaseAuth.getInstance();
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_event, container, false);
+        View v = inflater.inflate(R.layout.fragment_my_event, container, false);
+        recyclerView = v.findViewById(R.id.recyclerView_My_Events_Id);
+
+
+
+        //Test of recycleview
+        List<event> mList = new ArrayList<>();
+        mList.add(new event("Fest i Slusen","AAU","23 m","photo"));
+        mList.add(new event("Lunch","Canteen","50 m","photo"));
+        mList.add(new event("Dinner","Canteen","50 m","photo"));
+        mList.add(new event("Homework","Canteen","50 m","photo"));
+        mList.add(new event("Sleep","Canteen","50 m","photo"));
+
+        Adapter_Event_Cards adapter = new Adapter_Event_Cards(getContext(),mList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+        ViewCompat.setNestedScrollingEnabled(recyclerView, false);
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -113,4 +144,5 @@ public class fragment_my_event extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }
