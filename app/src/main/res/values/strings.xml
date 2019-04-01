@@ -49,6 +49,9 @@
 
     <!-- Merge accounts Activity-->
     <string name="text_view_merge_user_account">Please provide email and password to merge accounts</string>
+    <string name="button_merge_email_with_facebook">Link email to facebook</string>
+    <string name="button_merge_facebook_with_email">Link facebook to email</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -63,10 +66,12 @@
     <string name="browse_by_event_type">Browse by event type</string>
     <string name="todo">TODO</string>
 
-
     <!-- Reset Password activity -->
     <string name="button_reset_password">Reset your password</string>
     <string name="text_view_reset_password"><html>Enter your email and we\'ll send\nyou a link to get back into your account.</html></string>
     <string name="text_view_reset_password_trouble">Trouble Logging In?</string>
+
+    <!-- SettingsPageActivity activity -->
+    <string name="button_merge">Merge accounts</string>
 
 </resources>

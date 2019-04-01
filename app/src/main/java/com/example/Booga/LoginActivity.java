@@ -33,6 +33,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.security.MessageDigest;
 import java.util.Arrays;
@@ -44,12 +47,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         FirebaseAuth mAuth;
         CallbackManager mCallbackManager;
+        FirebaseAuth.AuthStateListener mAuthListener;
+
+
 
         EditText mLoginEditTextEmail, mLoginEditTextPassword;
         Button mFacebookLoginButton;
         TextView mSignUpTextView;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +78,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         printHashKey(getApplicationContext());
 
         mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener(){
+            @Override
+            public  void  onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth){
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if(user!=null){
+                    Intent intent = new Intent(getApplicationContext(), MainScreenActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }
+        };
 
 
 // Callback registration
@@ -109,11 +125,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onStart() {
         super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null) {
-            updateUI();
-        }
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if(currentUser != null) {
+//            updateUI();
+//        }
     }
 
     private void updateUI() {
@@ -121,20 +138,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onResume() {
         super.onResume();
+        mAuth.addAuthStateListener(mAuthListener);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        mAuth.removeAuthStateListener(mAuthListener);
 
     }
+
+
 
     private void handleFacebookAccessToken(final AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
         final AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-
-
 
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -232,6 +251,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             startActivity(intent);
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+
                             updateUI();
                         } else {
                             // If sign in fails, display a message to the user.
@@ -243,8 +263,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 });
     }
-
-
 
 
     @Override
@@ -267,7 +285,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 }
                 break;
-            //When button Login is pressed, call the method userLogin
+            //When button Login is pressed, call the method mergeFacebookToEmail
             case R.id.buttonLoginId:
                 userLogin();
                 break;

@@ -6,7 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".MainScreenActivity"
     android:background="@color/onyx">
-
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="66dp"
+    android:id="@+id/fragment_container_toolbar"
+    android:layout_above="@+id/fragment_container_main"/>
     <FrameLayout
         android:id="@+id/fragment_container_main"
         android:layout_width="match_parent"
