@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SettingsPageActivity"></activity>
+        <activity android:name="com.example.booga.CreateEventActivity"></activity>
+        <activity android:name=".SettingsPageActivity" />
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".LinkAccountsActivty" />
         <activity android:name=".MainScreenActivity" />

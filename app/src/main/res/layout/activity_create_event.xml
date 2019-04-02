@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateEventActivity">
+
+    <EditText
+        android:id="@+id/event_title"
+        android:layout_width="362dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@android:color/black"
+        android:ems="10"
+        android:fontFamily="@font/poppins"
+        android:hint="Event title"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:textColor="@color/outerspace"
+        android:textColorHint="@color/ash_grey"
+        app:layout_constraintBottom_toTopOf="@+id/location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:targetApi="o" />
+
+    <EditText
+        android:id="@+id/location"
+        android:layout_width="362dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@android:color/black"
+        android:ems="10"
+        android:fontFamily="@font/poppins"
+        android:hint="Location"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:textColor="@color/outerspace"
+        android:textColorHint="@color/ash_grey"
+        app:layout_constraintBottom_toTopOf="@+id/date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:targetApi="o" />
+
+    <EditText
+        android:id="@+id/date"
+        android:layout_width="362dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@android:color/black"
+        android:ems="10"
+        android:fontFamily="@font/poppins"
+        android:hint="Date"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:textColor="@color/outerspace"
+        android:textColorHint="@color/ash_grey"
+        app:layout_constraintBottom_toTopOf="@+id/time"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:targetApi="o"/>
+
+    <EditText
+        android:id="@+id/time"
+        android:layout_width="362dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:autofillHints=""
+        android:backgroundTint="@android:color/black"
+        android:ems="10"
+        android:fontFamily="@font/poppins"
+        android:hint="Time"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/outerspace"
+        android:textColorHint="@color/ash_grey"
+        app:layout_constraintBottom_toTopOf="@+id/description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:targetApi="o"/>
+
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="362dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@android:color/black"
+        android:ems="10"
+        android:fontFamily="@font/poppins"
+        android:hint="Description"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:textColor="@color/outerspace"
+        android:textColorHint="@color/ash_grey"
+        app:layout_constraintBottom_toTopOf="@+id/text_create_event_event_type"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:targetApi="o" />
+
+    <TextView
+        android:id="@+id/text_create_event_event_type"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="340dp"
+        android:fontFamily="@font/roboto"
+        android:inputType="textPersonName"
+        android:text="Event type"
+        android:textColor="@color/ash_grey"
+        android:textSize="@dimen/text_view_user_info_size"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_event_type_create_event"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_event_type_create_event"
+        android:layout_width="match_parent"
+        android:layout_height="74dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/text_create_event_event_tags"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/text_create_event_event_tags"
+        android:layout_width="wrap_content"
+        android:layout_height="22dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="340dp"
+        android:fontFamily="@font/roboto"
+        android:inputType="textPersonName"
+        android:text="Event tags"
+        android:textColor="@color/ash_grey"
+        android:textSize="@dimen/text_view_user_info_size"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_event_tags_create_event"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_event_tags_create_event"
+        android:layout_width="match_parent"
+        android:layout_height="74dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/private_event_switch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Switch
+        android:id="@+id/private_event_switch"
+        android:layout_width="362dp"
+        android:layout_height="54dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@android:color/black"
+        android:fontFamily="@font/poppins"
+        android:text="Privat fest"
+        android:textColor="@color/ash_grey"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/create_event_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/create_event_button"
+        android:layout_width="362dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/frenchrose"
+        android:fontFamily="@font/poppins"
+        android:text="Create event"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
