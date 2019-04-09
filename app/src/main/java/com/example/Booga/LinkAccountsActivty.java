@@ -32,7 +32,7 @@ public class LinkAccountsActivty extends AppCompatActivity implements View.OnCli
     CallbackManager mCallbackManager;
 
     EditText mLoginEditTextEmail, mLoginEditTextPassword;
-    Button mFacebookLoginButton;
+    Button mFacebookLoginButton, mEmailLoginButton;
 
     AccessToken accessToken = AccessToken.getCurrentAccessToken();
 
@@ -48,9 +48,22 @@ public class LinkAccountsActivty extends AppCompatActivity implements View.OnCli
         mLoginEditTextEmail = findViewById(R.id.mergeEditTextEmailId);
         mLoginEditTextPassword = findViewById(R.id.mergeEditTextPasswordId);
         mFacebookLoginButton = findViewById(R.id.mergeFacebookButtonId);
+        mEmailLoginButton = findViewById(R.id.mergeLoginButtonId);
 
         findViewById(R.id.mergeLoginButtonId).setOnClickListener(LinkAccountsActivty.this);
         findViewById(R.id.mergeFacebookButtonId).setOnClickListener(LinkAccountsActivty.this);
+
+        mFacebookLoginButton.setVisibility(View.GONE);
+        mEmailLoginButton.setVisibility(View.GONE);
+
+        AccessToken token;
+        token = AccessToken.getCurrentAccessToken();
+
+        if (token == null) {
+            mEmailLoginButton.setVisibility(View.VISIBLE);
+        } else {
+            mFacebookLoginButton.setVisibility(View.VISIBLE);
+        }
     }
 
     public void mergeFacebookToEmail() {

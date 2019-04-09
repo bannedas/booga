@@ -8,11 +8,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.facebook.AccessToken;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class SettingsPageActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static final String TAG = "SettingsActivity";
 
     Button mButtonMergeAccounts;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +27,15 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
         mButtonMergeAccounts = findViewById(R.id.buttonMergeEmailWithFacebookId);
         mButtonMergeAccounts.setOnClickListener(this);
 
+        mAuth = FirebaseAuth.getInstance();
+
+        AccessToken token;
+        token = AccessToken.getCurrentAccessToken();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (token != null) {
+            mButtonMergeAccounts.setVisibility(View.GONE);
+        }
     }
 
     @Override
