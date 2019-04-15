@@ -307,8 +307,10 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                  intent = new Intent(getActivity(), SettingsPageActivity.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                    Log.d(TAG, "WARNING" +mAuth.getCurrentUser().getProviders());
                 } else {
                     startActivity(intent);
+                    Log.d(TAG, "WARNING" +mAuth.getCurrentUser().getProviders());
                 }
         }
     }

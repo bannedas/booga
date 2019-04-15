@@ -49,8 +49,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         CallbackManager mCallbackManager;
         FirebaseAuth.AuthStateListener mAuthListener;
 
-
-
         EditText mLoginEditTextEmail, mLoginEditTextPassword;
         Button mFacebookLoginButton;
         TextView mSignUpTextView;
@@ -60,9 +58,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+
 
         mCallbackManager = CallbackManager.Factory.create();
         mAuth = FirebaseAuth.getInstance();
@@ -97,6 +95,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onClick(View view) {
 
+
                 mFacebookLoginButton.setEnabled(false);
 
                 LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile", "user_friends"));
@@ -106,6 +105,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         Log.d(TAG, "facebook:onSucces:" + loginResult);
 
                         handleFacebookAccessToken(loginResult.getAccessToken());
+
                     }
 
                     @Override
@@ -170,6 +170,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Intent intent = new Intent(LoginActivity.this, LinkAccountsActivty.class);
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("VAL", 3);
+                            intent.putExtras(bundle);
                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
                         }

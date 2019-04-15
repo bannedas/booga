@@ -1,8 +1,6 @@
 package com.example.Booga;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,7 +30,8 @@ public class LinkAccountsActivty extends AppCompatActivity implements View.OnCli
     CallbackManager mCallbackManager;
 
     EditText mLoginEditTextEmail, mLoginEditTextPassword;
-    Button mFacebookLoginButton, mEmailLoginButton;
+    public static Button mFacebookLoginButton1;
+    public static Button mEmailLoginButton1;
 
     AccessToken accessToken = AccessToken.getCurrentAccessToken();
 
@@ -47,23 +46,34 @@ public class LinkAccountsActivty extends AppCompatActivity implements View.OnCli
 
         mLoginEditTextEmail = findViewById(R.id.mergeEditTextEmailId);
         mLoginEditTextPassword = findViewById(R.id.mergeEditTextPasswordId);
-        mFacebookLoginButton = findViewById(R.id.mergeFacebookButtonId);
-        mEmailLoginButton = findViewById(R.id.mergeLoginButtonId);
+        mFacebookLoginButton1 = findViewById(R.id.mergeFacebookButtonId);
+        mEmailLoginButton1 = findViewById(R.id.mergeLoginButtonId);
+        mFacebookLoginButton1.setVisibility(View.GONE);
+        mEmailLoginButton1.setVisibility(View.GONE);
+
+        Bundle bun = getIntent().getExtras();
+        int val = bun.getInt("VAL");
+
+        if (val == 1) {
+            mFacebookLoginButton1.setVisibility(View.VISIBLE);
+        }
+        if (val == 2) {
+            mEmailLoginButton1.setVisibility(View.VISIBLE);
+        }
+        if (val == 3) {
+            mEmailLoginButton1.setVisibility(View.VISIBLE);
+        }
+
+
+
 
         findViewById(R.id.mergeLoginButtonId).setOnClickListener(LinkAccountsActivty.this);
         findViewById(R.id.mergeFacebookButtonId).setOnClickListener(LinkAccountsActivty.this);
 
-        mFacebookLoginButton.setVisibility(View.GONE);
-        mEmailLoginButton.setVisibility(View.GONE);
+        mAuth = FirebaseAuth.getInstance();
 
-        AccessToken token;
-        token = AccessToken.getCurrentAccessToken();
 
-        if (token == null) {
-            mEmailLoginButton.setVisibility(View.VISIBLE);
-        } else {
-            mFacebookLoginButton.setVisibility(View.VISIBLE);
-        }
+
     }
 
     public void mergeFacebookToEmail() {
