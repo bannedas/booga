@@ -4,9 +4,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -29,6 +36,11 @@ public class fragment_near_me extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private ViewPager mViewPager_Slider;
+    private Adapter_Slider adapter_slider;
+
+    private ImageView slider1, slider2, slider3, slider4;
+    private ImageView[] sliderArray = new ImageView[4];
     public fragment_near_me() {
         // Required empty public constructor
     }
@@ -63,9 +75,55 @@ public class fragment_near_me extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_near_me, container, false);
+
+        View v = inflater.inflate(R.layout.fragment_near_me, container, false);
+
+        slider1 = v.findViewById(R.id.slide_Near_Me_1);
+        slider2 = v.findViewById(R.id.slide_Near_Me_2);
+        slider3 = v.findViewById(R.id.slide_Near_Me_3);
+        slider4 = v.findViewById(R.id.slide_Near_Me_4);
+
+        sliderArray[0] = slider1;
+        sliderArray[1] = slider2;
+        sliderArray[2] = slider3;
+        sliderArray[3] = slider4;
+
+        List<event> testList = new ArrayList<>();
+        testList.add(new event("Fest i Slusen","AAU","23 m","photo"));
+        testList.add(new event("Lunch","Canteen","50 m","photo"));
+        testList.add(new event("Dinner","Canteen","50 m","photo"));
+        testList.add(new event("Homework","Canteen","50 m","photo"));
+        testList.add(new event("Sleep","Canteen","50 m","photo"));
+
+        adapter_slider = new Adapter_Slider(getContext(),testList);
+
+        mViewPager_Slider = v.findViewById(R.id.viewPager_Near_Me_Id);
+
+        mViewPager_Slider.setAdapter(adapter_slider);
+
+        mViewPager_Slider.addOnPageChangeListener(viewListener);
+        return v;
     }
+
+    ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int i, float v, int i1) {
+
+        }
+
+        @Override
+        public void onPageSelected(int i) {
+            for (ImageView slider: sliderArray){
+                slider.setImageResource(R.drawable.slider_whitesmoke);
+            }
+            sliderArray[i-1].setImageResource(R.drawable.slider_pink);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int i) {
+
+        }
+    };
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -105,4 +163,5 @@ public class fragment_near_me extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

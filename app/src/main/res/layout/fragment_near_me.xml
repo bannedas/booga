@@ -8,21 +8,58 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="NEAR ME"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+        >
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager_Near_Me_Id"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v4.view.ViewPager>
+
+        <LinearLayout
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_marginTop="43dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/linearLayout_Near_Me_Dots_Id"
+            android:layout_width="128dp"
+            android:layout_height="wrap_content"
+
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="1dp"
+                android:id="@+id/slide_Near_Me_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/slider_whitesmoke"/>
+            <ImageView
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="1dp"
+                android:id="@+id/slide_Near_Me_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/slider_whitesmoke"/>
+            <ImageView
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="1dp"
+                android:id="@+id/slide_Near_Me_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/slider_whitesmoke"/>
+            <ImageView
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="1dp"
+                android:id="@+id/slide_Near_Me_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/slider_whitesmoke"/>
+
+        </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 
 </FrameLayout>
