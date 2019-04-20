@@ -88,6 +88,8 @@ public class fragment_near_me extends Fragment {
         sliderArray[2] = slider3;
         sliderArray[3] = slider4;
 
+        slider1.setImageResource(R.drawable.slider_pink);
+
         List<event> testList = new ArrayList<>();
         testList.add(new event("Fest i Slusen","AAU","23 m","photo"));
         testList.add(new event("Lunch","Canteen","50 m","photo"));
