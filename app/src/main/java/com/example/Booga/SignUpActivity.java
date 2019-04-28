@@ -55,7 +55,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         buttonLogin = findViewById(R.id.buttonSignUpLoginId);
         buttonLogin.setOnClickListener(this);
     }
-    
+
         /*
         This method Registers the user.
          */

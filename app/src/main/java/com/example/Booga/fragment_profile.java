@@ -26,14 +26,20 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -199,11 +205,34 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     }
 
     private void updateUserName() {
-
         // Get User ID
-        FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
+        final FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
         assert fireUser != null;
         final String UID = fireUser.getUid(); //store user id
+
+        // init firestore database
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        DocumentReference docRef = db.collection("users").document(UID);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    assert document != null;
+                    if (document.exists()) {
+                        String firstName = document.getString("first_name");
+                        String lastName = document.getString("last_name");
+                        String firstLastName = getString(R.string.text_view_name_placeholder, firstName, lastName);
+                        name.setText(firstLastName);
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
     }
 
     public void onClick(View view) {

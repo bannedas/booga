@@ -56,7 +56,7 @@
 
     <!-- Profile fragment -->
     <string name="text_view_picture_not_found">Please upload profile picture</string>
-    <string name="text_view_name_placeholder">No name</string>
+    <string name="text_view_name_placeholder">%1$s %2$s</string>
     <string name="text_view_bio_placeholder">No bio</string>
 
     <!-- Reset Password activity -->
