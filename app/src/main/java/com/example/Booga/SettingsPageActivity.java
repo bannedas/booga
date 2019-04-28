@@ -233,7 +233,6 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
         // Add a new document with a generated ID
         db.collection("users").document(UID)
                 .set(dbUser, SetOptions.merge());
-
     }
 
     @Override
@@ -269,7 +268,7 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     Log.e(TAG, "Error uploading profile pic!");
-                    Toast.makeText(SettingsPageActivity.this, "Error uploading", Toast.LENGTH_SHORT);
+                    Toast.makeText(SettingsPageActivity.this, "Error uploading", Toast.LENGTH_SHORT).show();
                 }
             });
 
