@@ -9,6 +9,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +31,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -47,18 +52,17 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     ImageView settingsIcon;
     ImageView menuIcon;
 
-    Fragment fragmentAttend;
-
     ImageView mImageEvent1;
     ImageView mImageEvent2;
     ImageView mImageEvent3;
-    ProgressBar loadingPanel;
 
     TextView name;
     TextView bio;
 
     Button buttonSignOut;
     Button buttonSettings;
+
+    RecyclerView recyclerView;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -103,29 +107,13 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         menuIcon = v.findViewById(R.id.iconMenuId);
 
 
-        mImageEvent1 = v.findViewById(R.id.imageEvent4);
-        mImageEvent2 = v.findViewById(R.id.imageEvent5);
-        mImageEvent3 = v.findViewById(R.id.imageEvent6);
+//        mImageEvent1 = v.findViewById(R.id.imageEvent4);
+//        mImageEvent2 = v.findViewById(R.id.imageEvent5);
+//        mImageEvent3 = v.findViewById(R.id.imageEvent6);
         buttonSignOut = v.findViewById(R.id.button_sign_out);
         buttonSettings = v.findViewById(R.id.buttonSettingsId);
-        loadingPanel = v.findViewById(R.id.loadingPanel);
         name = v.findViewById(R.id.text_view_name);
         bio = v.findViewById(R.id.text_view_user_info);
-
-
-        mImageEvent1.setVisibility(View.GONE);
-        mImageEvent2.setVisibility(View.GONE);
-        mImageEvent3.setVisibility(View.GONE);
-        buttonSignOut.setVisibility(View.GONE);
-        buttonSettings.setVisibility(View.GONE);
-        profilePictureImageView.setVisibility(View.GONE);
-        settingsIcon.setVisibility(View.GONE);
-        menuIcon.setVisibility(View.GONE);
-        name.setVisibility(View.GONE);
-        bio.setVisibility(View.GONE);
-
-
-//        fragmentAttend = v.findViewById(R.id.fragment);
 
         Fragment childFragment = new fragment_attend_events();
 
@@ -133,12 +121,31 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         transaction.add(R.id.fragment_container_attend_events, childFragment).commit();
 
         updateProfilePicture();
-        updateAttendEvent();
+        //updateAttendEvent();
+
+
+        recyclerView = v.findViewById(R.id.recyclerView_My_Events_Id);
+
+
+
+        //Test of recycleview
+        List<event> mList = new ArrayList<>();
+        mList.add(new event("Fest i Slusen","AAU","23 m","photo"));
+        mList.add(new event("Lunch","Canteen","50 m","photo"));
+        mList.add(new event("Dinner","Canteen","50 m","photo"));
+        mList.add(new event("Homework","Canteen","50 m","photo"));
+        mList.add(new event("Sleep","Canteen","50 m","photo"));
+
+        Adapter_Event_Cards adapter = new Adapter_Event_Cards(getContext(),mList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+        ViewCompat.setNestedScrollingEnabled(recyclerView, false);
+
+
 
         buttonSignOut.setOnClickListener(this);
         buttonSettings.setOnClickListener(this);
         return v;
-       // return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -193,9 +200,8 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 //        FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
 //        final String UID = fireUser.getUid(); //store user id
 
-        Random r = new Random();
         // spaceRef now points to "users/userID.jpg"
-        StorageReference spaceRef = imagesRef.child("user" + r.nextInt(6) +".jpg");
+        StorageReference spaceRef = imagesRef.child("user2.jpg");
 
         spaceRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
@@ -223,10 +229,8 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
         // spaceRef now points to "users/userID.jpg"
 
-        Random r = new Random();
-        r.nextInt(6);
 
-        StorageReference spaceRef1 = imagesRef1.child("event" + r.nextInt(6) + ".jpg");
+        StorageReference spaceRef1 = imagesRef1.child("event1.jpg");
 
         spaceRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
@@ -241,7 +245,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
             }
         });
 
-        StorageReference spaceRef2 = imagesRef1.child("event" + r.nextInt(6) + ".jpg");
+        StorageReference spaceRef2 = imagesRef1.child("event1.jpg");
 
         spaceRef2.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
@@ -256,7 +260,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
             }
         });
 
-        StorageReference spaceRef3 = imagesRef1.child("event" + r.nextInt(6) + ".jpg");
+        StorageReference spaceRef3 = imagesRef1.child("event1.jpg");
 
         spaceRef3.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
@@ -266,22 +270,6 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                             .load(task.getResult())
                             .transform(new CenterCrop(), new RoundedCorners(20))
                             .into(mImageEvent3);
-
-                    //DELETE progressbar to and show content
-
-                    mImageEvent1.setVisibility(View.VISIBLE);
-                    mImageEvent2.setVisibility(View.VISIBLE);
-                    mImageEvent3.setVisibility(View.VISIBLE);
-                    buttonSignOut.setVisibility(View.VISIBLE);
-                    buttonSettings.setVisibility(View.VISIBLE);
-                    profilePictureImageView.setVisibility(View.VISIBLE);
-                    settingsIcon.setVisibility(View.VISIBLE);
-                    menuIcon.setVisibility(View.VISIBLE);
-                    name.setVisibility(View.VISIBLE);
-                    bio.setVisibility(View.VISIBLE);
-
-                    loadingPanel.setVisibility(View.GONE);
-
                 }
             }
         });

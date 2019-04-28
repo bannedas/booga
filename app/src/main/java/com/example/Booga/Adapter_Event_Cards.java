@@ -46,7 +46,6 @@ public class Adapter_Event_Cards extends RecyclerView.Adapter<Adapter_Event_Card
         holder.event_title.setText(mData.get(position).getmTitle());
         holder.event_location.setText(mData.get(position).getmLocation());
         holder.event_distance.setText(mData.get(position).getmDistance());
-        //holder.event_photo.setImageResource(R.drawable.index);
 
         FirebaseStorage storage1 = FirebaseStorage.getInstance();
         // Create a storage reference from our app

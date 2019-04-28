@@ -1,306 +1,53 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.constraint.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragment_attend_events">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textViewAttentEventId"
-            style="@style/text_view_user_info_style"
-            android:layout_width="wrap_content"
-            android:layout_height="16dp"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/roboto"
-            android:text="@string/text_view_attend_events"
-            android:textColor="@color/color_000000"
-            android:textSize="@dimen/text_view_user_info_size"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewSeeMoreId"
-            style="@style/text_view_user_info_style"
-            android:layout_width="wrap_content"
-            android:layout_height="16dp"
-            android:layout_marginEnd="8dp"
-            android:fontFamily="@font/roboto"
-            android:text="@string/text_view_see_more"
-            android:textColor="@color/colorPrimary"
-            android:textSize="@dimen/text_view_user_info_size"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </android.support.constraint.ConstraintLayout>
-
-    <HorizontalScrollView
+    <TextView
+        android:id="@+id/textViewHostedEventId"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/hosted_events_photo_height"
-        android:layout_gravity="center"
-        android:fillViewport="true"
-        android:scrollbars="none">
+        android:layout_height="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/roboto"
+        android:scaleType="centerCrop"
+        android:text="@string/text_view_attend_events"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_view_user_info_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_Attend_Events_Id"
+        app:layout_constraintStart_toStartOf="parent" />
 
-        <android.support.constraint.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/textViewSeeMoreId3"
+        android:layout_width="wrap_content"
+        android:layout_height="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/roboto"
+        android:scaleType="centerCrop"
+        android:text="@string/text_view_see_more"
+        android:textColor="@color/frenchrose"
+        android:textSize="@dimen/text_view_user_info_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_Attend_Events_Id"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/card1"
-                android:layout_width="@dimen/hosted_events_photo_width"
-                android:layout_height="@dimen/hosted_events_photo_height"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent">
 
-                <ImageView
-                    android:id="@+id/imageEvent1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/card_event_style"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0"
-                    app:srcCompat="@color/onyx" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_Attend_Events_Id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/textTitleOfEvent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginBottom="40dp"
-                    android:fontFamily="@font/poppins"
-                    android:text="TitleOfEvent"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="@id/imageEvent1"
-                    app:layout_constraintStart_toStartOf="@+id/imageEvent1" />
-
-                <ImageView
-                    android:id="@+id/icon_map_shortcut"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginBottom="24dp"
-                    app:layout_constraintBottom_toBottomOf="@id/imageEvent1"
-                    app:layout_constraintStart_toStartOf="@+id/imageEvent1"
-                    app:srcCompat="@drawable/map_shortcut_icon" />
-
-                <ImageView
-                    android:id="@+id/icon_filter_shortcut"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="118dp"
-                    android:layout_marginBottom="24dp"
-                    app:layout_constraintBottom_toBottomOf="@id/imageEvent1"
-                    app:layout_constraintStart_toStartOf="@+id/imageEvent1"
-                    app:srcCompat="@drawable/map_shortcut_icon" />
-
-                <TextView
-                    android:id="@+id/text_distance_to_event"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="DistToEvent"
-                    android:textColor="@color/white"
-                    android:textSize="11sp"
-                    app:layout_constraintBottom_toBottomOf="@id/imageEvent1"
-                    app:layout_constraintStart_toStartOf="@+id/icon_map_shortcut" />
-
-                <TextView
-                    android:id="@+id/text_location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="Location"
-                    android:textColor="@color/white"
-                    android:textSize="11sp"
-                    app:layout_constraintBottom_toBottomOf="@id/imageEvent1"
-                    app:layout_constraintStart_toStartOf="@+id/icon_filter_shortcut" />
-            </android.support.constraint.ConstraintLayout>
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/card2"
-                android:layout_width="@dimen/hosted_events_photo_width"
-                android:layout_height="@dimen/hosted_events_photo_height"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/card1">
-
-                <ImageView
-                    android:id="@+id/imageEvent2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/card_event_style"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0"
-                    app:srcCompat="@color/onyx" />
-
-                <TextView
-                    android:id="@+id/textTitleOfEvent2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginBottom="40dp"
-                    android:fontFamily="@font/poppins"
-                    android:text="TitleOfEvent"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="@id/imageEvent2"
-                    app:layout_constraintStart_toStartOf="@+id/imageEvent2" />
-
-                <ImageView
-                    android:id="@+id/icon_map_shortcut2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginBottom="24dp"
-                    app:layout_constraintBottom_toBottomOf="@id/imageEvent2"
-                    app:layout_constraintStart_toStartOf="@+id/imageEvent2"
-                    app:srcCompat="@drawable/map_shortcut_icon" />
-
-                <ImageView
-                    android:id="@+id/icon_filter_shortcut2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="118dp"
-                    android:layout_marginBottom="24dp"
-                    app:layout_constraintBottom_toBottomOf="@id/imageEvent2"
-                    app:layout_constraintStart_toStartOf="@+id/imageEvent2"
-                    app:srcCompat="@drawable/map_shortcut_icon" />
-
-                <TextView
-                    android:id="@+id/text_distance_to_event2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="DistToEvent"
-                    android:textColor="@color/white"
-                    android:textSize="11sp"
-                    app:layout_constraintBottom_toBottomOf="@id/imageEvent2"
-                    app:layout_constraintStart_toStartOf="@+id/icon_map_shortcut2" />
-
-                <TextView
-                    android:id="@+id/text_location2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="Location"
-                    android:textColor="@color/white"
-                    android:textSize="11sp"
-                    app:layout_constraintBottom_toBottomOf="@id/imageEvent2"
-                    app:layout_constraintStart_toStartOf="@+id/icon_filter_shortcut2" />
-            </android.support.constraint.ConstraintLayout>
-
-            <android.support.constraint.ConstraintLayout
-                android:id="@+id/card3"
-                android:layout_width="@dimen/hosted_events_photo_width"
-                android:layout_height="@dimen/hosted_events_photo_height"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/card2">
-
-                <ImageView
-                    android:id="@+id/imageEvent3"
-                    android:layout_width="274dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/card_event_style"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0"
-                    app:srcCompat="@color/onyx" />
-
-                <TextView
-                    android:id="@+id/textTitleOfEvent3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginBottom="40dp"
-                    android:fontFamily="@font/poppins"
-                    android:text="TitleOfEvent"
-                    android:textColor="@color/white"
-                    android:textSize="24sp"
-                    app:layout_constraintBottom_toBottomOf="@id/imageEvent3"
-                    app:layout_constraintStart_toStartOf="@+id/imageEvent3" />
-
-                <ImageView
-                    android:id="@+id/icon_map_shortcut3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginBottom="24dp"
-                    app:layout_constraintBottom_toBottomOf="@id/imageEvent3"
-                    app:layout_constraintStart_toStartOf="@+id/imageEvent3"
-                    app:srcCompat="@drawable/map_shortcut_icon" />
-
-                <ImageView
-                    android:id="@+id/icon_filter_shortcut3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="118dp"
-                    android:layout_marginBottom="24dp"
-                    app:layout_constraintBottom_toBottomOf="@id/imageEvent3"
-                    app:layout_constraintStart_toStartOf="@+id/imageEvent3"
-                    app:srcCompat="@drawable/map_shortcut_icon" />
-
-                <TextView
-                    android:id="@+id/text_distance_to_event3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="DistToEvent"
-                    android:textColor="@color/white"
-                    android:textSize="11sp"
-                    app:layout_constraintBottom_toBottomOf="@id/imageEvent3"
-                    app:layout_constraintStart_toStartOf="@+id/icon_map_shortcut3" />
-
-                <TextView
-                    android:id="@+id/text_location3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginBottom="20dp"
-                    android:fontFamily="@font/roboto"
-                    android:text="Location"
-                    android:textColor="@color/white"
-                    android:textSize="11sp"
-                    app:layout_constraintBottom_toBottomOf="@id/imageEvent3"
-                    app:layout_constraintStart_toStartOf="@+id/icon_filter_shortcut3" />
-            </android.support.constraint.ConstraintLayout>
-        </android.support.constraint.ConstraintLayout>
-    </HorizontalScrollView>
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>

@@ -5,12 +5,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -23,6 +27,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static android.webkit.ConsoleMessage.MessageLevel.LOG;
@@ -49,11 +55,7 @@ public class fragment_attend_events extends Fragment {
     private static final String TAG = "fragment_attend_events";
     private FirebaseAuth mAuth;
 
-    ImageView mImageEvent1;
-    ImageView mImageEvent2;
-    ImageView mImageEvent3;
-
-    TextView mTextAttent;
+    RecyclerView recyclerView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -94,22 +96,23 @@ public class fragment_attend_events extends Fragment {
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_attend_events, container, false);
-        mImageEvent1 = v.findViewById(R.id.imageEvent1);
-        mImageEvent2 = v.findViewById(R.id.imageEvent2);
-        mImageEvent3 = v.findViewById(R.id.imageEvent3);
 
-        mTextAttent = v.findViewById(R.id.textViewAttentEventId);
+        recyclerView = v.findViewById(R.id.recyclerView_Attend_Events_Id);
 
-        mImageEvent1.setVisibility(View.GONE);
-        mImageEvent2.setVisibility(View.GONE);
-        mImageEvent3.setVisibility(View.GONE);
-        mTextAttent.setVisibility(View.GONE);
+        //Test of recycleview
+        List<event> mList = new ArrayList<>();
+        mList.add(new event("Fest i Slusen","AAU","23 m","photo"));
+        mList.add(new event("Lunch","Canteen","50 m","photo"));
+        mList.add(new event("Dinner","Canteen","50 m","photo"));
+        mList.add(new event("Homework","Canteen","50 m","photo"));
+        mList.add(new event("Sleep","Canteen","50 m","photo"));
 
+        Adapter_Event_Cards adapter = new Adapter_Event_Cards(getContext(),mList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
+        recyclerView.setAdapter(adapter);
+        ViewCompat.setNestedScrollingEnabled(recyclerView, false);
 
-
-        updateProfilePicture();
         return v;
-        // return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -149,70 +152,5 @@ public class fragment_attend_events extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    private void updateProfilePicture() {
-        FirebaseStorage storage1 = FirebaseStorage.getInstance();
-        // Create a storage reference from our app
-        StorageReference storageRef1 = storage1.getReference();
-        // Points to user_photo
-        StorageReference imagesRef1 = storageRef1.child("events");
-
-        // Get User ID
-//        FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
-//        final String UID = fireUser.getUid(); //store user id
-
-        Random r = new Random();
-
-        // spaceRef now points to "users/userID.jpg"
-        StorageReference spaceRef1 = imagesRef1.child("event" + r.nextInt(6) +".jpg");
-
-        spaceRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    Glide.with(fragment_attend_events.this)
-                            .load(task.getResult())
-                            .transform(new CenterCrop(), new RoundedCorners(20))
-                            .into(mImageEvent1);
-
-                }
-            }
-        });
-
-        StorageReference spaceRef2 = imagesRef1.child("event" + r.nextInt(6) +".jpg");
-
-        spaceRef2.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    Glide.with(fragment_attend_events.this)
-                            .load(task.getResult())
-                            .transform(new CenterCrop(), new RoundedCorners(20))
-                            .into(mImageEvent2);
-
-                }
-            }
-        });
-
-        StorageReference spaceRef3 = imagesRef1.child("event" + r.nextInt(6) +".jpg");
-
-        spaceRef3.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    Glide.with(fragment_attend_events.this)
-                            .load(task.getResult())
-                            .transform(new CenterCrop(), new RoundedCorners(20))
-                            .into(mImageEvent3);
-
-                    mImageEvent1.setVisibility(View.VISIBLE);
-                    mImageEvent2.setVisibility(View.VISIBLE);
-                    mImageEvent3.setVisibility(View.VISIBLE);
-                    mTextAttent.setVisibility(View.VISIBLE);
-
-                }
-            }
-        });
     }
 }
