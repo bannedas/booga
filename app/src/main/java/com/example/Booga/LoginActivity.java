@@ -89,12 +89,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         };
 
-
-// Callback registration
+        // Callback registration
         mFacebookLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
 
                 mFacebookLoginButton.setEnabled(false);
 
@@ -103,9 +101,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         Log.d(TAG, "facebook:onSucces:" + loginResult);
-
                         handleFacebookAccessToken(loginResult.getAccessToken());
-
                     }
 
                     @Override
@@ -147,9 +143,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mAuth.removeAuthStateListener(mAuthListener);
 
     }
-
-
-
     private void handleFacebookAccessToken(final AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 

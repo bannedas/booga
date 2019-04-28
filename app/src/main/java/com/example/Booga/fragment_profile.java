@@ -53,10 +53,6 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     ImageView settingsIcon;
     ImageView menuIcon;
 
-    ImageView mImageEvent1;
-    ImageView mImageEvent2;
-    ImageView mImageEvent3;
-
     TextView name;
     TextView bio;
     TextView pictureError;
@@ -116,6 +112,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         transaction.add(R.id.fragment_container_attend_events, childFragment).commit();
 
         updateProfilePicture();
+        updateUserName();
 
         //Test of recycleview
         List<event> mList = new ArrayList<>();
@@ -173,8 +170,6 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         void onFragmentInteraction(Uri uri);
     }
 
-
-
     private void updateProfilePicture() {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         // Create a storage reference from our app
@@ -186,7 +181,6 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
         assert fireUser != null;
         final String UID = fireUser.getUid(); //store user id
-
         // spaceRef now points to "users/userID.jpg"
         StorageReference spaceRef = imagesRef.child(UID + ".jpg");
 
@@ -197,7 +191,6 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                     Glide.with(fragment_profile.this)
                             .load(task.getResult())
                             .into(profilePictureImageView);
-
                 } else {
                     pictureError.setVisibility(View.VISIBLE);
                 }
@@ -205,66 +198,14 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         });
     }
 
-    private void updateAttendEvent() {
-        FirebaseStorage storage1 = FirebaseStorage.getInstance();
-        // Create a storage reference from our app
-        StorageReference storageRef1 = storage1.getReference();
-        // Points to user_photo
-        StorageReference imagesRef1 = storageRef1.child("events");
+    private void updateUserName() {
 
         // Get User ID
-//        FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
-//        final String UID = fireUser.getUid(); //store user id
-
-        // spaceRef now points to "users/userID.jpg"
-
-
-        StorageReference spaceRef1 = imagesRef1.child("event1.jpg");
-
-        spaceRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    Glide.with(fragment_profile.this)
-                            .load(task.getResult())
-                            .transform(new CenterCrop(), new RoundedCorners(20))
-                            .into(mImageEvent1);
-
-                }
-            }
-        });
-
-        StorageReference spaceRef2 = imagesRef1.child("event1.jpg");
-
-        spaceRef2.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    Glide.with(fragment_profile.this)
-                            .load(task.getResult())
-                            .transform(new CenterCrop(), new RoundedCorners(20))
-                            .into(mImageEvent2);
-
-                }
-            }
-        });
-
-        StorageReference spaceRef3 = imagesRef1.child("event1.jpg");
-
-        spaceRef3.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    Glide.with(fragment_profile.this)
-                            .load(task.getResult())
-                            .transform(new CenterCrop(), new RoundedCorners(20))
-                            .into(mImageEvent3);
-                }
-            }
-        });
-
-
+        FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
+        assert fireUser != null;
+        final String UID = fireUser.getUid(); //store user id
     }
+
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.iconSettingsId:

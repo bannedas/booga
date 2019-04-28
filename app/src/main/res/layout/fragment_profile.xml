@@ -1,15 +1,5 @@
-<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:tools="http://schemas.android.com/tools"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--tools:context=".fragment_profile"-->
-    <!--android:background="@color/white">-->
-
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container_hosted_events"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,7 +11,6 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
 
         <ImageView
             android:id="@+id/profilePictureId"
@@ -35,7 +24,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
-
 
         <ImageView
             android:id="@+id/iconSettingsId"
@@ -86,7 +74,7 @@
             android:minLines="1"
             android:maxLines="2"
             android:singleLine="false"
-            android:text="Frederik Andreas Røssell"
+            android:text="@string/text_view_name_placeholder"
             android:textColor="@color/color_000000"
             android:textSize="@dimen/text_view_name_size"
             android:textStyle="bold"
@@ -105,10 +93,9 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto"
-            android:text="CEO. Writer. Fancy dancer."
+            android:text="@string/text_view_bio_placeholder"
             android:textColor="@color/color_4a4a4a"
             android:textSize="@dimen/text_view_user_info_size"
-            app:layout_constraintBottom_toTopOf="@+id/container_hosted_events"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_name" />
@@ -180,4 +167,3 @@
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
-<!--</FrameLayout>-->

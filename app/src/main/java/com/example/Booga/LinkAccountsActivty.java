@@ -35,7 +35,6 @@ public class LinkAccountsActivty extends AppCompatActivity implements View.OnCli
 
     AccessToken accessToken = AccessToken.getCurrentAccessToken();
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,16 +63,10 @@ public class LinkAccountsActivty extends AppCompatActivity implements View.OnCli
             mEmailLoginButton1.setVisibility(View.VISIBLE);
         }
 
-
-
-
         findViewById(R.id.mergeLoginButtonId).setOnClickListener(LinkAccountsActivty.this);
         findViewById(R.id.mergeFacebookButtonId).setOnClickListener(LinkAccountsActivty.this);
 
         mAuth = FirebaseAuth.getInstance();
-
-
-
     }
 
     public void mergeFacebookToEmail() {

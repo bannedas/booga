@@ -17,7 +17,6 @@
         <activity android:name=".ResetPasswordActivity" />
         <activity android:name=".LinkAccountsActivty" />
         <activity android:name=".MainScreenActivity" />
-        <activity android:name=".ProfileActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".LoginActivity" />
         <activity

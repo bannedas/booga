@@ -55,8 +55,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         buttonLogin = findViewById(R.id.buttonSignUpLoginId);
         buttonLogin.setOnClickListener(this);
     }
-
-
+    
         /*
         This method Registers the user.
          */
@@ -113,7 +112,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         /*
         This code uses the entry point for Firebase and uses the createUserWithEmailAndPassword method
-        to create a user so it is saved in Firebase. For now it redirects to the ProfileActivity,
+        to create a user so it is saved in Firebase. For now it redirects to the MainScreenActivity,
         this we can just edit later.
          */
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -139,7 +138,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                         }
                     });
 
-                    //If everything succeeds, redirect to ProfileActivity
+                    //If everything succeeds, redirect to MainScreenActivity
                     Intent intent = new Intent(SignUpActivity.this, MainScreenActivity.class);
 
                      /*This method ensures that the 2 activities Login and Signup gets removed from the stack,

@@ -82,7 +82,6 @@ public class Adapter_Event_Cards extends RecyclerView.Adapter<Adapter_Event_Card
         ImageView event_photo;
         TextView event_title, event_location, event_distance;
 
-
         public myViewHolder(View itemView) {
             super(itemView);
             event_photo = itemView.findViewById(R.id.card_Event_Photo_Id);

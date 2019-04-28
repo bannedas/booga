@@ -62,7 +62,6 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_page);
 
-
         mCallbackManager = CallbackManager.Factory.create();
 
         mButtonMergeFacebook = findViewById(R.id.buttonMergeFacebookWithEmailId);
@@ -87,9 +86,6 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
             mButtonMergeEmail.setVisibility(View.GONE);
         }
         mAuth = FirebaseAuth.getInstance();
-
-
-
 
         // Callback registration
         mButtonMergeFacebook.setOnClickListener(new View.OnClickListener() {

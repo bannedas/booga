@@ -73,10 +73,6 @@ public class fragment_my_event extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
-
-
     }
 
     @Override
@@ -87,8 +83,6 @@ public class fragment_my_event extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_my_event, container, false);
         recyclerView = v.findViewById(R.id.recyclerView_My_Events_Id);
-
-
 
         //Test of recycleview
         List<event> mList = new ArrayList<>();

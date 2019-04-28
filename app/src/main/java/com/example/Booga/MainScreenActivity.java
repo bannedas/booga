@@ -14,8 +14,7 @@ import android.view.MenuItem;
 
 public class MainScreenActivity extends AppCompatActivity implements fragment_all_events.OnFragmentInteractionListener,
         fragment_near_me.OnFragmentInteractionListener, fragment_my_event.OnFragmentInteractionListener,
-        fragment_profile.OnFragmentInteractionListener, fragment_attend_events.OnFragmentInteractionListener,
-        fragment_hosted_events.OnFragmentInteractionListener{
+        fragment_profile.OnFragmentInteractionListener, fragment_attend_events.OnFragmentInteractionListener{
 
     private static final String TAG = "MainScreenActivity";
 
@@ -31,8 +30,6 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
         loadFragment(new fragment_near_me(),R.id.fragment_container_main);
         loadFragment(new fragment_toolbar(),R.id.fragment_container_toolbar);
     }
-
-
 
     private void loadFragment(Fragment fragment, int fragmentContainerID) {
         // load fragment

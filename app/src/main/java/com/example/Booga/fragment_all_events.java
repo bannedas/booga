@@ -27,10 +27,8 @@ import java.util.List;
  */
 public class fragment_all_events extends Fragment {
 
-
     private static final String TAG = "fragment_all_events";
     private FirebaseAuth mAuth;
-
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -79,8 +77,6 @@ public class fragment_all_events extends Fragment {
         recyclerView_Events_Nearby = v.findViewById(R.id.recyclerView_All_Events_Nearby_Id);
         recyclerView_Events_Trending =v.findViewById(R.id.recyclerView_All_Events_Trending_Id);
         recyclerView_Event_Types = v.findViewById(R.id.recyclerView_Event_Type_Id);
-
-
 
         //Test of recycleview
         List<event> mList = new ArrayList<>();

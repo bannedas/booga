@@ -69,7 +69,7 @@
         android:layout_marginEnd="8dp"
         android:background="@color/common_google_signin_btn_text_light_focused"
         android:fontFamily="@font/poppins"
-        android:text="@string/sign_out_button"
+        android:text="@string/button_sign_out"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

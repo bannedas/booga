@@ -12,12 +12,9 @@ import android.view.ViewGroup;
  * A simple {@link Fragment} subclass.
  */
 public class fragment_toolbar extends Fragment {
-
-
     public fragment_toolbar() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
