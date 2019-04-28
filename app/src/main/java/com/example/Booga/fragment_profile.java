@@ -28,6 +28,7 @@ import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -58,9 +59,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
     TextView name;
     TextView bio;
-
-    Button buttonSignOut;
-    Button buttonSettings;
+    TextView pictureError;
 
     RecyclerView recyclerView;
 
@@ -97,23 +96,19 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
-        profilePictureImageView = v.findViewById(R.id.profilePictureId);
 
+        profilePictureImageView = v.findViewById(R.id.profilePictureId);
         settingsIcon = v.findViewById(R.id.iconSettingsId);
         menuIcon = v.findViewById(R.id.iconMenuId);
-
-
-//        mImageEvent1 = v.findViewById(R.id.imageEvent4);
-//        mImageEvent2 = v.findViewById(R.id.imageEvent5);
-//        mImageEvent3 = v.findViewById(R.id.imageEvent6);
-        buttonSignOut = v.findViewById(R.id.button_sign_out);
-        buttonSettings = v.findViewById(R.id.buttonSettingsId);
         name = v.findViewById(R.id.text_view_name);
         bio = v.findViewById(R.id.text_view_user_info);
+        pictureError = v.findViewById(R.id.text_view_picture_error);
+        pictureError.setVisibility(View.GONE);
+
+        recyclerView = v.findViewById(R.id.recyclerView_My_Events_Id);
 
         Fragment childFragment = new fragment_attend_events();
 
@@ -121,12 +116,6 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         transaction.add(R.id.fragment_container_attend_events, childFragment).commit();
 
         updateProfilePicture();
-        //updateAttendEvent();
-
-
-        recyclerView = v.findViewById(R.id.recyclerView_My_Events_Id);
-
-
 
         //Test of recycleview
         List<event> mList = new ArrayList<>();
@@ -141,10 +130,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         recyclerView.setAdapter(adapter);
         ViewCompat.setNestedScrollingEnabled(recyclerView, false);
 
-
-
-        buttonSignOut.setOnClickListener(this);
-        buttonSettings.setOnClickListener(this);
+        settingsIcon.setOnClickListener(this);
         return v;
     }
 
@@ -197,11 +183,12 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         StorageReference imagesRef = storageRef.child("user_photo");
 
         // Get User ID
-//        FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
-//        final String UID = fireUser.getUid(); //store user id
+        FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
+        assert fireUser != null;
+        final String UID = fireUser.getUid(); //store user id
 
         // spaceRef now points to "users/userID.jpg"
-        StorageReference spaceRef = imagesRef.child("user2.jpg");
+        StorageReference spaceRef = imagesRef.child(UID + ".jpg");
 
         spaceRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
@@ -211,6 +198,8 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                             .load(task.getResult())
                             .into(profilePictureImageView);
 
+                } else {
+                    pictureError.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -278,21 +267,8 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     }
     public void onClick(View view) {
         switch(view.getId()) {
-            //When Sign up button is pressed, call the method registerUser
-            case R.id.button_sign_out:
-                Log.d(TAG, "User signed out");
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-                } else {
-                    startActivity(intent);
-                }
-                mAuth.signOut();
-                LoginManager.getInstance().logOut();
-                break;
-
-            case R.id.buttonSettingsId:
-                 intent = new Intent(getActivity(), SettingsPageActivity.class);
+            case R.id.iconSettingsId:
+                 Intent intent = new Intent(getActivity(), SettingsPageActivity.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
                     Log.d(TAG, "WARNING" +mAuth.getCurrentUser().getProviders());

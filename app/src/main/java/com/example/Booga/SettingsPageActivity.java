@@ -1,13 +1,20 @@
 package com.example.Booga;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -22,7 +29,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 import static com.example.Booga.LinkAccountsActivty.mEmailLoginButton1;
@@ -35,6 +45,14 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
     Button mButtonMergeEmail, mButtonMergeFacebook;
     FirebaseAuth mAuth;
 
+    Button buttonSignOut;
+    Button buttonUploadPic;
+
+    //uploading img to firebase
+    private final int PICK_IMAGE_REQUEST = 71;
+    private Uri filePath;
+    private ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +63,15 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
 
         mButtonMergeFacebook = findViewById(R.id.buttonMergeFacebookWithEmailId);
         mButtonMergeEmail = findViewById(R.id.buttonMergeEmailWithFacebookId);
+        buttonSignOut = findViewById(R.id.button_sign_out);
+        buttonUploadPic = findViewById(R.id.button_upload_picture);
+
         mButtonMergeEmail.setOnClickListener(this);
+        buttonSignOut.setOnClickListener(this);
+        buttonUploadPic.setOnClickListener(this);
+
+        imageView = findViewById(R.id.imgView);
+
         mButtonMergeFacebook.setVisibility(View.VISIBLE);
         mButtonMergeEmail.setVisibility(View.VISIBLE);
 
@@ -125,7 +151,6 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
         switch (view.getId()) {
             //When Sign up button is pressed, call the method registerUser
             case R.id.buttonMergeEmailWithFacebookId:
-
                 Intent intent = new Intent(getApplicationContext(), LinkAccountsActivty.class);
                 Bundle bundle = new Bundle();
                 bundle.putInt("VAL", 1);
@@ -133,6 +158,25 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
                 startActivity(intent);
                 break;
 
+            //When Sign up button is pressed, call the method registerUser
+            case R.id.button_sign_out:
+                Log.d(TAG, "User signed out");
+                intent = new Intent(this, LoginActivity.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                } else {
+                    startActivity(intent);
+                }
+                mAuth.signOut();
+                LoginManager.getInstance().logOut();
+                break;
+
+            case R.id.button_upload_picture:
+                Log.d(TAG, "Clicked upload picture button");
+                intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
         }
     }
 
@@ -140,6 +184,35 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null )
+        {
+            filePath = data.getData();
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                imageView.setImageBitmap(bitmap);
+
+                FirebaseStorage storage = FirebaseStorage.getInstance();
+                // Create a storage reference from our app
+                StorageReference storageRef = storage.getReference();
+                // Points to user_photo
+                StorageReference imagesRef = storageRef.child("user_photo");
+
+                // Get User ID
+                FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
+                assert fireUser != null;
+                final String UID = fireUser.getUid(); //store user id
+
+                // spaceRef now points to "users/userID.jpg"
+                StorageReference spaceRef = imagesRef.child(UID + ".jpg");
+
+                spaceRef.putFile(filePath);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

@@ -66,6 +66,9 @@
     <string name="browse_by_event_type">Browse by event type</string>
     <string name="todo">TODO</string>
 
+    <!-- Profile fragment -->
+    <string name="text_view_picture_not_found">Please upload profile picture</string>
+
     <!-- Reset Password activity -->
     <string name="button_reset_password">Reset your password</string>
     <string name="text_view_reset_password"><html>Enter your email and we\'ll send\nyou a link to get back into your account.</html></string>
@@ -73,5 +76,6 @@
 
     <!-- SettingsPageActivity activity -->
     <string name="button_merge">Merge accounts</string>
+    <string name="button_upload_picture">Upload picture</string>
 
 </resources>
