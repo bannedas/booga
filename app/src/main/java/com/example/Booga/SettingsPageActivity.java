@@ -1,6 +1,8 @@
 package com.example.Booga;
 
 import android.app.ActivityOptions;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -9,9 +11,11 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -32,12 +36,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.example.Booga.LinkAccountsActivty.mEmailLoginButton1;
 
@@ -51,11 +59,11 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
 
     Button buttonSignOut;
     Button buttonUploadPic;
+    Button buttonBioEdit;
 
     //uploading img to firebase
     private final int PICK_IMAGE_REQUEST = 71;
     private Uri filePath;
-    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,12 +76,12 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
         mButtonMergeEmail = findViewById(R.id.buttonMergeEmailWithFacebookId);
         buttonSignOut = findViewById(R.id.button_sign_out);
         buttonUploadPic = findViewById(R.id.button_upload_picture);
+        buttonBioEdit = findViewById(R.id.button_bio_edit);
 
         mButtonMergeEmail.setOnClickListener(this);
         buttonSignOut.setOnClickListener(this);
         buttonUploadPic.setOnClickListener(this);
-
-        imageView = findViewById(R.id.imgView);
+        buttonBioEdit.setOnClickListener(this);
 
         mButtonMergeFacebook.setVisibility(View.VISIBLE);
         mButtonMergeEmail.setVisibility(View.VISIBLE);
@@ -177,7 +185,55 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+
+            case R.id.button_bio_edit:
+                Log.d(TAG, "Clicked edit bio button");
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Edit bio");
+
+                // Set up the input
+                final EditText input = new EditText(this);
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                builder.setView(input);
+
+                // Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String bioString = input.getText().toString();
+
+                        writeBioToDatabase(bioString);
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                builder.show();
+
         }
+    }
+
+    private void writeBioToDatabase(final String bioString) {
+        //init db
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        //get uid
+        FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
+        assert fireUser != null; // check if user != null
+        final String UID = fireUser.getUid(); //store user id
+
+        //setup what to write
+        Map<String, Object> dbUser = new HashMap<>();
+        dbUser.put("bio", bioString);
+
+        // Add a new document with a generated ID
+        db.collection("users").document(UID)
+                .set(dbUser, SetOptions.merge());
+
     }
 
     @Override

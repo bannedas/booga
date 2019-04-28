@@ -118,7 +118,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         transaction.add(R.id.fragment_container_attend_events, childFragment).commit();
 
         updateProfilePicture();
-        updateUserName();
+        updateUserNameAndBio();
 
         //Test of recycleview
         List<event> mList = new ArrayList<>();
@@ -204,7 +204,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         });
     }
 
-    private void updateUserName() {
+    private void updateUserNameAndBio() {
         // Get User ID
         final FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
         assert fireUser != null;
@@ -223,8 +223,13 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                     if (document.exists()) {
                         String firstName = document.getString("first_name");
                         String lastName = document.getString("last_name");
+                        String userBio = document.getString("bio");
+
                         String firstLastName = getString(R.string.text_view_name_placeholder, firstName, lastName);
+
                         name.setText(firstLastName);
+                        bio.setText(userBio);
+
                     } else {
                         Log.d(TAG, "No such document");
                     }

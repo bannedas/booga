@@ -68,5 +68,6 @@
     <string name="button_merge">Merge accounts</string>
     <string name="button_upload_picture">Upload picture</string>
     <string name="button_sign_out">Sign Out</string>
+    <string name="button_bio_edit">Edit bio</string>
 
 </resources>
