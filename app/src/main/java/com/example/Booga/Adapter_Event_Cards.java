@@ -1,6 +1,7 @@
 package com.example.Booga;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,12 @@ import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -34,16 +41,35 @@ public class Adapter_Event_Cards extends RecyclerView.Adapter<Adapter_Event_Card
     }
 
     @Override
-    public void onBindViewHolder(@NonNull myViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final myViewHolder holder, int position) {
 
         holder.event_title.setText(mData.get(position).getmTitle());
         holder.event_location.setText(mData.get(position).getmLocation());
         holder.event_distance.setText(mData.get(position).getmDistance());
-        holder.event_photo.setImageResource(R.drawable.index);
+        //holder.event_photo.setImageResource(R.drawable.index);
 
-        // TODO Make this function extract the image from firebase
-        //Glide.with(mContext).load(METOD_TO_GET_IMAGE_FROM_FILE_NAME(mData.get(position).getmPhoto())).into(holder.event_photo);
+        FirebaseStorage storage1 = FirebaseStorage.getInstance();
+        // Create a storage reference from our app
+        StorageReference storageRef1 = storage1.getReference();
+        // Points to events folder in database
+        StorageReference imagesRef1 = storageRef1.child("events");
 
+        // TODO get specific event photo
+
+        StorageReference spaceRef1 = imagesRef1.child("event1.jpg");
+
+        spaceRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Glide.with(mContext)
+                            .load(task.getResult())
+                            .transform(new CenterCrop(), new RoundedCorners(20))
+                            .into(holder.event_photo);
+
+                }
+            }
+        });
     }
 
     @Override
