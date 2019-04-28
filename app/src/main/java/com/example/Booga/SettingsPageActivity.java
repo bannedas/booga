@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
@@ -23,6 +24,8 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -31,6 +34,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -188,30 +192,35 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
                 && data != null && data.getData() != null )
         {
             filePath = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-                imageView.setImageBitmap(bitmap);
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            // Create a storage reference from our app
+            StorageReference storageRef = storage.getReference();
+            // Points to user_photo
+            StorageReference imagesRef = storageRef.child("user_photo");
 
-                FirebaseStorage storage = FirebaseStorage.getInstance();
-                // Create a storage reference from our app
-                StorageReference storageRef = storage.getReference();
-                // Points to user_photo
-                StorageReference imagesRef = storageRef.child("user_photo");
+            // Get User ID
+            FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
+            assert fireUser != null;
+            final String UID = fireUser.getUid(); //store user id
 
-                // Get User ID
-                FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
-                assert fireUser != null;
-                final String UID = fireUser.getUid(); //store user id
+            // spaceRef now points to "users/userID.jpg"
+            StorageReference spaceRef = imagesRef.child(UID + ".jpg");
 
-                // spaceRef now points to "users/userID.jpg"
-                StorageReference spaceRef = imagesRef.child(UID + ".jpg");
+            spaceRef.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Intent intent = new Intent(getApplicationContext(), MainScreenActivity.class);
+                    startActivity(intent);
+                }
+            })
+            .addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.e(TAG, "Error uploading profile pic!");
+                    Toast.makeText(SettingsPageActivity.this, "Error uploading", Toast.LENGTH_SHORT);
+                }
+            });
 
-                spaceRef.putFile(filePath);
-            }
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
         }
     }
 
