@@ -62,6 +62,8 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     TextView name;
     TextView bio;
     TextView pictureError;
+    TextView mUserEmail;
+    TextView mUserPhoneNumber;
 
     RecyclerView recyclerView;
 
@@ -95,10 +97,15 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         mAuth = FirebaseAuth.getInstance();
+
+
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mAuth = FirebaseAuth.getInstance();
 
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
@@ -107,10 +114,17 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         menuIcon = v.findViewById(R.id.iconMenuId);
         name = v.findViewById(R.id.text_view_name);
         bio = v.findViewById(R.id.text_view_user_info);
+        mUserEmail = v.findViewById(R.id.textViewShowUserEmailId);
+        mUserPhoneNumber = v.findViewById(R.id.textViewShowUserPhoneId);
         pictureError = v.findViewById(R.id.text_view_picture_error);
         pictureError.setVisibility(View.GONE);
 
         recyclerView = v.findViewById(R.id.recyclerView_My_Events_Id);
+
+        String userEmail = mAuth.getCurrentUser().getEmail();
+        String userPhone = mAuth.getCurrentUser().getPhoneNumber();
+        mUserEmail.setText(userEmail);
+        mUserPhoneNumber.setText(userPhone);
 
         Fragment childFragment = new fragment_attend_events();
 
@@ -135,6 +149,7 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
         settingsIcon.setOnClickListener(this);
         return v;
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

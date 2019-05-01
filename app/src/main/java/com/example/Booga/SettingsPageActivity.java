@@ -4,10 +4,8 @@ import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,15 +14,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,12 +38,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.example.Booga.LinkAccountsActivty.mEmailLoginButton1;
 
 public class SettingsPageActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -57,9 +50,16 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
     Button mButtonMergeEmail, mButtonMergeFacebook;
     FirebaseAuth mAuth;
 
-    Button buttonSignOut;
-    Button buttonUploadPic;
-    Button buttonBioEdit;
+    Button mbuttonSignOut;
+    Button mbuttonUploadPic;
+    Button mbuttonBioEdit;
+    Button mbuttonChangePassword;
+
+    EditText mEditTextChangePassword;
+    EditText mEditTextMatchChangePassword;
+
+    Switch mSwitchHideEmail;
+    Switch mSwitchHidePhoneNumber;
 
     //uploading img to firebase
     private final int PICK_IMAGE_REQUEST = 71;
@@ -74,14 +74,20 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
 
         mButtonMergeFacebook = findViewById(R.id.buttonMergeFacebookWithEmailId);
         mButtonMergeEmail = findViewById(R.id.buttonMergeEmailWithFacebookId);
-        buttonSignOut = findViewById(R.id.button_sign_out);
-        buttonUploadPic = findViewById(R.id.button_upload_picture);
-        buttonBioEdit = findViewById(R.id.button_bio_edit);
+        mbuttonSignOut = findViewById(R.id.button_sign_out);
+        mbuttonUploadPic = findViewById(R.id.button_upload_picture);
+        mbuttonBioEdit = findViewById(R.id.button_bio_edit);
+        mbuttonChangePassword = findViewById(R.id.buttonChangePasswordId);
+        mEditTextChangePassword = findViewById(R.id.editTextChangePasswordId);
+        mEditTextMatchChangePassword = findViewById(R.id.editTextMatchChangePasswordId);
+        mSwitchHideEmail = findViewById(R.id.switchMakeEmailPrivateId);
+        mSwitchHidePhoneNumber = findViewById(R.id.switchMakePhonePrivateId);
 
         mButtonMergeEmail.setOnClickListener(this);
-        buttonSignOut.setOnClickListener(this);
-        buttonUploadPic.setOnClickListener(this);
-        buttonBioEdit.setOnClickListener(this);
+        mbuttonSignOut.setOnClickListener(this);
+        mbuttonUploadPic.setOnClickListener(this);
+        mbuttonBioEdit.setOnClickListener(this);
+        mbuttonChangePassword.setOnClickListener(this);
 
         mButtonMergeFacebook.setVisibility(View.VISIBLE);
         mButtonMergeEmail.setVisibility(View.VISIBLE);
@@ -122,8 +128,31 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
                 });
             }
         });
-    }
 
+
+    }
+    public void updatePassword() {
+        String password = mEditTextChangePassword.getText().toString().trim();
+        String confirmPassword = mEditTextMatchChangePassword.getText().toString().trim();
+        if (password.isEmpty()) {
+            mEditTextChangePassword.setError("Password is required");
+            mEditTextChangePassword.requestFocus();
+            return;
+        }
+
+        if (password.length() < 6) {
+            mEditTextChangePassword.setError("Minimum length of password should be 6");
+            mEditTextChangePassword.requestFocus();
+            return;
+        }
+
+        if (!password.equals(confirmPassword)) {
+            mEditTextMatchChangePassword.setError(getString(Integer.parseInt("Passwords do not match")));
+            mEditTextMatchChangePassword.requestFocus();
+        }
+
+        mAuth.getCurrentUser().updatePassword(password);
+    }
     private void handleFacebookAccessToken(final AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
 
@@ -153,6 +182,8 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
                     }
                 });
     }
+
+
 
     @Override
     public void onClick(View view) {
@@ -185,6 +216,7 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+                break;
 
             case R.id.button_bio_edit:
                 Log.d(TAG, "Clicked edit bio button");
@@ -213,7 +245,27 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
                     }
                 });
                 builder.show();
+                break;
 
+            case R.id.buttonChangePasswordId:
+                Log.d(TAG, "change password button clicked");
+                updatePassword();
+                Toast.makeText(SettingsPageActivity.this, "Your password has been changed", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.switchMakeEmailPrivateId:
+                Log.d(TAG, "Email hide switch clicked");
+                if (mSwitchHideEmail.isActivated()) {
+                //HIDE THE EMAIL IN THE PROFILE
+            }
+                break;
+
+            case R.id.switchMakePhonePrivateId:
+                Log.d(TAG, "Phone number hide switch clicked");
+                if (mSwitchHidePhoneNumber.isActivated()) {
+                //HIDE THE PHONE NUBMER IN THE PROFILE
+            }
+                break;
         }
     }
 

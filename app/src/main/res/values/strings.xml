@@ -58,6 +58,8 @@
     <string name="text_view_picture_not_found">Please upload profile picture</string>
     <string name="text_view_name_placeholder">%1$s %2$s</string>
     <string name="text_view_bio_placeholder">No bio</string>
+    <string name="text_view_user_email">user email</string>
+    <string name="text_view_user_phone_number">user phone number</string>
 
     <!-- Reset Password activity -->
     <string name="button_reset_password">Reset your password</string>
@@ -69,5 +71,11 @@
     <string name="button_upload_picture">Upload picture</string>
     <string name="button_sign_out">Sign Out</string>
     <string name="button_bio_edit">Edit bio</string>
+    <string name="text_view_profile_settings">Profile Settings</string>
+    <string name="text_view_account_settings">Account Settings</string>
+    <string name="edit_text_change_password">Change Password</string>
+    <string name="switch_make_email_private">Make email private</string>
+    <string name="switch_make_phone_private">Make phone number private</string>
+
 
 </resources>
