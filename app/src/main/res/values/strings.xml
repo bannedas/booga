@@ -29,6 +29,10 @@
     <string name="text_view_sign_up_info">In order to use Booga, you need to \n sign up. Fill out the form below.</string>
     <string name="button_sign_up_facebook">Sign Up with Facebook</string>
 
+    <!--Top Toolbar text-->
+    <string name="toolbar_title_near_me">Events i nærheden</string>
+    <string name="toolbar_title_my_event">Mine events</string>
+
     <!--Bottom Navigation bar text-->
     <string name="bottom_navigation_near_me_text">Nær mig</string>
     <string name="bottom_navigation_all_events_text">Alle Events</string>
