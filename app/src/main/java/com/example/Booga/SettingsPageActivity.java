@@ -60,6 +60,10 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
 
     Switch mSwitchHideEmail;
     Switch mSwitchHidePhoneNumber;
+    Button buttonSignOut;
+    Button buttonUploadPic;
+    Button buttonBioEdit;
+    Button buttonCreateEvent; // temporary
 
     //uploading img to firebase
     private final int PICK_IMAGE_REQUEST = 71;
@@ -82,12 +86,20 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
         mEditTextMatchChangePassword = findViewById(R.id.editTextMatchChangePasswordId);
         mSwitchHideEmail = findViewById(R.id.switchMakeEmailPrivateId);
         mSwitchHidePhoneNumber = findViewById(R.id.switchMakePhonePrivateId);
+        buttonSignOut = findViewById(R.id.button_sign_out);
+        buttonUploadPic = findViewById(R.id.button_upload_picture);
+        buttonBioEdit = findViewById(R.id.button_bio_edit);
+        buttonCreateEvent = findViewById(R.id.buttonCreateEvent); // temporary
 
         mButtonMergeEmail.setOnClickListener(this);
         mbuttonSignOut.setOnClickListener(this);
         mbuttonUploadPic.setOnClickListener(this);
         mbuttonBioEdit.setOnClickListener(this);
         mbuttonChangePassword.setOnClickListener(this);
+        buttonSignOut.setOnClickListener(this);
+        buttonUploadPic.setOnClickListener(this);
+        buttonBioEdit.setOnClickListener(this);
+        buttonCreateEvent.setOnClickListener(this); // temporary
 
         mButtonMergeFacebook.setVisibility(View.VISIBLE);
         mButtonMergeEmail.setVisibility(View.VISIBLE);
@@ -217,6 +229,12 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
                 break;
+
+            case R.id.buttonCreateEvent:  // temporary
+                Log.d(TAG, "Prompting to Create Event window"); // temporary
+                Intent CEintent = new Intent(getApplicationContext(), CreateEventActivity.class); // temporary
+                startActivity(CEintent); // temporary
+                break; // temporary
 
             case R.id.button_bio_edit:
                 Log.d(TAG, "Clicked edit bio button");
