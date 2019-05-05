@@ -1,7 +1,9 @@
 package com.example.Booga;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +21,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.net.URI;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +41,9 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private Adapter_Event_Type Adapter_Event_Type;
     private Adapter_Tags Adapter_Tags;
 
+    private URI mImageUri;
+    private static final int PICK_IMAGE_REQUEST = 1;
+
     private static final String TAG = "CreateEventActivity";
     private static final String KEY_TITLE = "title";
     private static final String KEY_LOCATION = "location";
@@ -45,9 +51,11 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private static final String KEY_TIME = "time";
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_PICTURE = "pictureUrl";
-    private static final String KEY_TIMESTAMP_EVENT_CREATED = "createAt";
+    private static final String KEY_TIMESTAMP_EVENT_CREATED = "createdAt";
     //private static boolean KEY_PRIVATE_PARTY = "description";
-    private String KEY_USER_ID;
+    private static final String KEY_USER_ID = "createdByUserID";
+    private static String KEY_PRIVATE_EVENT = "isPrivate";
+    private String USER_ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +65,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         //This code is not needed for now. but we might need it later
         //FirebaseApp.initializeApp(this);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        KEY_USER_ID = mAuth.getCurrentUser().getUid();
+        USER_ID = mAuth.getCurrentUser().getUid();
         //assign db to our instance
         //db = FirebaseFirestore.getInstance();
         //signUpProgressBar =  findViewById(R.id.buttonSignUpLoginId); // don't know what is this
@@ -67,6 +75,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         text_input_event_time = findViewById(R.id.time);
         text_input_event_description = findViewById(R.id.description);
         private_event_switch = findViewById(R.id.private_event_switch);
+
         create_event_button = findViewById(R.id.create_event_button);
         create_event_button.setOnClickListener(this);
 
@@ -109,6 +118,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             String event_date = text_input_event_date.getEditText().getText().toString().trim();
             String event_time = text_input_event_time.getEditText().getText().toString().trim();
             String event_description = text_input_event_description.getEditText().getText().toString().trim();
+            Boolean switchState = private_event_switch.isChecked();
 
             Map<String, Object> newEvent = new HashMap<>();
             newEvent.put(KEY_TITLE, event_title);
@@ -117,8 +127,10 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             newEvent.put(KEY_TIME, event_time);
             newEvent.put(KEY_DESCRIPTION, event_description);
             newEvent.put(KEY_TIMESTAMP_EVENT_CREATED, new Timestamp(System.currentTimeMillis()));
+            newEvent.put(KEY_USER_ID, USER_ID);
+            newEvent.put(KEY_PRIVATE_EVENT, switchState);
 
-            db.collection("allEvents").document(KEY_USER_ID).set(newEvent)
+            db.collection("allEvents").document().set(newEvent)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -211,4 +223,25 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         recyclerView.setAdapter(Adapter_Tags);
     }
+
+    private void openFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+        && data == null && data.getData() != null) {
+           // mImageUri = data.getData();
+        }
+//        if(requestCode == PICK_IMAGE_REQUEST && resultCode = RESULT_OK && data != null
+//                && data.getData() != null) {
+//            mImageUri = data.getData();
+
+        }
 }
