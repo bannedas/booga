@@ -61,6 +61,7 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
                     fragment = new fragment_near_me();
                     loadFragment(fragment,R.id.fragment_container_main);
                     //Toolbar updating
+                    getSupportActionBar().show();
                     mToolbar_Title.setText(R.string.toolbar_title_near_me);
                     mToolbar.setBackgroundColor(getColor(R.color.white));
                     Log.d(TAG, "loading NEAR ME fragment");
@@ -69,6 +70,7 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
                     fragment = new fragment_all_events();
                     loadFragment(fragment,R.id.fragment_container_main);
                     //Toolbar updating
+                    getSupportActionBar().show();
                     mToolbar_Title.setText(R.string.toolbar_title_near_me);
                     mToolbar.setBackgroundColor(getColor(R.color.white));
                     Log.d(TAG, "loading ALL EVENT fragment");
@@ -77,6 +79,7 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
                     fragment = new fragment_my_event();
                     loadFragment(fragment,R.id.fragment_container_main);
                     //Toolbar updating
+                    getSupportActionBar().show();
                     mToolbar_Title.setText(R.string.toolbar_title_my_event);
                     mToolbar.setBackgroundColor(getColor(R.color.white));
                     Log.d(TAG, "loading MY EVENT fragment");
@@ -85,8 +88,9 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
                     fragment = new fragment_profile();
                     loadFragment(fragment,R.id.fragment_container_main);
                     //Toolbar updating
-                    mToolbar_Title.setText(null);
-                    mToolbar.setBackgroundColor(Color.TRANSPARENT);
+                    getSupportActionBar().hide();
+                    //mToolbar_Title.setText(null);
+                    //mToolbar.setBackgroundColor(Color.TRANSPARENT);
                     Log.d(TAG, "loading PROFILE fragment");
                     return true;
             }
