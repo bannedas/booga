@@ -17,7 +17,6 @@
             android:id="@+id/cardView_Featured_Event"
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:layout_marginTop="60dp"
 
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toTopOf="@+id/recyclerView_All_Events_Nearby_Id"
