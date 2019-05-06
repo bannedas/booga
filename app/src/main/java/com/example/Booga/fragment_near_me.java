@@ -118,7 +118,7 @@ public class fragment_near_me extends Fragment {
             for (ImageView slider: sliderArray){
                 slider.setImageResource(R.drawable.slider_whitesmoke);
             }
-            sliderArray[i-1].setImageResource(R.drawable.slider_pink);
+            sliderArray[i].setImageResource(R.drawable.slider_pink);
         }
 
         @Override
