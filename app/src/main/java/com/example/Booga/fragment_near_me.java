@@ -95,7 +95,6 @@ public class fragment_near_me extends Fragment {
         testList.add(new event("Lunch","Canteen","50 m","photo"));
         testList.add(new event("Dinner","Canteen","50 m","photo"));
         testList.add(new event("Homework","Canteen","50 m","photo"));
-        testList.add(new event("Sleep","Canteen","50 m","photo"));
 
         adapter_slider = new Adapter_Slider(getContext(),testList);
 
