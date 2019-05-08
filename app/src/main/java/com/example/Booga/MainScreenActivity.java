@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 public class MainScreenActivity extends AppCompatActivity implements fragment_all_events.OnFragmentInteractionListener,
@@ -21,7 +22,7 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
 
     private static final String TAG = "MainScreenActivity";
     private TextView mToolbar_Title;
-    private Toolbar mToolbar;
+    private Toolbar mToolbar, mProfileToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,9 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
         getSupportActionBar().setTitle(null);
         mToolbar_Title = (TextView) mToolbar.findViewById(R.id.textView_toolbar_title_id);
         mToolbar_Title.setText(R.string.toolbar_title_near_me);
+
+        // Initialize profle toolbar
+        mProfileToolbar = (Toolbar) findViewById(R.id.toolbar_profile_main_screen_id);
 
         // Initialize bottom navigation bar
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
@@ -61,27 +65,33 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
                     fragment = new fragment_near_me();
                     loadFragment(fragment,R.id.fragment_container_main);
                     //Toolbar updating
-                    getSupportActionBar().show();
+                    getSupportActionBar().hide();
+                    setSupportActionBar(mToolbar);
                     mToolbar_Title.setText(R.string.toolbar_title_near_me);
-                    mToolbar.setBackgroundColor(getColor(R.color.white));
+                    mProfileToolbar.setVisibility(View.GONE);
+                    mToolbar.setVisibility(View.VISIBLE);
                     Log.d(TAG, "loading NEAR ME fragment");
                     return true;
                 case R.id.bottom_navigation_all_events_item:
                     fragment = new fragment_all_events();
                     loadFragment(fragment,R.id.fragment_container_main);
                     //Toolbar updating
-                    getSupportActionBar().show();
+                    getSupportActionBar().hide();
+                    setSupportActionBar(mToolbar);
                     mToolbar_Title.setText(R.string.toolbar_title_near_me);
-                    mToolbar.setBackgroundColor(getColor(R.color.white));
+                    mProfileToolbar.setVisibility(View.GONE);
+                    mToolbar.setVisibility(View.VISIBLE);
                     Log.d(TAG, "loading ALL EVENT fragment");
                     return true;
                 case R.id.bottom_navigation_my_events_item:
                     fragment = new fragment_my_event();
                     loadFragment(fragment,R.id.fragment_container_main);
                     //Toolbar updating
-                    getSupportActionBar().show();
+                    getSupportActionBar().hide();
+                    setSupportActionBar(mToolbar);
                     mToolbar_Title.setText(R.string.toolbar_title_my_event);
-                    mToolbar.setBackgroundColor(getColor(R.color.white));
+                    mProfileToolbar.setVisibility(View.GONE);
+                    mToolbar.setVisibility(View.VISIBLE);
                     Log.d(TAG, "loading MY EVENT fragment");
                     return true;
                 case R.id.bottom_navigation_my_profile_item:
@@ -89,8 +99,9 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
                     loadFragment(fragment,R.id.fragment_container_main);
                     //Toolbar updating
                     getSupportActionBar().hide();
-                    //mToolbar_Title.setText(null);
-                    //mToolbar.setBackgroundColor(Color.TRANSPARENT);
+                    setSupportActionBar(mProfileToolbar);
+                    mToolbar.setVisibility(View.GONE);
+                    mProfileToolbar.setVisibility(View.VISIBLE);
                     Log.d(TAG, "loading PROFILE fragment");
                     return true;
             }
