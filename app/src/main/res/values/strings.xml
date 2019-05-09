@@ -80,6 +80,7 @@
     <string name="edit_text_change_password">Change Password</string>
     <string name="switch_make_email_private">Make email private</string>
     <string name="switch_make_phone_private">Make phone number private</string>
+    <string name="text_view_delete_account">Delete Account</string>
 
 
 </resources>

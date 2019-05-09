@@ -79,28 +79,26 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView_profile_toolbar_icon_left"
+                android:id="@+id/imageView_profile_toolbar_icon_left_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
+                android:tint="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/menu_icon"
-                android:tint="@color/white"/>
+                app:srcCompat="@drawable/menu_icon" />
 
             <ImageView
-                android:id="@+id/imageView_profile_toolbar_icon_right"
+                android:id="@+id/imageView_profile_toolbar_icon_right_id"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
+                android:tint="@color/rose"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/icon_settings"
-                android:tint="@color/white"/>
+                app:srcCompat="@drawable/icon_settings" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.Toolbar>
 

@@ -21,6 +21,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,6 +30,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FacebookAuthCredential;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -49,20 +52,20 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
     CallbackManager mCallbackManager;
     Button mButtonMergeEmail, mButtonMergeFacebook;
     FirebaseAuth mAuth;
+    FirebaseFirestore dataBase;
+
 
     Button mbuttonSignOut;
     Button mbuttonUploadPic;
     Button mbuttonBioEdit;
     Button mbuttonChangePassword;
+    Button mButtonDeleteAccount;
 
     EditText mEditTextChangePassword;
     EditText mEditTextMatchChangePassword;
 
     Switch mSwitchHideEmail;
     Switch mSwitchHidePhoneNumber;
-    Button buttonSignOut;
-    Button buttonUploadPic;
-    Button buttonBioEdit;
     Button buttonCreateEvent; // temporary
 
     //uploading img to firebase
@@ -75,6 +78,7 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_settings_page);
 
         mCallbackManager = CallbackManager.Factory.create();
+        dataBase = FirebaseFirestore.getInstance();
 
         mButtonMergeFacebook = findViewById(R.id.buttonMergeFacebookWithEmailId);
         mButtonMergeEmail = findViewById(R.id.buttonMergeEmailWithFacebookId);
@@ -86,20 +90,17 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
         mEditTextMatchChangePassword = findViewById(R.id.editTextMatchChangePasswordId);
         mSwitchHideEmail = findViewById(R.id.switchMakeEmailPrivateId);
         mSwitchHidePhoneNumber = findViewById(R.id.switchMakePhonePrivateId);
-        buttonSignOut = findViewById(R.id.button_sign_out);
-        buttonUploadPic = findViewById(R.id.button_upload_picture);
-        buttonBioEdit = findViewById(R.id.button_bio_edit);
+        mButtonDeleteAccount = findViewById(R.id.buttonDeleteAccountId);
         buttonCreateEvent = findViewById(R.id.buttonCreateEvent); // temporary
+
 
         mButtonMergeEmail.setOnClickListener(this);
         mbuttonSignOut.setOnClickListener(this);
         mbuttonUploadPic.setOnClickListener(this);
         mbuttonBioEdit.setOnClickListener(this);
         mbuttonChangePassword.setOnClickListener(this);
-        buttonSignOut.setOnClickListener(this);
-        buttonUploadPic.setOnClickListener(this);
-        buttonBioEdit.setOnClickListener(this);
         buttonCreateEvent.setOnClickListener(this); // temporary
+        mButtonDeleteAccount.setOnClickListener(this);
 
         mButtonMergeFacebook.setVisibility(View.VISIBLE);
         mButtonMergeEmail.setVisibility(View.VISIBLE);
@@ -283,6 +284,40 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
                 if (mSwitchHidePhoneNumber.isActivated()) {
                 //HIDE THE PHONE NUBMER IN THE PROFILE
             }
+                break;
+
+            case R.id.buttonDeleteAccountId:
+                Log.d(TAG, "Delete Account clicked");
+                if (mAuth.getCurrentUser() != null) {
+                    Log.d(TAG, "LOGGED IN");
+
+                    FirebaseUser fireUser = mAuth.getCurrentUser();
+                    assert fireUser != null;
+                    final String UID = fireUser.getUid();
+                    dataBase.collection("users").document(UID).delete();
+
+                    AccessToken token = AccessToken.getCurrentAccessToken();
+                    AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+                    mAuth.getCurrentUser().reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            mAuth.getCurrentUser().delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+
+                                        Log.d(TAG, "User account deleted.");
+                                        Toast.makeText(SettingsPageActivity.this,
+                                                "Your account has been deleted and you have been logged out.", Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(SettingsPageActivity.this, LoginActivity.class);
+                                        startActivity(intent);
+                                    }
+
+                                }
+                            });
+                        }
+                    });
+                }
                 break;
         }
     }
