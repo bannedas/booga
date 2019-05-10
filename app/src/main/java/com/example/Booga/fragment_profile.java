@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -57,7 +58,6 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
     ImageView profilePictureImageView;
     ImageView settingsIcon;
-    ImageView menuIcon;
 
     TextView name;
     TextView bio;
@@ -97,21 +97,16 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         mAuth = FirebaseAuth.getInstance();
-
-
-
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
 
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
         profilePictureImageView = v.findViewById(R.id.profilePictureId);
         settingsIcon = v.findViewById(R.id.iconSettingsId);
-        menuIcon = v.findViewById(R.id.iconMenuId);
         name = v.findViewById(R.id.text_view_name);
         bio = v.findViewById(R.id.text_view_user_info);
         mUserEmail = v.findViewById(R.id.textViewShowUserEmailId);
@@ -258,14 +253,9 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.iconSettingsId:
-                 Intent intent = new Intent(getActivity(), SettingsPageActivity.class);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-                    Log.d(TAG, "WARNING" +mAuth.getCurrentUser().getProviders());
-                } else {
-                    startActivity(intent);
-                    Log.d(TAG, "WARNING" +mAuth.getCurrentUser().getProviders());
-                }
+                Intent intent = new Intent(getActivity(), SettingsPageActivity.class);
+                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                Log.d(TAG, "WARNING" + Objects.requireNonNull(mAuth.getCurrentUser()).getProviders());
         }
     }
 }

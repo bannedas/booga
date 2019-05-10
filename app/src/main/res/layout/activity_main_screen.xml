@@ -8,34 +8,45 @@
     android:background="@color/onyx">
 
     <android.support.v7.widget.Toolbar
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:id="@+id/toolbar_main_screen_id"
-        android:visibility="visible"
-    app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/toolbar_main_screen_id"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/white"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
-
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:contentInsetLeft="0dp"
+        android:contentInsetStart="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:contentInsetRight="0dp"
+        android:contentInsetEnd="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetEnd="0dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="5dp">
 
             <TextView
                 android:id="@+id/textView_toolbar_title_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/poppins"
+                android:text="DEPENDENT ON FRAGMENT"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                android:layout_marginTop="16dp"
-                android:text="DEPENDENT ON FRAGMENT" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/imageView_toolbar_icon_left"
@@ -52,8 +63,8 @@
                 android:id="@+id/imageView_toolbar_icon_right"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -71,7 +82,15 @@
         android:background="@null"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:contentInsetLeft="0dp"
+        android:contentInsetStart="0dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        android:contentInsetRight="0dp"
+        android:contentInsetEnd="0dp"
+        app:contentInsetRight="0dp"
+        app:contentInsetEnd="0dp">
 
 
         <android.support.constraint.ConstraintLayout

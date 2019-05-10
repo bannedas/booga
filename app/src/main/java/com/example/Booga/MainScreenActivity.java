@@ -1,9 +1,7 @@
 package com.example.Booga;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -32,17 +30,17 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
         setContentView(R.layout.activity_main_screen);
 
         // Initialize top toolbar
-        mToolbar = (Toolbar) findViewById(R.id.toolbar_main_screen_id);
+        mToolbar = findViewById(R.id.toolbar_main_screen_id);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(null);
-        mToolbar_Title = (TextView) mToolbar.findViewById(R.id.textView_toolbar_title_id);
+        mToolbar_Title = mToolbar.findViewById(R.id.textView_toolbar_title_id);
         mToolbar_Title.setText(R.string.toolbar_title_near_me);
         mToolbarSettings = findViewById(R.id.imageView_profile_toolbar_icon_right_id);
 
         mToolbarSettings.setOnClickListener(this);
 
         // Initialize profle toolbar
-        mProfileToolbar = (Toolbar) findViewById(R.id.toolbar_profile_main_screen_id);
+        mProfileToolbar = findViewById(R.id.toolbar_profile_main_screen_id);
 
 
         // Initialize bottom navigation bar
@@ -117,7 +115,6 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
                     Log.d(TAG, "loading PROFILE fragment");
                     return true;
             }
-
             return false;
         }
     };
