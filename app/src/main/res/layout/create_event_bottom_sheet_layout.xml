@@ -2,30 +2,29 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
     android:padding="16dp">
 
-    <Button
-        android:id="@+id/use_camera"
-        android:layout_width="362dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+    <!--<Button-->
+        <!--android:id="@+id/use_camera"-->
+        <!--android:layout_width="362dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
 
-        android:background="@color/frenchrose"
-        android:fontFamily="@font/poppins"
-        android:text="Use camera"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        />
+        <!--android:background="@color/frenchrose"-->
+        <!--android:fontFamily="@font/poppins"-->
+        <!--android:text="Use camera"-->
+        <!--android:textColor="@color/white"-->
+        <!--android:textStyle="bold"-->
+        <!--/>-->
 
     <Button
         android:id="@+id/upload_from_gallery"
@@ -37,7 +36,7 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/use_camera"
+        app:layout_constraintTop_toTopOf="parent"
 
         android:background="@color/frenchrose"
         android:fontFamily="@font/poppins"
@@ -45,6 +44,7 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         />
+    <!--app:layout_constraintTop_toBottomOf="@+id/use_camera"-->
 
     <View
         android:id="@+id/view_line"
@@ -73,8 +73,5 @@
         android:fontFamily="@font/poppins"
         android:text="Remove photo"
         android:textColor="@color/white"
-        android:textStyle="bold"
-
-
-        />
+        android:textStyle="bold" />
 </android.support.constraint.ConstraintLayout>

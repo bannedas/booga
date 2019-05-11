@@ -4,6 +4,10 @@ public class event {
 
     private String mTitle, mLocation, mDistance, mPhoto;
 
+    public event(){
+
+    } // needed for firebase
+
     public event(String mTitle, String mLocation, String mDistance, String mPhoto) {
         this.mTitle = mTitle;
         this.mLocation = mLocation;

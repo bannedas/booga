@@ -17,7 +17,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/index" />
+            tools:srcCompat="@drawable/stock"
+            android:scaleType="fitXY"
+            android:contentDescription="TODO"
+            android:background="@android:color/transparent" />
 
         <ImageView
             android:id="@+id/pink_tint"
@@ -26,7 +29,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/pink_gradient" />
+            app:srcCompat="@drawable/pink_gradient"
+            android:background="@android:color/transparent"/>
 
         <ImageView
             android:id="@+id/settings_to_picture_in_create_event"

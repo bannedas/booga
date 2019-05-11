@@ -1,9 +1,13 @@
 package com.example.Booga;
 
 import android.content.Intent;
+import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainScreenActivity extends AppCompatActivity implements fragment_all_events.OnFragmentInteractionListener,
         fragment_near_me.OnFragmentInteractionListener, fragment_my_event.OnFragmentInteractionListener,
@@ -127,6 +132,11 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+    public void floating_action_button(View view){
+        Log.d(TAG, "Prompting to Create Event window");
+        Intent intent = new Intent(getApplicationContext(), CreateEventActivity.class);
+        startActivity(intent);
     }
 
     @Override

@@ -11,7 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +33,9 @@ public class fragment_all_events extends Fragment {
 
     private static final String TAG = "fragment_all_events";
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference nearbyEvents = db.collection("allEvents");
+    private Adapter_Nearby_Events Adapter_Nearby_Events;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,13 +94,15 @@ public class fragment_all_events extends Fragment {
         mList.add(new event("Sleep","Canteen","50 m","event5"));
 
         Adapter_Event_Cards adapter = new Adapter_Event_Cards(getContext(),mList);
-        recyclerView_Events_Nearby.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL,false));
+       // recyclerView_Events_Nearby.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL,false));
         recyclerView_Events_Trending.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
         recyclerView_Event_Types.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
 
-        recyclerView_Events_Nearby.setAdapter(adapter);
+        //recyclerView_Events_Nearby.setAdapter(adapter);
         recyclerView_Events_Trending.setAdapter(adapter);
         recyclerView_Event_Types.setAdapter(adapter);
+
+        setRecyclerView_Events_Nearby(v);
 
         return v;
     }
@@ -135,5 +144,26 @@ public class fragment_all_events extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void setRecyclerView_Events_Nearby(View view){
+        //1. SELECT * FROM
+        //Query EventTypeQuery = eventTypeRef.orderBy("eventTypeName", Query.Direction.DESCENDING);
+        Query eventQuery = nearbyEvents;
+        /*
+         * Attaching the event listener to read the values
+         * */
+        FirestoreRecyclerOptions<event> options =
+                new FirestoreRecyclerOptions.Builder<event>()
+                        .setQuery(eventQuery, event.class)
+                        .build();
+
+        Adapter_Nearby_Events = new Adapter_Nearby_Events(options);
+
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView_All_Events_Nearby_Id);
+        recyclerView.setHasFixedSize(true); //performance reasons
+        //recyclerView.s
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recyclerView.setAdapter(Adapter_Nearby_Events);
     }
 }

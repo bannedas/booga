@@ -10,7 +10,7 @@
     card_view:cardElevation="7dp"
     card_view:cardBackgroundColor="#FF9800"
     android:layout_margin="1dp">
-    <TextView
+    <CheckedTextView
         android:id="@+id/event_text_view_box"
         android:layout_gravity="center"
         android:textSize="14sp"
