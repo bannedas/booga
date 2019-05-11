@@ -91,10 +91,10 @@ public class fragment_near_me extends Fragment {
         slider1.setImageResource(R.drawable.slider_pink);
 
         List<event> testList = new ArrayList<>();
-        testList.add(new event("Fest i Slusen","AAU","23 m","photo"));
-        testList.add(new event("Lunch","Canteen","50 m","photo"));
-        testList.add(new event("Dinner","Canteen","50 m","photo"));
-        testList.add(new event("Homework","Canteen","50 m","photo"));
+        testList.add(new event("Fest i Slusen","AAU","23 m","event1"));
+        testList.add(new event("Lunch","Canteen","50 m","event2"));
+        testList.add(new event("Dinner","Canteen","50 m","event3"));
+        testList.add(new event("Homework","Canteen","50 m","event4"));
 
         adapter_slider = new Adapter_Slider(getContext(),testList);
 

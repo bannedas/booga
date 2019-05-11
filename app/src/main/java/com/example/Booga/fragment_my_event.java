@@ -86,11 +86,11 @@ public class fragment_my_event extends Fragment {
 
         //Test of recycleview
         List<event> mList = new ArrayList<>();
-        mList.add(new event("Fest i Slusen","AAU","23 m","photo"));
-        mList.add(new event("Lunch","Canteen","50 m","photo"));
-        mList.add(new event("Dinner","Canteen","50 m","photo"));
-        mList.add(new event("Homework","Canteen","50 m","photo"));
-        mList.add(new event("Sleep","Canteen","50 m","photo"));
+        mList.add(new event("Fest i Slusen","AAU","23 m","event1"));
+        mList.add(new event("Lunch","Canteen","50 m","event2"));
+        mList.add(new event("Dinner","Canteen","50 m","event3"));
+        mList.add(new event("Homework","Canteen","50 m","event4"));
+        mList.add(new event("Sleep","Canteen","50 m","event5"));
 
         Adapter_Event_Cards adapter = new Adapter_Event_Cards(getContext(),mList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
