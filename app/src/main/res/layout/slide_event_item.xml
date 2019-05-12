@@ -12,7 +12,7 @@
                 android:id="@+id/slide_Event_Background_Image_Id"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/index"/>
+                android:background="@color/black" />
 
             <ImageView
                 app:layout_constraintStart_toStartOf="parent"

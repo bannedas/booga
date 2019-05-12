@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -26,6 +28,7 @@ public class Adapter_Slider extends PagerAdapter {
     private Context mContext;
     private List<event> mData;
     private LayoutInflater layoutInflater;
+    private static final String TAG = "adapter_event_cards";
 
     public Adapter_Slider(Context mContext, List<event> mData) {
         this.mContext = mContext;
@@ -44,7 +47,7 @@ public class Adapter_Slider extends PagerAdapter {
 
     @NonNull
     @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+    public Object instantiateItem(@NonNull ViewGroup container, final int position) {
         layoutInflater = LayoutInflater.from(mContext);
         View view = layoutInflater.inflate(R.layout.slide_event_item, container, false);
 
@@ -64,7 +67,7 @@ public class Adapter_Slider extends PagerAdapter {
         // Create a storage reference from our app
         StorageReference storageRef1 = storage1.getReference();
         // Points to events folder in database
-        StorageReference imagesRef1 = storageRef1.child("events");
+        final StorageReference imagesRef1 = storageRef1.child("events");
 
         // TODO get specific event photo
 
@@ -78,6 +81,26 @@ public class Adapter_Slider extends PagerAdapter {
                             .load(task.getResult())
                             .transform(new CenterCrop())
                             .into(imageView);
+
+                }  else {
+                    Log.e(TAG, "Image not found for event: " + mData.get(position).getmTitle());
+
+                    //load IMAGE NOT FOUND
+
+                    StorageReference spaceRef1 = imagesRef1.child("image-not-found.png");
+
+                    spaceRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Glide.with(mContext)
+                                        .load(task.getResult())
+                                        //.transform(new CircleCrop())
+                                        .into(imageView);
+
+                            }
+                        }
+                    });
 
                 }
             }
