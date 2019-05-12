@@ -153,13 +153,14 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="28dp"
         android:clickable="true"
+        android:focusable="true"
+        android:onClick="floating_action_button"
         app:elevation="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add"
-        android:focusable="true"
-        android:onClick="floating_action_button"/>
+        app:maxImageSize="50dp"
+        app:srcCompat="@drawable/icon_plus" />
 
 </android.support.constraint.ConstraintLayout>
