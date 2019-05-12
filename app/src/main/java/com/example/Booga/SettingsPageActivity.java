@@ -102,7 +102,6 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
         mbuttonUploadPic.setOnClickListener(this);
         mbuttonBioEdit.setOnClickListener(this);
         mbuttonChangePassword.setOnClickListener(this);
-        buttonCreateEvent.setOnClickListener(this); // temporary
         mButtonDeleteAccount.setOnClickListener(this);
         buttonSignOut.setOnClickListener(this);
         buttonUploadPic.setOnClickListener(this);

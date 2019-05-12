@@ -49,18 +49,19 @@ import java.util.Map;
 
 import static java.security.AccessController.getContext;
 
-public class CreateEventActivity extends AppCompatActivity implements View.OnClickListener, BottomSheetDialog.BottomSheetListener {
+public class CreateEventActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextInputLayout text_input_event_title, text_input_event_location, text_input_event_date, text_input_event_time, text_input_event_description;
     Switch private_event_switch;
     Button create_event_button;
 
-    SelectableAdapter adapter;
+    //SelectableAdapter adapter;
 
     private ImageView stockImage, pink_tint;
     private final int PICK_IMAGE_REQUEST = 72;
     private Uri filePath;
     private StorageReference mStorageRef;
+    String fileName;
     private Uri downloadUri;
     Map<String, Object> newEvent;
     private Task<Uri> urlTask;
@@ -123,11 +124,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         switch(view.getId()) {
             //When Sign up button is pressed, call the method registerUser
             case R.id.create_event_button:
-                //if(urlTask != null && urlTask.isComplete()){
                     createEvent();
-                //} else {
-                 //   Toast.makeText(this, "WAIT, UPLOAD IN PROGRESS", Toast.LENGTH_SHORT).show();
-                //}
                 break;
         }
     }
@@ -157,10 +154,10 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
 
             if(filePath != null) {
                 uploadImage();
-                Toast.makeText(CreateEventActivity.this, "Picture was selected!", Toast.LENGTH_SHORT).show();
-                newEvent.put(KEY_PICTURE, downloadUri);
+                //Toast.makeText(CreateEventActivity.this, "Picture was selected!", Toast.LENGTH_SHORT).show();
+                newEvent.put(KEY_PICTURE, fileName);
             } else {
-                newEvent.put(KEY_PICTURE, "https://firebasestorage.googleapis.com/v0/b/booga-69d74.appspot.com/o/create_event_photo%2Fstock.jpg?alt=media&token=d1ae8ce6-7980-4616-a99b-d781ca0094c7");
+                newEvent.put(KEY_PICTURE, "stock.jpg");
             }
 
             db.collection("allEvents").document().set(newEvent)
@@ -188,11 +185,6 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             text_input.setError(null);
             return true;
         }
-    }
-
-    @Override
-    public void onButtonClicked(String text) {
-
     }
 
     public void create_event_picture_settings(View view){
@@ -278,8 +270,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     }
     private void uploadImage() {
         if(filePath != null) {
-            final StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "." + "jpg");
-
+            fileName = System.currentTimeMillis() + "." + "jpg";
+            final StorageReference fileReference = mStorageRef.child(fileName);
             urlTask = fileReference.putFile(filePath).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>()
             {
                 @Override
