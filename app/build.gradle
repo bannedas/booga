@@ -66,6 +66,4 @@ dependencies {
     // FirebaseUI for Cloud Storage
     implementation 'com.firebaseui:firebase-ui-storage:4.3.2'
 
-    // A powerful image downloading and caching library for Android
-    implementation 'com.squareup.picasso:picasso:2.71828'
 }
