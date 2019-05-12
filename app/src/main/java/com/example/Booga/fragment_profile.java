@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -33,6 +34,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -55,6 +58,10 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
 
     private static final String TAG = "fragment_profile";
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+
+    //event list
+    List<event> mList;
 
     ImageView profilePictureImageView;
     ImageView settingsIcon;
@@ -129,18 +136,30 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         updateProfilePicture();
         updateUserNameAndBio();
 
-        //Test of recycleview
-        List<event> mList = new ArrayList<>();
-        mList.add(new event("Fest i Slusen","AAU","23 m","photo"));
-        mList.add(new event("Lunch","Canteen","50 m","photo"));
-        mList.add(new event("Dinner","Canteen","50 m","photo"));
-        mList.add(new event("Homework","Canteen","50 m","photo"));
-        mList.add(new event("Sleep","Canteen","50 m","photo"));
+        //init firebase storage db
+        db = FirebaseFirestore.getInstance();
 
-        Adapter_Event_Cards adapter = new Adapter_Event_Cards(getContext(),mList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
-        ViewCompat.setNestedScrollingEnabled(recyclerView, false);
+        db.collection("allEvents").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                mList = new ArrayList<>();
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot document : task.getResult()) {
+                        String eventTitle = document.getString("title");
+                        String eventLocation = document.getString("location");
+                        // TODO distance from google maps
+                        String eventId = document.getId();
+                        mList.add(new event(eventTitle,eventLocation,"?? m",eventId));
+                    }
+                    Adapter_Event_Cards adapter = new Adapter_Event_Cards(getContext(), mList);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.VERTICAL, true));
+                    recyclerView.setAdapter(adapter);
+                    ViewCompat.setNestedScrollingEnabled(recyclerView, false);
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
 
         settingsIcon.setOnClickListener(this);
         return v;

@@ -55,7 +55,7 @@ public class Adapter_Event_Cards extends RecyclerView.Adapter<Adapter_Event_Card
 
         // TODO get specific event photo
 
-        StorageReference spaceRef1 = imagesRef1.child(mData.get(position).getmPhoto());
+        StorageReference spaceRef1 = imagesRef1.child(mData.get(position).getmPhoto() + ".jpg");
 
         spaceRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
