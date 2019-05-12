@@ -1,9 +1,11 @@
 package com.example.Booga;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.collection.LLRBNode;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -25,6 +28,7 @@ public class Adapter_Event_Cards extends RecyclerView.Adapter<Adapter_Event_Card
 
     Context mContext;
     List<event> mData;
+    private static final String TAG = "adapter_event_cards";
 
     public Adapter_Event_Cards(Context mContext, List<event> mData) {
         this.mContext = mContext;
@@ -41,8 +45,10 @@ public class Adapter_Event_Cards extends RecyclerView.Adapter<Adapter_Event_Card
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final myViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final myViewHolder holder, final int position) {
 
+
+        holder.event_photo.setBackgroundColor(Color.rgb(0, 0, 0));
         holder.event_title.setText(mData.get(position).getmTitle());
         holder.event_location.setText(mData.get(position).getmLocation());
         holder.event_distance.setText(mData.get(position).getmDistance());
@@ -51,7 +57,7 @@ public class Adapter_Event_Cards extends RecyclerView.Adapter<Adapter_Event_Card
         // Create a storage reference from our app
         StorageReference storageRef1 = storage1.getReference();
         // Points to events folder in database
-        StorageReference imagesRef1 = storageRef1.child("events");
+        final StorageReference imagesRef1 = storageRef1.child("events");
 
         // TODO get specific event photo
 
@@ -65,6 +71,26 @@ public class Adapter_Event_Cards extends RecyclerView.Adapter<Adapter_Event_Card
                             .load(task.getResult())
                             .transform(new CenterCrop(), new RoundedCorners(20))
                             .into(holder.event_photo);
+
+                } else {
+                    Log.e(TAG, "Image not found for event: " + mData.get(position).getmTitle());
+
+                    //load IMAGE NOT FOUND
+
+                    StorageReference spaceRef1 = imagesRef1.child("image-not-found.png");
+
+                    spaceRef1.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Glide.with(mContext)
+                                        .load(task.getResult())
+                                        .transform( new RoundedCorners(20))
+                                        .into(holder.event_photo);
+
+                            }
+                        }
+                    });
 
                 }
             }
