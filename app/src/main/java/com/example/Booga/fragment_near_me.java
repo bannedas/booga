@@ -94,12 +94,13 @@ public class fragment_near_me extends Fragment {
 
         //TODO make everything dynamic and not HARD CODED
 
-        sliderArray = new ImageView[2];
+        sliderArray = new ImageView[3];
 
         View v = inflater.inflate(R.layout.fragment_near_me, container, false);
 
         sliderArray[0] = v.findViewById(R.id.slide_Near_Me_1);
         sliderArray[1] = v.findViewById(R.id.slide_Near_Me_2);
+        sliderArray[2] = v.findViewById(R.id.slide_Near_Me_3);
 
         sliderArray[0].setImageResource(R.drawable.slider_pink);
 
