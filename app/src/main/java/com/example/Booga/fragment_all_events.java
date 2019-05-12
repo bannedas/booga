@@ -3,15 +3,23 @@ package com.example.Booga;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +37,10 @@ public class fragment_all_events extends Fragment {
 
     private static final String TAG = "fragment_all_events";
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+
+    //event list
+    List<event> mList;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -78,22 +90,35 @@ public class fragment_all_events extends Fragment {
         recyclerView_Events_Trending =v.findViewById(R.id.recyclerView_All_Events_Trending_Id);
         recyclerView_Event_Types = v.findViewById(R.id.recyclerView_Event_Type_Id);
 
-        //Test of recycleview
-        List<event> mList = new ArrayList<>();
-        mList.add(new event("Fest i Slusen","AAU","23 m","event1"));
-        mList.add(new event("Lunch","Canteen","50 m","event2"));
-        mList.add(new event("Dinner","Canteen","50 m","event3"));
-        mList.add(new event("Homework","Canteen","50 m","event4"));
-        mList.add(new event("Sleep","Canteen","50 m","event5"));
+        //init firebase storage db
+        db = FirebaseFirestore.getInstance();
 
-        Adapter_Event_Cards adapter = new Adapter_Event_Cards(getContext(),mList);
-        recyclerView_Events_Nearby.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL,false));
-        recyclerView_Events_Trending.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
-        recyclerView_Event_Types.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
+        db.collection("allEvents").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                mList = new ArrayList<>();
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot document : task.getResult()) {
+                        String eventTitle = document.getString("title");
+                        String eventLocation = document.getString("location");
+                        // TODO distance from google maps
+                        String eventId = document.getId();
+                        mList.add(new event(eventTitle,eventLocation,"?? m",eventId));
+                    }
+                    Adapter_Event_Cards adapter = new Adapter_Event_Cards(getContext(),mList);
+                    recyclerView_Events_Nearby.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL,false));
+                    recyclerView_Events_Trending.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
+                    recyclerView_Event_Types.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
 
-        recyclerView_Events_Nearby.setAdapter(adapter);
-        recyclerView_Events_Trending.setAdapter(adapter);
-        recyclerView_Event_Types.setAdapter(adapter);
+                    recyclerView_Events_Nearby.setAdapter(adapter);
+                    recyclerView_Events_Trending.setAdapter(adapter);
+                    recyclerView_Event_Types.setAdapter(adapter);
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
+
 
         return v;
     }

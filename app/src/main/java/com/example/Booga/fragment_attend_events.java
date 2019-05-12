@@ -30,16 +30,20 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -118,50 +122,27 @@ public class fragment_attend_events extends Fragment {
         //init firebase storage db
         db = FirebaseFirestore.getInstance();
 
-        mList = new ArrayList<>();
-
-//        //event count
-//        db.collection("allEvents").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    mList = new ArrayList<>();
-//                    for (DocumentSnapshot document : task.getResult()) {
-//                        Log.d(TAG, String.valueOf(document));
-//
-//                        String eventTitle =  document.getData().get("title").toString();
-//                        String eventLocation =  document.getData().get("location").toString();
-//                        String eventId = document.getId();
-//                        mList.add(new event(eventTitle,eventLocation,"?? m",eventId));
-//                    }
-//                } else {
-//                    Log.d(TAG, "Error getting documents: ", task.getException());
-//                }
-//            }
-//        });
-
-//        db.collection("allEvents").addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(QuerySnapshot documentSnapshots, FirebaseFirestoreException e) {
-//                for (DocumentChange documentChange : documentSnapshots.getDocumentChanges())
-//                {
-////                    String eventTitle =  documentChange.getDocument().getData().get("title").toString();
-////                    String eventLocation =  documentChange.getDocument().getData().get("location").toString();
-//                    String eventId = documentChange.getDocument().getId();
-//                    mList.add(new event("test","test loc","?? m",eventId));
-//
-//                }
-//            }
-//        });
-
-        mList.add(new event("test","testloc","?? m", "event2"));
-
-        Adapter_Event_Cards adapter = new Adapter_Event_Cards(getContext(), mList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
-        recyclerView.setAdapter(adapter);
-        ViewCompat.setNestedScrollingEnabled(recyclerView, false);
-
+        db.collection("allEvents").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                mList = new ArrayList<>();
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot document : task.getResult()) {
+                        String eventTitle = document.getString("title");
+                        String eventLocation = document.getString("location");
+                        // TODO distance from google maps
+                        String eventId = document.getId();
+                        mList.add(new event(eventTitle,eventLocation,"?? m",eventId));
+                    }
+                    Adapter_Event_Cards adapter = new Adapter_Event_Cards(getContext(), mList);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
+                    recyclerView.setAdapter(adapter);
+                    ViewCompat.setNestedScrollingEnabled(recyclerView, false);
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
         return v;
     }
 

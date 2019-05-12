@@ -3,14 +3,23 @@ package com.example.Booga;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,17 +39,24 @@ public class fragment_near_me extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+
+    private static final String TAG = "fragment_near_me";
+
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
+    private ImageView[] sliderArray;
+
+    private FirebaseFirestore db;
+
+    //event list
+    List<event> mList;
+
     private OnFragmentInteractionListener mListener;
 
     private ViewPager mViewPager_Slider;
-    private Adapter_Slider adapter_slider;
 
-    private ImageView slider1, slider2, slider3, slider4;
-    private ImageView[] sliderArray = new ImageView[4];
     public fragment_near_me() {
         // Required empty public constructor
     }
@@ -76,33 +92,44 @@ public class fragment_near_me extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        //TODO make everything dynamic and not HARD CODED
+
+        sliderArray = new ImageView[2];
+
         View v = inflater.inflate(R.layout.fragment_near_me, container, false);
 
-        slider1 = v.findViewById(R.id.slide_Near_Me_1);
-        slider2 = v.findViewById(R.id.slide_Near_Me_2);
-        slider3 = v.findViewById(R.id.slide_Near_Me_3);
-        slider4 = v.findViewById(R.id.slide_Near_Me_4);
+        sliderArray[0] = v.findViewById(R.id.slide_Near_Me_1);
+        sliderArray[1] = v.findViewById(R.id.slide_Near_Me_2);
 
-        sliderArray[0] = slider1;
-        sliderArray[1] = slider2;
-        sliderArray[2] = slider3;
-        sliderArray[3] = slider4;
+        sliderArray[0].setImageResource(R.drawable.slider_pink);
 
-        slider1.setImageResource(R.drawable.slider_pink);
+        //init firebase storage db
+        db = FirebaseFirestore.getInstance();
 
-        List<event> testList = new ArrayList<>();
-        testList.add(new event("Fest i Slusen","AAU","23 m","event1"));
-        testList.add(new event("Lunch","Canteen","50 m","event2"));
-        testList.add(new event("Dinner","Canteen","50 m","event3"));
-        testList.add(new event("Homework","Canteen","50 m","event4"));
-
-        adapter_slider = new Adapter_Slider(getContext(),testList);
+        // pull all events from firebase, then get their title, loc, dist, eventID
+        db.collection("allEvents").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                mList = new ArrayList<>();
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot document : task.getResult()) {
+                        String eventTitle = document.getString("title");
+                        String eventLocation = document.getString("location");
+                        // TODO distance from google maps
+                        String eventId = document.getId();
+                        mList.add(new event(eventTitle,eventLocation,"?? m",eventId));
+                    }
+                    Adapter_Slider adapter_slider;
+                    adapter_slider = new Adapter_Slider(getContext(), mList);
+                    mViewPager_Slider.setAdapter(adapter_slider);
+                    mViewPager_Slider.addOnPageChangeListener(viewListener);
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
 
         mViewPager_Slider = v.findViewById(R.id.viewPager_Near_Me_Id);
-
-        mViewPager_Slider.setAdapter(adapter_slider);
-
-        mViewPager_Slider.addOnPageChangeListener(viewListener);
         return v;
     }
 
