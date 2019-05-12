@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainScreenActivity extends AppCompatActivity implements fragment_all_events.OnFragmentInteractionListener,
         fragment_near_me.OnFragmentInteractionListener, fragment_my_event.OnFragmentInteractionListener,
@@ -23,6 +24,7 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
     private TextView mToolbar_Title;
     private Toolbar mToolbar, mProfileToolbar;
     private ImageView mToolbarSettings;
+    public int backButtonCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +107,7 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
                     return true;
 
                 case R.id.bottom_navigation_my_profile_item:
+
                     fragment = new fragment_profile();
                     loadFragment(fragment, R.id.fragment_container_main);
                     //Toolbar updating
@@ -129,6 +132,31 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
 
     }
 
+    /**
+     * Back button listener.
+     * Will close the application if the back button pressed twice.
+     */
+    @Override
+    public void onBackPressed()
+    {
+
+        if(backButtonCount >= 1)
+        {
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            backButtonCount = 0;
+        }
+        else
+        {
+            Toast.makeText(this, "Press the back button again to close the application.", Toast.LENGTH_LONG).show();
+            backButtonCount++;
+            super.onBackPressed();
+
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -140,4 +168,5 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
         }
 
     }
+
 }

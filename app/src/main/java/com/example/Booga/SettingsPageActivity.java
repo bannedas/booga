@@ -382,7 +382,7 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(getApplicationContext(), MainScreenActivity.class);
+        Intent intent = new Intent(getApplicationContext(), fragment_profile.class);
         startActivity(intent);
     }
 }
