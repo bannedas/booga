@@ -276,20 +276,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch(view.getId()) {
             //When button "Sign up" is pressed, redirect to SignUpActivity
             case R.id.textViewSignUpId:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    startActivity(new Intent(this, SignUpActivity.class),
-                            ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-                }
+                startActivity(new Intent(this, SignUpActivity.class),
+                ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 break;
             //When button Login is pressed, call the method mergeFacebookToEmail
             case R.id.buttonLoginId:
                 userLogin();
                 break;
             case R.id.forgotPasswordId:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    startActivity(new Intent(this, ResetPasswordActivity.class),
-                            ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-                }
+                startActivity(new Intent(this, ResetPasswordActivity.class),
+                ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
                 break;
         }
     }

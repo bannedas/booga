@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -92,15 +93,14 @@ public class fragment_near_me extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        //TODO make everything dynamic and not HARD CODED
-
-        sliderArray = new ImageView[3];
+        sliderArray = new ImageView[4];
 
         View v = inflater.inflate(R.layout.fragment_near_me, container, false);
 
         sliderArray[0] = v.findViewById(R.id.slide_Near_Me_1);
         sliderArray[1] = v.findViewById(R.id.slide_Near_Me_2);
         sliderArray[2] = v.findViewById(R.id.slide_Near_Me_3);
+        sliderArray[3] = v.findViewById(R.id.slide_Near_Me_4);
 
         sliderArray[0].setImageResource(R.drawable.slider_pink);
 
@@ -108,7 +108,8 @@ public class fragment_near_me extends Fragment {
         db = FirebaseFirestore.getInstance();
 
         // pull all events from firebase, then get their title, loc, dist, eventID
-        db.collection("allEvents").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        // sort events by date in allEvents
+        db.collection("allEvents").orderBy("createdAt", Query.Direction.DESCENDING).limit(4).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 mList = new ArrayList<>();

@@ -47,7 +47,6 @@ public class Adapter_Event_Cards extends RecyclerView.Adapter<Adapter_Event_Card
     @Override
     public void onBindViewHolder(@NonNull final myViewHolder holder, final int position) {
 
-
         holder.event_photo.setBackgroundColor(Color.rgb(0, 0, 0));
         holder.event_title.setText(mData.get(position).getmTitle());
         holder.event_location.setText(mData.get(position).getmLocation());
