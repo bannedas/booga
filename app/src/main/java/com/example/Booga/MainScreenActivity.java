@@ -35,6 +35,19 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
 
+        boolean fromSettings = false;
+        // retreive data from intent.putExtra
+        Intent intent = getIntent();
+        if (null != intent) { //Null Checking
+            String temp = intent.getStringExtra("isFromSettingsPage");
+            Log.e(TAG, "t: " + temp);
+            if(temp != null) {
+                if (temp.equals("yes")) {
+                    fromSettings = true;
+                }
+            }
+        }
+
         // Initialize top toolbar
         mToolbar = findViewById(R.id.toolbar_main_screen_id);
         setSupportActionBar(mToolbar);
@@ -64,6 +77,19 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
                 .setCacheSizeBytes(FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED)
                 .build();
         db.setFirestoreSettings(settings);
+
+        // if coming from settings page then load porfile fragment
+        if(fromSettings) {
+            Fragment fragment;
+            fragment = new fragment_profile();
+            loadFragment(fragment, R.id.fragment_container_main);
+            //Toolbar updating
+            getSupportActionBar().hide();
+            setSupportActionBar(mProfileToolbar);
+            mToolbar.setVisibility(View.GONE);
+            mProfileToolbar.setVisibility(View.VISIBLE);
+            Log.d(TAG, "loading PROFILE fragment");
+        }
     }
 
     private void loadFragment(Fragment fragment, int fragmentContainerID) {

@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -45,7 +47,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SettingsPageActivity extends AppCompatActivity implements View.OnClickListener {
+public class SettingsPageActivity extends AppCompatActivity implements View.OnClickListener, fragment_profile.OnFragmentInteractionListener {
 
     public static final String TAG = "SettingsActivity";
 
@@ -381,7 +383,13 @@ public class SettingsPageActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(getApplicationContext(), fragment_profile.class);
+        Intent intent = new Intent(getApplicationContext(), MainScreenActivity.class);
+        intent.putExtra("isFromSettingsPage", "yes");
         startActivity(intent);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
