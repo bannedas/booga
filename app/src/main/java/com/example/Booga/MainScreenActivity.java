@@ -21,7 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings;
 
 public class MainScreenActivity extends AppCompatActivity implements fragment_all_events.OnFragmentInteractionListener,
         fragment_near_me.OnFragmentInteractionListener, fragment_my_event.OnFragmentInteractionListener,
-        fragment_profile.OnFragmentInteractionListener, fragment_attend_events.OnFragmentInteractionListener, View.OnClickListener {
+        fragment_profile.OnFragmentInteractionListener, View.OnClickListener {
 
     private static final String TAG = "MainScreenActivity";
     private TextView mToolbar_Title;

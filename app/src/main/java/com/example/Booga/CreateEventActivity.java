@@ -14,9 +14,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -43,6 +47,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     TextInputLayout text_input_event_title, text_input_event_location, text_input_event_date, text_input_event_time, text_input_event_description;
     Switch private_event_switch;
     Button create_event_button;
+    TextView textViewUploadPicEn, textViewUploadPicDa;
+    ImageView pinkTint;
 
     //SelectableAdapter adapter;
 
@@ -96,6 +102,10 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
         text_input_event_description = findViewById(R.id.description);
         private_event_switch = findViewById(R.id.private_event_switch);
         create_event_button = findViewById(R.id.create_event_button);
+
+        textViewUploadPicEn = findViewById(R.id.text_view_upload_picture_english);
+        textViewUploadPicDa = findViewById(R.id.text_view_upload_picture_danish);
+        pinkTint = findViewById(R.id.pink_tint);
 
         create_event_button.setOnClickListener(this);
 
@@ -172,6 +182,9 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     }
 
     public void create_event_picture_settings(View view){
+        textViewUploadPicEn.setVisibility(View.GONE);
+        textViewUploadPicDa.setVisibility(View.GONE);
+        pinkTint.setVisibility(View.GONE);
         Log.d(TAG, "Clicked upload picture button");
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -257,14 +270,18 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             // spaceRef now points to "users/userID.jpg"
             final StorageReference spaceRef = imagesRef.child(eventID + ".jpg");
 
+            // load pciture into imageview
+            Glide.with(CreateEventActivity.this)
+                    .load(filePath)
+                    .transform(new CenterCrop())
+                    .into(stockImage);
+
             spaceRef.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Log.e(TAG, spaceRef + " uploaded to " + imagesRef);
                     Toast.makeText(CreateEventActivity.this, "Picture uploaded", Toast.LENGTH_SHORT).show();
 
-                    //show picture
-                    loadPicture();
                 }
             })
                     .addOnFailureListener(new OnFailureListener() {
@@ -292,6 +309,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                 if (task.isSuccessful()) {
                     Glide.with(CreateEventActivity.this)
                             .load(task.getResult())
+                            .apply(new RequestOptions().override(600, 200))
                             .into(stockImage);
                 }
             }

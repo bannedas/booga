@@ -87,4 +87,8 @@
     <string name="button_event_page_attend">SIGN ME UP!</string>
     <string name="button_event_page_attend_confirm">YOU ARE IN!</string>
 
+    <!--Create event activity-->
+    <string name="text_view_create_event_upload_en">Upload event image</string>
+    <string name="text_view_create_event_upload_da">Opret din fest</string>
+
 </resources>

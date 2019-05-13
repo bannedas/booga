@@ -1,25 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+
+<android.support.constraint.ConstraintLayout
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/cardview"
-    android:layout_width="100dp"
-    android:layout_height="wrap_content"
-    card_view:contentPadding="7dp"
-    card_view:cardCornerRadius="7dp"
-    card_view:cardElevation="7dp"
-    card_view:cardBackgroundColor="#FF9800"
-    android:layout_margin="1dp">
-    <CheckedTextView
-        android:id="@+id/event_text_view_box"
-        android:layout_gravity="center"
-        android:textSize="14sp"
-        android:layout_marginTop="3dp"
-        android:layout_marginBottom="3dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textColor="#fff"
-        android:maxLines="1"
-        android:text="Science and tech"/>
-</android.support.v7.widget.CardView>
+    android:layout_width="@dimen/item_adapter_w"
+    android:layout_height="@dimen/item_adapter_h">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="8dp"
+        card_view:cardCornerRadius="4dp"
+        card_view:cardElevation="0dp"
+        card_view:layout_constraintEnd_toEndOf="parent"
+        card_view:layout_constraintStart_toStartOf="parent"
+        card_view:layout_constraintTop_toTopOf="parent"
+        >
+
+        <ImageView
+            android:src="@drawable/item_card_drawable"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"/>
+
+        <CheckedTextView
+            android:id="@+id/event_text_view_box"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:maxLines="1"
+            android:text="test"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            card_view:layout_constraintStart_toStartOf="parent" />
+
+    </android.support.v7.widget.CardView>
+</android.support.constraint.ConstraintLayout>
