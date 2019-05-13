@@ -1,10 +1,8 @@
 package com.example.Booga;
 
-import android.app.ActivityOptions;
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -16,18 +14,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,11 +32,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,9 +48,13 @@ public class fragment_profile extends Fragment {
     private static final String TAG = "fragment_profile";
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    private OnFragmentInteractionListener mListener;
+
+    String UID;
 
     //event list
     List<event> mList;
+    List<event> mListAttended;
 
     ImageView profilePictureImageView;
 
@@ -71,7 +64,8 @@ public class fragment_profile extends Fragment {
     TextView mUserEmail;
     TextView mUserPhoneNumber;
 
-    RecyclerView recyclerView;
+    RecyclerView recyclerViewHostedEvents;
+    RecyclerView recyclerViewAttendedEvents;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -80,7 +74,6 @@ public class fragment_profile extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
 
     public fragment_profile() {
         // Required empty public constructor
@@ -109,6 +102,11 @@ public class fragment_profile extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mAuth = FirebaseAuth.getInstance();
 
+        // Get User ID
+        FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
+        assert fireUser != null;
+        UID = fireUser.getUid(); //store user id
+
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
         profilePictureImageView = v.findViewById(R.id.profilePictureId);
@@ -119,45 +117,20 @@ public class fragment_profile extends Fragment {
         pictureError = v.findViewById(R.id.text_view_picture_error);
         pictureError.setVisibility(View.GONE);
 
-        recyclerView = v.findViewById(R.id.recyclerView_My_Events_Id);
+        recyclerViewHostedEvents = v.findViewById(R.id.recycle_view_hosted_events);
+        recyclerViewAttendedEvents = v.findViewById(R.id.recycle_view_attend_events);
 
         String userEmail = mAuth.getCurrentUser().getEmail();
         String userPhone = mAuth.getCurrentUser().getPhoneNumber();
         mUserEmail.setText(userEmail);
         mUserPhoneNumber.setText(userPhone);
 
-        Fragment childFragment = new fragment_attend_events();
-
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.add(R.id.fragment_container_attend_events, childFragment).commit();
-
         updateProfilePicture();
         updateUserNameAndBio();
 
-        //init firebase storage db
-        db = FirebaseFirestore.getInstance();
+        updateHostedEvents();
+        updateAttendedEvents();
 
-        db.collection("allEvents").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                mList = new ArrayList<>();
-                if(task.isSuccessful()){
-                    for(QueryDocumentSnapshot document : task.getResult()) {
-                        String eventTitle = document.getString("title");
-                        String eventLocation = document.getString("location");
-                        // TODO distance from google maps
-                        String eventId = document.getId();
-                        mList.add(new event(eventTitle,eventLocation,"?? m",eventId));
-                    }
-                    Adapter_Event_Cards adapter = new Adapter_Event_Cards(getContext(), mList);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.VERTICAL, true));
-                    recyclerView.setAdapter(adapter);
-                    ViewCompat.setNestedScrollingEnabled(recyclerView, false);
-                } else {
-                    Log.d(TAG, "Error getting documents: ", task.getException());
-                }
-            }
-        });
 
         return v;
 
@@ -202,6 +175,82 @@ public class fragment_profile extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
+    private void updateHostedEvents() {
+        //init firebase storage db
+        db = FirebaseFirestore.getInstance();
+
+        db.collection("allEvents").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                mList = new ArrayList<>();
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot document : task.getResult()) {
+                        String createBy = document.getString("createdByUserID");
+                        if(createBy.equals(UID)) {
+                            String eventTitle = document.getString("title");
+                            String eventLocation = document.getString("location");
+                            // TODO distance from google maps
+                            String eventId = document.getId();
+                            mList.add(new event(eventTitle,eventLocation,"?? m",eventId));
+                        }
+                    }
+                    Adapter_Event_Cards adapter_hosted_events = new Adapter_Event_Cards(getContext(), mList);
+                    recyclerViewHostedEvents.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.VERTICAL, true));
+                    recyclerViewHostedEvents.setAdapter(adapter_hosted_events);
+                    ViewCompat.setNestedScrollingEnabled(recyclerViewHostedEvents, false);
+                } else {
+                    Log.d(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
+    }
+
+    private void updateAttendedEvents() {
+        DocumentReference docRef = db.collection("attendance").document(UID);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                mListAttended = new ArrayList<>();
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    assert document != null;
+                    if (document.exists()) {
+                        Map<String, Object> map = document.getData();
+                        for (Map.Entry<String, Object> entry : map.entrySet()) {
+                            Log.e(TAG, "try: " + entry.getKey());
+
+                            // for every eventID read their database and update adapters
+
+                            DocumentReference docRef = db.collection("allEvents").document(entry.getKey());
+                            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        assert document != null;
+                                        if (document.exists()) {
+                                            String eventTitle = document.getString("title");
+                                            Log.e(TAG, "Added: " + eventTitle);
+                                            String eventLocation = document.getString("location");
+                                            // TODO distance from google maps
+                                            String eventId = document.getId();
+                                            mListAttended.add(new event(eventTitle, eventLocation, "?? m", eventId));
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    }
+                    Adapter_Event_Cards adapter_attended_events = new Adapter_Event_Cards(getContext(), mListAttended);
+                    recyclerViewAttendedEvents.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
+                    recyclerViewAttendedEvents.setAdapter(adapter_attended_events);
+                    ViewCompat.setNestedScrollingEnabled(recyclerViewAttendedEvents, false);
+                }
+
+            }
+        });
+    }
+
     private void updateProfilePicture() {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         // Create a storage reference from our app
@@ -209,10 +258,6 @@ public class fragment_profile extends Fragment {
         // Points to user_photo
         StorageReference imagesRef = storageRef.child("user_photo");
 
-        // Get User ID
-        FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
-        assert fireUser != null;
-        final String UID = fireUser.getUid(); //store user id
         // spaceRef now points to "users/userID.jpg"
         StorageReference spaceRef = imagesRef.child(UID + ".jpg");
 
@@ -231,11 +276,6 @@ public class fragment_profile extends Fragment {
     }
 
     private void updateUserNameAndBio() {
-        // Get User ID
-        final FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
-        assert fireUser != null;
-        final String UID = fireUser.getUid(); //store user id
-
         // init firestore database
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
