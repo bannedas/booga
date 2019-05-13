@@ -1,8 +1,8 @@
 package com.example.Booga;
 
-import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,11 +20,10 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -33,12 +31,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 
 public class EventPage extends AppCompatActivity implements View.OnClickListener {
 
@@ -49,6 +49,7 @@ public class EventPage extends AppCompatActivity implements View.OnClickListener
     String createdBy;
     String firstName;
     String lastName;
+    String UID;
     Context mContext = EventPage.this;
 
     //event list
@@ -84,6 +85,12 @@ public class EventPage extends AppCompatActivity implements View.OnClickListener
             eventID = intent.getStringExtra("ID");
         }
 
+        // Get User ID
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser fireUser = mAuth.getCurrentUser(); //get user info
+        assert fireUser != null;
+        UID = fireUser.getUid(); //store user id
+
         // annoying stuff
         eventTitle = findViewById(R.id.text_view_event_name);
         eventPhoto = findViewById(R.id.image_view_event_picture);
@@ -109,7 +116,7 @@ public class EventPage extends AppCompatActivity implements View.OnClickListener
         updatePicture(eventID, "events", eventPhoto, false);
         updateInfo(eventID);
         updateGalleryPictures(eventID, 3);
-
+        checkAttendance(UID, eventID);
     }
 
     private void updateGalleryPictures(final String ID, int gallerySize) {
@@ -222,15 +229,53 @@ public class EventPage extends AppCompatActivity implements View.OnClickListener
         });
     }
 
+    private void setUserAttendance(String UID, String eventID) {
+        //init firebase storage db
+        db = FirebaseFirestore.getInstance();
+        // Update one field, creating the document if it does not already exist.
+        Map<String, Boolean> data = new HashMap<>();
+        data.put(eventID, true);
+
+        db.collection("attendance").document(UID)
+                .set(data, SetOptions.merge());
+
+    }
+
+    private void checkAttendance(String UID, final String eventID) {
+        DocumentReference docRef = db.collection("attendance").document(UID);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    assert document != null;
+                    if (document.exists()) {
+                        Map<String, Object> map = document.getData();
+                        for (Map.Entry<String, Object> entry : map.entrySet()) {
+                            if (entry.getKey().equals(eventID)) {
+                                // change attend button if user is already attending
+                                attendButton.setEnabled(false);
+                                attendButton.setBackgroundColor(Color.GRAY);
+                                attendButton.setText(getString(R.string.button_event_page_attend_confirm));
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.button_event_page_attend:
-                Log.e(TAG, "Attending");
+                setUserAttendance(UID, eventID);
+                attendButton.setEnabled(false);
+                attendButton.setBackgroundColor(Color.GRAY);
+                attendButton.setText(getString(R.string.button_event_page_attend_confirm));
                 break;
             case R.id.image_view_icon_back:
-                //mimic back button
-                finish();
+                finish(); //mimic back button
                 break;
             case R.id.toggle_button_event_favourite:
                 if(iconHeart.isChecked()) {

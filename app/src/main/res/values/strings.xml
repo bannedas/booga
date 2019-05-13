@@ -85,5 +85,6 @@
     <!--Event page activity-->
     <string name="text_view_gallery">GALLERY</string>
     <string name="button_event_page_attend">SIGN ME UP!</string>
+    <string name="button_event_page_attend_confirm">YOU ARE IN!</string>
 
 </resources>
