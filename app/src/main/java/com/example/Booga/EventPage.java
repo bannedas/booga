@@ -233,7 +233,11 @@ public class EventPage extends AppCompatActivity implements View.OnClickListener
                 finish();
                 break;
             case R.id.toggle_button_event_favourite:
-                Log.e(TAG, "test");
+                if(iconHeart.isChecked()) {
+                    Log.e(TAG, "on");
+                } else {
+                    Log.e(TAG, "off");
+                }
                 break;
         }
     }

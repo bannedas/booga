@@ -1,6 +1,7 @@
 package com.example.Booga;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -51,6 +52,18 @@ public class Adapter_Event_Cards extends RecyclerView.Adapter<Adapter_Event_Card
         holder.event_title.setText(mData.get(position).getmTitle());
         holder.event_location.setText(mData.get(position).getmLocation());
         holder.event_distance.setText(mData.get(position).getmDistance());
+
+        // ------------------------------ on click for adapter ------------------------------
+        holder.event_photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent;
+                mIntent = new Intent(mContext, EventPage.class);
+                mIntent.putExtra("ID", mData.get(position).getmPhoto());
+                mContext.startActivity(mIntent);
+
+            }
+        });
 
         FirebaseStorage storage1 = FirebaseStorage.getInstance();
         // Create a storage reference from our app
