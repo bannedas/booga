@@ -1,5 +1,6 @@
 package com.example.Booga;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,10 +11,14 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -35,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class EventPage extends AppCompatActivity {
+public class EventPage extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "EventPage";
     private FirebaseFirestore db;
@@ -50,7 +55,6 @@ public class EventPage extends AppCompatActivity {
     List<event> mList;
 
     ImageView eventPhoto;
-    ImageView iconHeart;
     ImageView iconBack;
     ImageView createdByPhoto;
 
@@ -65,6 +69,7 @@ public class EventPage extends AppCompatActivity {
     TextView eventTitle;
 
     Button attendButton;
+    ToggleButton iconHeart;
 
     RecyclerView recyclerViewGallery;
 
@@ -82,7 +87,7 @@ public class EventPage extends AppCompatActivity {
         // annoying stuff
         eventTitle = findViewById(R.id.text_view_event_name);
         eventPhoto = findViewById(R.id.image_view_event_picture);
-        iconHeart = findViewById(R.id.image_view_icon_heart);
+        iconHeart = findViewById(R.id.toggle_button_event_favourite);
         iconBack = findViewById(R.id.image_view_icon_back);
         eventStreet = findViewById(R.id.text_view_event_street);
         eventHostName = findViewById(R.id.text_view_event_host_name);
@@ -94,6 +99,10 @@ public class EventPage extends AppCompatActivity {
         eventDesc = findViewById(R.id.text_view_event_description);
         attendButton = findViewById(R.id.button_event_page_attend);
         createdByPhoto = findViewById(R.id.image_view_event_host_picture);
+
+        iconBack.setOnClickListener(this);
+        iconHeart.setOnClickListener(this);
+        attendButton.setOnClickListener(this);
 
         recyclerViewGallery = findViewById(R.id.recycle_view_gallery);
 
@@ -211,5 +220,21 @@ public class EventPage extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch(v.getId()) {
+            case R.id.button_event_page_attend:
+                Log.e(TAG, "Attending");
+                break;
+            case R.id.image_view_icon_back:
+                //mimic back button
+                finish();
+                break;
+            case R.id.toggle_button_event_favourite:
+                Log.e(TAG, "test");
+                break;
+        }
     }
 }
