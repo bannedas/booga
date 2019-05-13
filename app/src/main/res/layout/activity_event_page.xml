@@ -1,0 +1,275 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scroll_event_page"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/white"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image_view_icon_heart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:tint="@color/ash_grey"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_heart" />
+
+        <ImageView
+            android:id="@+id/image_view_icon_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:tint="@color/ash_grey"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_back" />
+
+        <ImageView
+            android:id="@+id/image_view_event_picture"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/event_page_picture_h"
+            android:layout_marginBottom="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/text_view_event_name"
+            style="@style/text_view_name_style"
+            android:layout_width="@dimen/event_page_name_w"
+            android:layout_height="@dimen/event_page_name_h"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins"
+            android:gravity="center_vertical|center_horizontal"
+            android:letterSpacing="-0.0625"
+            android:lineSpacingExtra="30sp"
+            android:maxLines="2"
+            android:minLines="1"
+            android:singleLine="false"
+            android:text="CrazySexyCool feat Flex"
+            android:textAlignment="viewStart"
+            android:textColor="@color/color_000000"
+            android:textSize="@dimen/text_view_name_size"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_event_picture" />
+
+        <TextView
+            android:id="@+id/text_view_event_street"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="Street Name 64"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_event_host_name" />
+
+        <TextView
+            android:id="@+id/text_view_event_host_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Venue Name / Host Name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_event_name" />
+
+        <TextView
+            android:id="@+id/text_view_event_post"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="1235 Copenhagen K"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_event_street" />
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="300dp"
+            android:layout_height="@dimen/event_page_info_h"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_event_post">
+
+
+            <ImageView
+                android:id="@+id/event_page_icon_map"
+                android:layout_width="@dimen/event_page_icon_w_h"
+                android:layout_height="@dimen/event_page_icon_w_h"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/map_shortcut_icon" />
+
+            <TextView
+                android:id="@+id/event_page_distance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/roboto"
+                android:text="12 m"
+                android:textColor="@color/ash_grey"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/event_page_icon_map"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.6" />
+
+            <ImageView
+                android:id="@+id/event_page_icon_ticket"
+                android:layout_width="@dimen/event_page_icon_w_h"
+                android:layout_height="@dimen/event_page_icon_w_h"
+                android:layout_marginStart="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/event_page_distance"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/icon_ticket" />
+
+            <TextView
+                android:id="@+id/event_page_ticket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/roboto"
+                android:text="Free enterance"
+                android:textColor="@color/ash_grey"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/event_page_icon_ticket"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/event_page_icon_time"
+                android:layout_width="@dimen/event_page_icon_w_h"
+                android:layout_height="@dimen/event_page_icon_w_h"
+                android:layout_marginStart="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/event_page_ticket"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/icon_filter" />
+
+            <TextView
+                android:id="@+id/event_page_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/roboto"
+                android:text="22 - 05"
+                android:textColor="@color/ash_grey"
+                android:textSize="11sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/event_page_icon_time"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/text_view_gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/roboto"
+            android:scaleType="centerCrop"
+            android:text="@string/text_view_gallery"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_view_user_info_size"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView_All_Events_Trending_Id"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/event_page_gallery_h"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_gallery" />
+
+        <TextView
+            android:id="@+id/text_view_event_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="Lorem ipsum dolor amet typewriter YOLO lo-fi, hexagon tilde synth you probably haven't heard of them etsy heirloom chambray plaid pickled affogato 8-bit cray. Craft beer kale chips tattooed, YOLO farm-to-table umami tbh cronut. Yuccie vegan migas woke seitan fixie tilde, narwhal gluten-free glossier. Put a bird on it squid truffaut, sustainable portland vaporware asymmetrical. Disrupt quinoa tattooed squid, waistcoat cred hot chicken messenger bag bespoke la croix pop-up blue bottle mlkshk. Farm-to-table pitchfork chartreuse, chicharrones sartorial skateboard semiotics cloud bread selvage. Fingerstache polaroid hoodie everyday carry butcher vape microdosing. Gochujang locavore jean shorts, fingerstache cold-pressed lyft neutra beard whatever shabby chic you probably haven't heard of them deep v slow-carb. YOLO coloring book copper mug, VHS dreamcatcher butcher intelligentsia plaid glossier. Oh. You need a little dummy text for your mockup? How quaint."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerView_All_Events_Trending_Id" />
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/event_page_host_info_h"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_event_description">
+
+            <ImageView
+                android:id="@+id/image_view_event_host_picture"
+                android:layout_width="@dimen/event_page_host_info_h"
+                android:layout_height="@dimen/event_page_host_info_h"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/text_view_event_host_name_bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Venue Name / Host Name"
+                app:layout_constraintStart_toEndOf="@+id/image_view_event_host_picture"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <Button
+            android:id="@+id/button_event_page_attend"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/event_page_button_h"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/colorPrimary"
+            android:fontFamily="@font/poppins"
+            android:text="@string/button_event_page_attend"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

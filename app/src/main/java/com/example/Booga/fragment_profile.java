@@ -54,7 +54,7 @@ import java.util.Random;
  * Use the {@link fragment_profile#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class fragment_profile extends Fragment implements View.OnClickListener {
+public class fragment_profile extends Fragment {
 
     private static final String TAG = "fragment_profile";
     private FirebaseAuth mAuth;
@@ -64,7 +64,6 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
     List<event> mList;
 
     ImageView profilePictureImageView;
-    ImageView settingsIcon;
 
     TextView name;
     TextView bio;
@@ -113,7 +112,6 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
         View v = inflater.inflate(R.layout.fragment_profile, container, false);
 
         profilePictureImageView = v.findViewById(R.id.profilePictureId);
-        settingsIcon = v.findViewById(R.id.iconSettingsId);
         name = v.findViewById(R.id.text_view_name);
         bio = v.findViewById(R.id.text_view_user_info);
         mUserEmail = v.findViewById(R.id.textViewShowUserEmailId);
@@ -161,7 +159,6 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
             }
         });
 
-        settingsIcon.setOnClickListener(this);
         return v;
 
     }
@@ -267,16 +264,6 @@ public class fragment_profile extends Fragment implements View.OnClickListener {
                 }
             }
         });
-    }
-
-
-    public void onClick(View view) {
-        switch(view.getId()) {
-            case R.id.iconSettingsId:
-                Intent intent = new Intent(getActivity(), SettingsPageActivity.class);
-                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-                Log.d(TAG, "WARNING" + Objects.requireNonNull(mAuth.getCurrentUser()).getProviders());
-        }
     }
 }
 

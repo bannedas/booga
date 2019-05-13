@@ -82,5 +82,8 @@
     <string name="switch_make_phone_private">Make phone number private</string>
     <string name="text_view_delete_account">Delete Account</string>
 
+    <!--Event page activity-->
+    <string name="text_view_gallery">GALLERY</string>
+    <string name="button_event_page_attend">SIGN ME UP!</string>
 
 </resources>

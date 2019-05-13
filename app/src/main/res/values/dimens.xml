@@ -7,4 +7,14 @@
     <dimen name="hosted_events_photo_width">280dp</dimen>
     <dimen name="name_text_width">275dp</dimen>
     <dimen name="name_text_height">60dp</dimen>
+
+    <!--Event page-->
+    <dimen name="event_page_picture_h">375dp</dimen>
+    <dimen name="event_page_name_h">60dp</dimen>
+    <dimen name="event_page_name_w">312dp</dimen>
+    <dimen name="event_page_info_h">20dp</dimen>
+    <dimen name="event_page_icon_w_h">15dp</dimen>
+    <dimen name="event_page_gallery_h">200dp</dimen>
+    <dimen name="event_page_host_info_h">40dp</dimen>
+    <dimen name="event_page_button_h">60dp</dimen>
 </resources>

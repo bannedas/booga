@@ -1,7 +1,10 @@
 package com.example.Booga;
 
 import android.content.Context;
+import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
@@ -51,8 +54,8 @@ public class Adapter_Slider extends PagerAdapter {
         layoutInflater = LayoutInflater.from(mContext);
         View view = layoutInflater.inflate(R.layout.slide_event_item, container, false);
 
-        final ImageView  imageView;
-        TextView  eventTitle, eventLocation, eventDistance;
+        final ImageView imageView;
+        TextView eventTitle, eventLocation, eventDistance;
 
         imageView = view.findViewById(R.id.slide_Event_Background_Image_Id);
         eventTitle = view.findViewById(R.id.slide_Event_Title_Text_Id);
@@ -62,6 +65,44 @@ public class Adapter_Slider extends PagerAdapter {
         eventTitle.setText(mData.get(position).getmTitle());
         eventLocation.setText(mData.get(position).getmLocation());
         eventDistance.setText(mData.get(position).getmDistance());
+
+
+        // ------------------------------ on click for adapter ------------------------------
+        final int pos = position;
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ImageView i = (ImageView) v;
+                Intent mIntent;
+                Bundle mBundle;
+                switch (pos) {
+                    case 0:
+                        mIntent = new Intent(mContext, EventPage.class);
+                        mBundle = new Bundle();
+                        mBundle.putString("ID", mData.get(position).getmPhoto());
+                        mContext.startActivity(mIntent);
+                        break;
+                    case 1:
+                        mIntent = new Intent(mContext, EventPage.class);
+                        mBundle = new Bundle();
+                        mBundle.putString("ID", mData.get(position).getmPhoto());
+                        mContext.startActivity(mIntent);
+                        break;
+                    case 2:
+                        mIntent = new Intent(mContext, EventPage.class);
+                        mBundle = new Bundle();
+                        mBundle.putString("ID", mData.get(position).getmPhoto());
+                        mContext.startActivity(mIntent);
+                        break;
+                    case 3:
+                        mIntent = new Intent(mContext, EventPage.class);
+                        mBundle = new Bundle();
+                        mBundle.putString("ID", mData.get(position).getmPhoto());
+                        mContext.startActivity(mIntent);
+                        break;
+                }
+            }
+        });
 
         FirebaseStorage storage1 = FirebaseStorage.getInstance();
         // Create a storage reference from our app
@@ -107,7 +148,6 @@ public class Adapter_Slider extends PagerAdapter {
         });
 
         container.addView(view, 0);
-        // TODO ADD CONTENT TO SLIDER ITEM
         return view;
     }
 

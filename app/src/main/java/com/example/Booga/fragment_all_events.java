@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -87,7 +88,7 @@ public class fragment_all_events extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_all_events, container, false);
         recyclerView_Events_Nearby = v.findViewById(R.id.recyclerView_All_Events_Nearby_Id);
-        recyclerView_Events_Trending =v.findViewById(R.id.recyclerView_All_Events_Trending_Id);
+        recyclerView_Events_Trending = v.findViewById(R.id.recyclerView_All_Events_Trending_Id);
         recyclerView_Event_Types = v.findViewById(R.id.recyclerView_Event_Type_Id);
 
         //init firebase storage db
@@ -109,6 +110,7 @@ public class fragment_all_events extends Fragment {
                     recyclerView_Events_Nearby.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL,false));
                     recyclerView_Events_Trending.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
                     recyclerView_Event_Types.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
+
 
                     recyclerView_Events_Nearby.setAdapter(adapter);
                     recyclerView_Events_Trending.setAdapter(adapter);
