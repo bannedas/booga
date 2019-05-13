@@ -16,6 +16,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+
 public class MainScreenActivity extends AppCompatActivity implements fragment_all_events.OnFragmentInteractionListener,
         fragment_near_me.OnFragmentInteractionListener, fragment_my_event.OnFragmentInteractionListener,
         fragment_profile.OnFragmentInteractionListener, fragment_attend_events.OnFragmentInteractionListener, View.OnClickListener {
@@ -25,6 +28,7 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
     private Toolbar mToolbar, mProfileToolbar;
     private ImageView mToolbarSettings;
     public int backButtonCount = 0;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,15 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
 
         // Initialize fragments in toolbar frame and main frame
         loadFragment(new fragment_near_me(), R.id.fragment_container_main);
+
+        //init firebase storage db
+        db = FirebaseFirestore.getInstance();
+
+        // Enable Firestore offline caching
+        FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
+                .setCacheSizeBytes(FirebaseFirestoreSettings.CACHE_SIZE_UNLIMITED)
+                .build();
+        db.setFirestoreSettings(settings);
     }
 
     private void loadFragment(Fragment fragment, int fragmentContainerID) {
