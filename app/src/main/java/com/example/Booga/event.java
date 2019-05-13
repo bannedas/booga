@@ -8,6 +8,10 @@ public class event {
 
     } // needed for firebase
 
+    public event(String mPhoto) {
+        this.mPhoto = mPhoto;
+    }
+
     public event(String mTitle, String mLocation, String mDistance, String mPhoto) {
         this.mTitle = mTitle;
         this.mLocation = mLocation;

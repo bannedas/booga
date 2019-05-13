@@ -72,32 +72,27 @@ public class Adapter_Slider extends PagerAdapter {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ImageView i = (ImageView) v;
                 Intent mIntent;
-                Bundle mBundle;
                 switch (pos) {
                     case 0:
+                        // getmPhoto returns eventID since we use eventID + .jpg to get photos from firebase
                         mIntent = new Intent(mContext, EventPage.class);
-                        mBundle = new Bundle();
-                        mBundle.putString("ID", mData.get(position).getmPhoto());
+                        mIntent.putExtra("ID", mData.get(position).getmPhoto());
                         mContext.startActivity(mIntent);
                         break;
                     case 1:
                         mIntent = new Intent(mContext, EventPage.class);
-                        mBundle = new Bundle();
-                        mBundle.putString("ID", mData.get(position).getmPhoto());
+                        mIntent.putExtra("ID", mData.get(position).getmPhoto());
                         mContext.startActivity(mIntent);
                         break;
                     case 2:
                         mIntent = new Intent(mContext, EventPage.class);
-                        mBundle = new Bundle();
-                        mBundle.putString("ID", mData.get(position).getmPhoto());
+                        mIntent.putExtra("ID", mData.get(position).getmPhoto());
                         mContext.startActivity(mIntent);
                         break;
                     case 3:
                         mIntent = new Intent(mContext, EventPage.class);
-                        mBundle = new Bundle();
-                        mBundle.putString("ID", mData.get(position).getmPhoto());
+                        mIntent.putExtra("ID", mData.get(position).getmPhoto());
                         mContext.startActivity(mIntent);
                         break;
                 }

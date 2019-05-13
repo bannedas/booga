@@ -150,7 +150,7 @@
             android:id="@+id/cardView_Sponsored_Event"
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            app:layout_constraintBottom_toBottomOf="@+id/recyclerView_All_Events_Trending_Id"
+            app:layout_constraintBottom_toBottomOf="@+id/recycle_view_gallery"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerView_All_Events_Nearby_Id">
@@ -243,7 +243,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/text_view_user_info_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView_All_Events_Trending_Id"
+            app:layout_constraintBottom_toTopOf="@+id/recycle_view_gallery"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView_Sponsored_Event" />
 
@@ -260,12 +260,12 @@
             android:textColor="@color/frenchrose"
             android:textSize="@dimen/text_view_user_info_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView_All_Events_Trending_Id"
+            app:layout_constraintBottom_toTopOf="@+id/recycle_view_gallery"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView_Sponsored_Event" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView_All_Events_Trending_Id"
+            android:id="@+id/recycle_view_gallery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/cardView_Sponsored_Event"
@@ -289,7 +289,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/recyclerView_Event_Type_Id"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView_All_Events_Trending_Id" />
+            app:layout_constraintTop_toBottomOf="@+id/recycle_view_gallery" />
 
         <TextView
             android:id="@+id/textViewSeeMoreId3"
@@ -306,7 +306,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/recyclerView_Event_Type_Id"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerView_All_Events_Trending_Id" />
+            app:layout_constraintTop_toBottomOf="@+id/recycle_view_gallery" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView_Event_Type_Id"
@@ -317,7 +317,7 @@
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recyclerView_All_Events_Trending_Id" />
+            app:layout_constraintTop_toBottomOf="@id/recycle_view_gallery" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

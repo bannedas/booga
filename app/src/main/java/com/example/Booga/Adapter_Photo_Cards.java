@@ -12,45 +12,38 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.collection.LLRBNode;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
-public class Adapter_Event_Cards extends RecyclerView.Adapter<Adapter_Event_Cards.myViewHolder> {
+public class Adapter_Photo_Cards extends RecyclerView.Adapter<Adapter_Photo_Cards.myViewHolder> {
 
     Context mContext;
     List<event> mData;
-    private static final String TAG = "adapter_event_cards";
+    private static final String TAG = "adapter_photo_cards";
 
-    public Adapter_Event_Cards(Context mContext, List<event> mData) {
+    public Adapter_Photo_Cards(Context mContext, List<event> mData) {
         this.mContext = mContext;
         this.mData = mData;
     }
 
     @Override
     public myViewHolder onCreateViewHolder(ViewGroup parent, int i) {
-
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        View v  = inflater.inflate(R.layout.card_event_item,parent,false);
+        View v  = inflater.inflate(R.layout.card_picture_item, parent,false);
 
         return new myViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final myViewHolder holder, final int position) {
-
         holder.event_photo.setBackgroundColor(Color.rgb(0, 0, 0));
-        holder.event_title.setText(mData.get(position).getmTitle());
-        holder.event_location.setText(mData.get(position).getmLocation());
-        holder.event_distance.setText(mData.get(position).getmDistance());
 
         FirebaseStorage storage1 = FirebaseStorage.getInstance();
         // Create a storage reference from our app
@@ -103,14 +96,10 @@ public class Adapter_Event_Cards extends RecyclerView.Adapter<Adapter_Event_Card
 
         // Initialize the elements of the event card we wish to change
         ImageView event_photo;
-        TextView event_title, event_location, event_distance;
 
         public myViewHolder(View itemView) {
             super(itemView);
             event_photo = itemView.findViewById(R.id.card_Event_Photo_Id);
-            event_title = itemView.findViewById(R.id.card_Event_Title_Text_Id);
-            event_distance = itemView.findViewById(R.id.card_Event_Distance_Text_Id);
-            event_location = itemView.findViewById(R.id.card_Event_Location_Text_Id);
         }
     }
 }
