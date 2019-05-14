@@ -6,13 +6,16 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,11 +33,14 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
     public int backButtonCount = 0;
     private FirebaseFirestore db;
 
+    private ImageView iv;
+    private SeekBar sb;
+    private TextView tv;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
-
         boolean fromSettings = false;
         // retreive data from intent.putExtra
         Intent intent = getIntent();
@@ -61,7 +67,6 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
         // Initialize profle toolbar
         mProfileToolbar = findViewById(R.id.toolbar_profile_main_screen_id);
 
-
         // Initialize bottom navigation bar
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -71,6 +76,22 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
 
         //init firebase storage db
         db = FirebaseFirestore.getInstance();
+
+        //inflate filters menu
+        iv = findViewById(R.id.imageView_toolbar_icon_right);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.filter_dialog_list_row, null);
+        dialogBuilder.setView(dialogView);
+
+        final AlertDialog alertDialog = dialogBuilder.create();
+        iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("Clicked");
+                alertDialog.show();
+            }
+        });
 
         // Enable Firestore offline caching
         FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
@@ -133,7 +154,6 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
                     return true;
 
                 case R.id.bottom_navigation_my_events_item:
-
                     fragment = new fragment_my_event();
                     loadFragment(fragment, R.id.fragment_container_main);
                     //Toolbar updating
@@ -146,7 +166,6 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
                     return true;
 
                 case R.id.bottom_navigation_my_profile_item:
-
                     fragment = new fragment_profile();
                     loadFragment(fragment, R.id.fragment_container_main);
                     //Toolbar updating
@@ -212,5 +231,4 @@ public class MainScreenActivity extends AppCompatActivity implements fragment_al
         }
 
     }
-
 }
