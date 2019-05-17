@@ -1,5 +1,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container_hosted_events"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,7 +20,6 @@
             android:layout_height="350dp"
 
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView_All_Events_Nearby_Id"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -29,7 +29,7 @@
                 android:id="@+id/image_Event_Featured"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/onyx"/>
+                android:background="@color/onyx" />
 
             <ImageView
                 android:id="@+id/icon_map_shortcut"
@@ -38,7 +38,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginStart="26dp"
                 android:layout_marginBottom="91dp"
-                app:srcCompat="@drawable/map_shortcut_icon"/>
+                app:srcCompat="@drawable/map_shortcut_icon" />
 
             <TextView
                 android:id="@+id/text_distance_to_event"
@@ -50,7 +50,7 @@
                 android:fontFamily="@font/roboto"
                 android:text="DistToEvent"
                 android:textColor="@color/white"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
 
             <ImageView
                 android:id="@+id/icon_filter_shortcut"
@@ -59,7 +59,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginStart="140dp"
                 android:layout_marginBottom="91dp"
-                app:srcCompat="@drawable/icon_filter"/>
+                app:srcCompat="@drawable/icon_filter" />
 
             <TextView
                 android:id="@+id/text_location"
@@ -71,7 +71,7 @@
                 android:fontFamily="@font/roboto"
                 android:text="Location"
                 android:textColor="@color/white"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/text_Event_Title"
@@ -83,7 +83,7 @@
                 android:fontFamily="@font/poppins"
                 android:text="Event Title"
                 android:textColor="@color/white"
-                android:textSize="36sp"/>
+                android:textSize="36sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -92,9 +92,9 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginBottom="24dp"
                 android:fontFamily="@font/roboto"
-                android:text="STRING : SEE MORE"
+                android:text="@string/text_view_see_more"
                 android:textColor="@color/white"
-                android:textSize="13sp"/>
+                android:textSize="13sp" />
 
 
         </android.support.v7.widget.CardView>
@@ -106,14 +106,12 @@
             android:layout_height="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto"
             android:scaleType="centerCrop"
             android:text="@string/text_view_events_near"
             android:textColor="@color/black"
             android:textSize="@dimen/text_view_user_info_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView_All_Events_Nearby_Id"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView_Featured_Event" />
 
@@ -123,34 +121,32 @@
             android:layout_height="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto"
             android:scaleType="centerCrop"
             android:text="@string/text_view_see_more"
             android:textColor="@color/frenchrose"
             android:textSize="@dimen/text_view_user_info_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView_All_Events_Nearby_Id"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView_Featured_Event" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView_All_Events_Nearby_Id"
             android:layout_width="match_parent"
-            android:layout_height="285dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/cardView_Sponsored_Event"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView_Featured_Event"/>
+            app:layout_constraintTop_toBottomOf="@+id/textViewHostedEventId" />
 
         <android.support.v7.widget.CardView
             android:id="@+id/cardView_Sponsored_Event"
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            app:layout_constraintBottom_toBottomOf="@+id/recycle_view_gallery"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recyclerView_All_Events_Nearby_Id">
@@ -169,7 +165,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginStart="26dp"
                 android:layout_marginBottom="91dp"
-                app:srcCompat="@drawable/map_shortcut_icon"/>
+                app:srcCompat="@drawable/map_shortcut_icon" />
 
             <TextView
                 android:id="@+id/text_distance_to_event_Featured"
@@ -181,7 +177,7 @@
                 android:fontFamily="@font/roboto"
                 android:text="DistToEvent"
                 android:textColor="@color/white"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
 
             <ImageView
                 android:id="@+id/icon_filter_shortcut_Featured"
@@ -190,7 +186,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginStart="140dp"
                 android:layout_marginBottom="91dp"
-                app:srcCompat="@drawable/icon_filter"/>
+                app:srcCompat="@drawable/icon_filter" />
 
             <TextView
                 android:id="@+id/text_location_Featured"
@@ -202,7 +198,7 @@
                 android:fontFamily="@font/roboto"
                 android:text="Location"
                 android:textColor="@color/white"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/text_Event_Title_Featured"
@@ -214,7 +210,7 @@
                 android:fontFamily="@font/poppins"
                 android:text="Event Title"
                 android:textColor="@color/white"
-                android:textSize="36sp"/>
+                android:textSize="36sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -223,9 +219,9 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginBottom="24dp"
                 android:fontFamily="@font/roboto"
-                android:text="STRING : SEE MORE"
+                android:text="@string/text_view_see_more"
                 android:textColor="@color/white"
-                android:textSize="13sp"/>
+                android:textSize="13sp" />
 
 
         </android.support.v7.widget.CardView>
@@ -233,46 +229,44 @@
         <TextView
             android:id="@+id/textViewTrendingEventId"
             android:layout_width="wrap_content"
-            android:layout_height="16dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto"
             android:scaleType="centerCrop"
             android:text="@string/text_view_trending_events"
             android:textColor="@color/black"
             android:textSize="@dimen/text_view_user_info_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/recycle_view_gallery"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView_Sponsored_Event" />
 
         <TextView
             android:id="@+id/textViewSeeMoreId2"
             android:layout_width="wrap_content"
-            android:layout_height="16dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto"
             android:scaleType="centerCrop"
             android:text="@string/text_view_see_more"
             android:textColor="@color/frenchrose"
             android:textSize="@dimen/text_view_user_info_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/recycle_view_gallery"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView_Sponsored_Event" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycle_view_gallery"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/cardView_Sponsored_Event"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="24dp"
-            android:orientation="horizontal"/>
+            app:layout_constraintTop_toBottomOf="@+id/textViewTrendingEventId" />
 
         <TextView
             android:id="@+id/textViewEventTypeId"
@@ -280,14 +274,12 @@
             android:layout_height="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto"
             android:scaleType="centerCrop"
             android:text="@string/text_view_browse_events"
             android:textColor="@color/black"
             android:textSize="@dimen/text_view_user_info_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView_Event_Type_Id"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recycle_view_gallery" />
 
@@ -297,27 +289,30 @@
             android:layout_height="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto"
             android:scaleType="centerCrop"
             android:text="@string/text_view_see_more"
             android:textColor="@color/frenchrose"
             android:textSize="@dimen/text_view_user_info_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView_Event_Type_Id"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recycle_view_gallery" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView_Event_Type_Id"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
+            android:layout_width="0dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="32dp"
             android:orientation="horizontal"
+            android:scrollbars="none"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/recycle_view_gallery" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewEventTypeId" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

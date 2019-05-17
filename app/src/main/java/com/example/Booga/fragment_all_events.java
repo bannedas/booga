@@ -13,10 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -56,6 +58,8 @@ public class fragment_all_events extends Fragment {
     private RecyclerView recyclerView_Events_Trending;
     private RecyclerView recyclerView_Event_Types;
 
+    Adapter_Event_Type adapter_event_type;
+
     public fragment_all_events() {
         // Required empty public constructor
     }
@@ -75,6 +79,24 @@ public class fragment_all_events extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Start listening for Firestore updates
+        if (adapter_event_type != null) {
+            adapter_event_type.startListening();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        // Start listening for Firestore updates
+        if (adapter_event_type != null) {
+            adapter_event_type.stopListening();
         }
     }
 
@@ -107,12 +129,9 @@ public class fragment_all_events extends Fragment {
                     Adapter_Event_Cards adapter = new Adapter_Event_Cards(getContext(),mList);
                     recyclerView_Events_Nearby.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL,false));
                     recyclerView_Events_Trending.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
-                    recyclerView_Event_Types.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
-
 
                     recyclerView_Events_Nearby.setAdapter(adapter);
                     recyclerView_Events_Trending.setAdapter(adapter);
-                    recyclerView_Event_Types.setAdapter(adapter);
                 } else {
                     Log.d(TAG, "Error getting documents: ", task.getException());
                 }
@@ -120,6 +139,15 @@ public class fragment_all_events extends Fragment {
         });
 
 
+        Query EventTypeQuery = db.collection("eventType");
+        FirestoreRecyclerOptions<EventType> options =
+                new FirestoreRecyclerOptions.Builder<EventType>()
+                        .setQuery(EventTypeQuery, EventType.class)
+                        .build();
+
+        adapter_event_type = new Adapter_Event_Type(options, getContext());
+        recyclerView_Event_Types.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
+        recyclerView_Event_Types.setAdapter(adapter_event_type);
         return v;
     }
 

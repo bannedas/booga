@@ -74,6 +74,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
     private static final String KEY_TIMESTAMP_EVENT_CREATED = "createdAt";
     private static final String KEY_USER_ID = "createdByUserID";
     private static final String KEY_PRIVATE_EVENT = "isPrivate";
+    private static final String KEY_FEATURED = "featured";
+    private static final String KEY_SPONSORED = "sponsored";
     private String USER_ID;
     private String eventID;
 
@@ -153,6 +155,8 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
             newEvent.put(KEY_TIMESTAMP_EVENT_CREATED, new Timestamp(System.currentTimeMillis()));
             newEvent.put(KEY_USER_ID, USER_ID);
             newEvent.put(KEY_PRIVATE_EVENT, switchState);
+            newEvent.put(KEY_FEATURED, false); // hardcoded for now
+            newEvent.put(KEY_SPONSORED, false);
 
             db.collection("allEvents").document(eventID).set(newEvent)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -219,7 +223,7 @@ public class CreateEventActivity extends AppCompatActivity implements View.OnCli
                         .setQuery(EventTypeQuery, EventType.class)
                         .build();
 
-        Adapter_Event_Type = new Adapter_Event_Type(options);
+        Adapter_Event_Type = new Adapter_Event_Type(options, getApplicationContext());
 
         RecyclerView recyclerView = findViewById(R.id.recyclerView_event_type_create_event);
         recyclerView.setHasFixedSize(true); //performance reasons
