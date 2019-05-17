@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.provider.Contacts;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -70,6 +72,7 @@ public class EventPage extends AppCompatActivity implements View.OnClickListener
     TextView eventTitle;
 
     Button attendButton;
+    Button unAttendButton;
     ToggleButton iconHeart;
 
     RecyclerView recyclerViewGallery;
@@ -105,11 +108,13 @@ public class EventPage extends AppCompatActivity implements View.OnClickListener
         eventTime = findViewById(R.id.text_view_event_time);
         eventDesc = findViewById(R.id.text_view_event_description);
         attendButton = findViewById(R.id.button_event_page_attend);
+        unAttendButton = findViewById(R.id.button_event_page_unattend);
         createdByPhoto = findViewById(R.id.image_view_event_host_picture);
 
         iconBack.setOnClickListener(this);
         iconHeart.setOnClickListener(this);
         attendButton.setOnClickListener(this);
+        unAttendButton.setOnClickListener(this);
 
         recyclerViewGallery = findViewById(R.id.recycle_view_gallery);
 
@@ -229,16 +234,28 @@ public class EventPage extends AppCompatActivity implements View.OnClickListener
         });
     }
 
-    private void setUserAttendance(String UID, String eventID) {
+    private void setUserAttendance(String UID, String eventID, boolean attending) {
         //init firebase storage db
         db = FirebaseFirestore.getInstance();
-        // Update one field, creating the document if it does not already exist.
-        Map<String, Boolean> data = new HashMap<>();
-        data.put(eventID, true);
 
-        db.collection("attendance").document(UID)
-                .set(data, SetOptions.merge());
+        // if add to attending list
+        if(attending) {
+            // Update one field, creating the document if it does not already exist.
+            Map<String, Boolean> data = new HashMap<>();
+            data.put(eventID, true);
 
+            db.collection("attendance").document(UID)
+                    .set(data, SetOptions.merge());
+
+        } else {
+        // if remove from attending list
+            // Update one field, creating the document if it does not already exist.
+            Map<String, Object> data = new HashMap<>();
+            data.put(eventID, FieldValue.delete());
+
+            db.collection("attendance").document(UID)
+                    .set(data, SetOptions.merge());
+        }
     }
 
     private void checkAttendance(String UID, final String eventID) {
@@ -251,13 +268,19 @@ public class EventPage extends AppCompatActivity implements View.OnClickListener
                     assert document != null;
                     if (document.exists()) {
                         Map<String, Object> map = document.getData();
+                        boolean found = false;
                         for (Map.Entry<String, Object> entry : map.entrySet()) {
                             if (entry.getKey().equals(eventID)) {
-                                // change attend button if user is already attending
-                                attendButton.setEnabled(false);
-                                attendButton.setBackgroundColor(Color.GRAY);
-                                attendButton.setText(getString(R.string.button_event_page_attend_confirm));
+                                // user is attending, show unattend btn
+                                found = true;
+                                attendButton.setVisibility(View.GONE);
+                                unAttendButton.setVisibility(View.VISIBLE);
                             }
+                        }
+                        if(!found) {
+                            // user is not attending, show attend btn
+                            attendButton.setVisibility(View.VISIBLE);
+                            unAttendButton.setVisibility(View.GONE);
                         }
                     }
                 }
@@ -269,10 +292,12 @@ public class EventPage extends AppCompatActivity implements View.OnClickListener
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.button_event_page_attend:
-                setUserAttendance(UID, eventID);
-                attendButton.setEnabled(false);
-                attendButton.setBackgroundColor(Color.GRAY);
-                attendButton.setText(getString(R.string.button_event_page_attend_confirm));
+                setUserAttendance(UID, eventID, true);
+                checkAttendance(UID, eventID);
+                break;
+            case R.id.button_event_page_unattend:
+                setUserAttendance(UID, eventID, false);
+                checkAttendance(UID, eventID);
                 break;
             case R.id.image_view_icon_back:
                 finish(); //mimic back button

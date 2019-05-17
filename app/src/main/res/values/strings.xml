@@ -89,6 +89,7 @@
     <string name="text_view_gallery">GALLERY</string>
     <string name="button_event_page_attend">SIGN ME UP!</string>
     <string name="button_event_page_attend_confirm">YOU ARE IN!</string>
+    <string name="button_event_page_unattend">Remove me from attending list</string>
 
     <!--Create event activity-->
     <string name="text_view_create_event_upload_en">Upload event image</string>
