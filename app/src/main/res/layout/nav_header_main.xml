@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout_header"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:background="@color/colorAccent"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackgroundBorderless"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+
+    <ImageView
+        android:id="@+id/image_view_drawer_picture"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:contentDescription="TODO" />
+
+    <TextView
+        android:id="@+id/text_view_drawer_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:text="@string/text_view_name_placeholder"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+</LinearLayout>
