@@ -61,8 +61,6 @@ public class fragment_profile extends Fragment {
     TextView name;
     TextView bio;
     TextView pictureError;
-    TextView mUserEmail;
-    TextView mUserPhoneNumber;
 
     RecyclerView recyclerViewHostedEvents;
     RecyclerView recyclerViewAttendedEvents;
@@ -112,18 +110,14 @@ public class fragment_profile extends Fragment {
         profilePictureImageView = v.findViewById(R.id.profilePictureId);
         name = v.findViewById(R.id.text_view_name);
         bio = v.findViewById(R.id.text_view_user_info);
-        mUserEmail = v.findViewById(R.id.textViewShowUserEmailId);
-        mUserPhoneNumber = v.findViewById(R.id.textViewShowUserPhoneId);
         pictureError = v.findViewById(R.id.text_view_picture_error);
         pictureError.setVisibility(View.GONE);
 
         recyclerViewHostedEvents = v.findViewById(R.id.recycle_view_hosted_events);
         recyclerViewAttendedEvents = v.findViewById(R.id.recycle_view_attend_events);
 
-        String userEmail = mAuth.getCurrentUser().getEmail();
-        String userPhone = mAuth.getCurrentUser().getPhoneNumber();
-        mUserEmail.setText(userEmail);
-        mUserPhoneNumber.setText(userPhone);
+//        String userEmail = mAuth.getCurrentUser().getEmail();
+//        String userPhone = mAuth.getCurrentUser().getPhoneNumber();
 
         updateProfilePicture();
         updateUserNameAndBio();
@@ -194,7 +188,7 @@ public class fragment_profile extends Fragment {
                             mList.add(new event(eventTitle,eventLocation,"?? m",eventId));
                         }
                     }
-                    Adapter_Event_Cards adapter_hosted_events = new Adapter_Event_Cards(getContext(), mList);
+                    Adapter_Event_Cards adapter_hosted_events = new Adapter_Event_Cards(getContext(), mList, true);
                     recyclerViewHostedEvents.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.VERTICAL, true));
                     recyclerViewHostedEvents.setAdapter(adapter_hosted_events);
                     ViewCompat.setNestedScrollingEnabled(recyclerViewHostedEvents, false);
@@ -241,7 +235,7 @@ public class fragment_profile extends Fragment {
                             });
                         }
                     }
-                    Adapter_Event_Cards adapter_attended_events = new Adapter_Event_Cards(getContext(), mListAttended);
+                    Adapter_Event_Cards adapter_attended_events = new Adapter_Event_Cards(getContext(), mListAttended, false);
                     recyclerViewAttendedEvents.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
                     recyclerViewAttendedEvents.setAdapter(adapter_attended_events);
                     ViewCompat.setNestedScrollingEnabled(recyclerViewAttendedEvents, false);

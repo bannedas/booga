@@ -126,7 +126,7 @@ public class fragment_all_events extends Fragment {
                         String eventId = document.getId();
                         mList.add(new event(eventTitle,eventLocation,"?? m",eventId));
                     }
-                    Adapter_Event_Cards adapter = new Adapter_Event_Cards(getContext(),mList);
+                    Adapter_Event_Cards adapter = new Adapter_Event_Cards(getContext(),mList, false);
                     recyclerView_Events_Nearby.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL,false));
                     recyclerView_Events_Trending.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayout.HORIZONTAL, false));
 

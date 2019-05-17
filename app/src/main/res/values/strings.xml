@@ -58,6 +58,9 @@
     <string name="text_view_trending_events">TRENDING EVENTS</string>
     <string name="text_view_browse_events">BROWSE EVENTS BY TYPE</string>
 
+    <!--Fragment my events-->
+    <string name="text_view_favourites">YOUR FAVOURITES</string>
+
     <!-- Profile fragment -->
     <string name="text_view_picture_not_found">Please upload profile picture</string>
     <string name="text_view_name_placeholder">%1$s %2$s</string>

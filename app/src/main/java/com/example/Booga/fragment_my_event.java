@@ -111,7 +111,7 @@ public class fragment_my_event extends Fragment {
                         String eventId = document.getId();
                         mList.add(new event(eventTitle,eventLocation,"?? m",eventId));
                     }
-                    Adapter_Event_Cards adapter = new Adapter_Event_Cards(getContext(),mList);
+                    Adapter_Event_Cards adapter = new Adapter_Event_Cards(getContext(), mList, true);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                     recyclerView.setAdapter(adapter);
                     ViewCompat.setNestedScrollingEnabled(recyclerView, false);

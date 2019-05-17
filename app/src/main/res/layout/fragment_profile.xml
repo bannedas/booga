@@ -18,14 +18,11 @@
             android:id="@+id/profilePictureId"
             android:layout_width="0dp"
             android:layout_height="@android:dimen/thumbnail_height"
-            android:layout_marginBottom="8dp"
             android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/text_view_name"
@@ -55,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/roboto"
             android:text="@string/text_view_bio_placeholder"
@@ -64,22 +61,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.48"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewShowUserPhoneId" />
+            app:layout_constraintTop_toBottomOf="@+id/text_view_name" />
 
         <TextView
             android:id="@+id/text_view_attended_events"
             android:layout_width="wrap_content"
             android:layout_height="16dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="@font/roboto"
             android:scaleType="centerCrop"
             android:text="@string/text_view_attend_events"
             android:textColor="@color/black"
             android:textSize="@dimen/text_view_user_info_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/recycle_view_attend_events"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_user_info" />
 
@@ -89,14 +84,12 @@
             android:layout_height="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
             android:fontFamily="@font/roboto"
             android:scaleType="centerCrop"
             android:text="@string/text_view_see_more"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_view_user_info_size"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/recycle_view_attend_events"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_user_info" />
 
@@ -104,12 +97,12 @@
             android:id="@+id/recycle_view_attend_events"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_user_info" />
+            app:layout_constraintTop_toBottomOf="@+id/text_view_attended_events" />
 
         <TextView
             android:id="@+id/textViewHostedEventId"
@@ -143,11 +136,11 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycle_view_hosted_events"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewHostedEventId" />
@@ -165,32 +158,6 @@
             app:layout_constraintHorizontal_bias="0.615"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/textViewShowUserEmailId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/text_view_user_email"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.476"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_name" />
-
-        <TextView
-            android:id="@+id/textViewShowUserPhoneId"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:text="@string/text_view_user_phone_number"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.473"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewShowUserEmailId" />
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

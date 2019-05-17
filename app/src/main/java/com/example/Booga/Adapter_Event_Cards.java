@@ -29,18 +29,25 @@ public class Adapter_Event_Cards extends RecyclerView.Adapter<Adapter_Event_Card
 
     Context mContext;
     List<event> mData;
+    boolean layout_wide;
     private static final String TAG = "adapter_event_cards";
 
-    public Adapter_Event_Cards(Context mContext, List<event> mData) {
+    public Adapter_Event_Cards(Context mContext, List<event> mData, boolean layout_wide) {
         this.mContext = mContext;
         this.mData = mData;
+        this.layout_wide = layout_wide;
     }
 
     @Override
     public myViewHolder onCreateViewHolder(ViewGroup parent, int i) {
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        View v  = inflater.inflate(R.layout.card_event_item,parent,false);
+        View v;
+        if(layout_wide) {
+            v = inflater.inflate(R.layout.card_event_item_wide, parent, false);
+        } else {
+            v = inflater.inflate(R.layout.card_event_item, parent, false);
+        }
 
         return new myViewHolder(v);
     }
